@@ -21,7 +21,7 @@ public class ConexaoFactory {
 	 * @throws Exception
 	 */
 	public Connection getConnection() throws Exception {
-		FileReader file = new FileReader("c:\\temp\\conexao.txt");
+		FileReader file = new FileReader("e:\\temp\\conexao.txt");
 		BufferedReader dados = new BufferedReader(file);
 
 		String url = dados.readLine();
