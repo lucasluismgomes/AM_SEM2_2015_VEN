@@ -2,13 +2,13 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+	<%@ include file="Imports/bibliotecas.jsp" %>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta charset="UTF-8">
 	<meta name="author" content="Lucas 74795">
 	<meta name="description" content="">
 	<meta name="keywords" content="">
 	<title>HBV</title>
-	<%@ include file="Imports/bibliotecas.jsp" %>
 </head>
 <body>
 	<c:import url="Imports/menu.jsp"></c:import>

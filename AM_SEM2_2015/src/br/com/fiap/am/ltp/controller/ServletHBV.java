@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class ServletHBV
  * 
  * @author Lucas 74795
- * @since 1.0
  * @version 1.0
+ * @since 1.0
  */
 @WebServlet("/ServletHBV")
 public class ServletHBV extends HttpServlet {
