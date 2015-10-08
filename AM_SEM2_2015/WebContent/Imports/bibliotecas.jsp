@@ -4,6 +4,7 @@
 <%-- Estilos --%>
 <link rel="stylesheet" href="./Style/css/bootstrap.min.css">
 <link rel="stylesheet" href="./Style/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="./Style/css/footer.css">
 
 <%-- Scripts --%>
 <script src="./Style/js/jquery-1.11.3.min.js"></script>

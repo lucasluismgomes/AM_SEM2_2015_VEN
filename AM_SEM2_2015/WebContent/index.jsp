@@ -11,6 +11,7 @@
 	<title>HBV</title>
 </head>
 <body>
+<div id="wrap">
 	<c:import url="Imports/menu.jsp"></c:import>
 	
 	<div class="container">
@@ -23,6 +24,8 @@
 	    </div>
     </div>
     
-    <c:import url="Imports/footer.jsp"></c:import>
+	<div id="push"></div>
+</div>
+<c:import url="Imports/footer.jsp"></c:import>
 </body>
 </html>
