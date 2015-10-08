@@ -8,10 +8,10 @@
 	<meta name="description" content="">
 	<meta name="keywords" content="">
 	<title>HBV</title>
-	<%@ include file="bibliotecas.jsp" %>
+	<%@ include file="Imports/bibliotecas.jsp" %>
 </head>
 <body>
-	<c:import url="menu.jsp"></c:import>
+	<c:import url="Imports/menu.jsp"></c:import>
 	
 	<div class="container">
 	    <div class="jumbotron">
@@ -23,6 +23,6 @@
 	    </div>
     </div>
     
-    <c:import url="footer.jsp"></c:import>
+    <c:import url="Imports/footer.jsp"></c:import>
 </body>
 </html>

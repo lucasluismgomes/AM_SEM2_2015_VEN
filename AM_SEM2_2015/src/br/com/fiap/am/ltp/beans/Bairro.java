@@ -2,9 +2,10 @@ package br.com.fiap.am.ltp.beans;
 
 /**
  * Descrição da classe/método
- * @since 1.0
- * @version 1.0
+ * 
  * @author Lucas 74795
+ * @version 1.0
+ * @since 1.0
  */
 public class Bairro {
 	private int codigo;
@@ -14,14 +15,14 @@ public class Bairro {
 	public Bairro() {
 		super();
 	}
-	
+
 	public Bairro(int codigo, Cidade cidade, String nome) {
 		super();
 		this.codigo = codigo;
 		this.cidade = cidade;
 		this.nome = nome;
 	}
-	
+
 	public int getCodigo() {
 		return codigo;
 	}

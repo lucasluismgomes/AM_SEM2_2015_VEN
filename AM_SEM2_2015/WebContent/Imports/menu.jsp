@@ -29,6 +29,6 @@
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="#">Login</a></li>
 			</ul>
-		</div><!--/.nav-collapse -->
+		</div><%-- /.nav-collapse --%>
 	</div>
 </nav>

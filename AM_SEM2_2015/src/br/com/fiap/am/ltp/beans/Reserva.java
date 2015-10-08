@@ -4,9 +4,10 @@ import java.util.Calendar;
 
 /**
  * Descrição da classe/método
- * @since 1.0
- * @version 1.0
+ * 
  * @author Lucas 74795
+ * @version 1.0
+ * @since 1.0
  */
 public class Reserva {
 	private int codigo;

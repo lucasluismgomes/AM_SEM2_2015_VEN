@@ -17,6 +17,8 @@ public class ConexaoFactory {
 	/**
 	 * Faz a conexão com o banco, pegando informações de um arquivo no servidor
 	 * 
+	 * @author Lucas 74795
+	 * @since 1.0
 	 * @return DriverManager.getConnection(url, usuario, senha);
 	 * @throws Exception
 	 */
