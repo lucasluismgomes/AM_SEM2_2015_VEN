@@ -19,4 +19,10 @@ public class Excecao extends Exception {
 			System.out.println("Erro desconhecido");
 		}
 	}
+	
+	public Excecao(String msg) {
+		super(msg);
+
+		System.out.println(msg);
+	}
 }

@@ -1,6 +1,8 @@
 package br.com.fiap.am.ltp.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,39 +13,27 @@ import br.com.fiap.am.ltp.excecoes.Excecao;
  * Classe de acesso a dados de Bairro.
  * 
  * @author Lucas 74795
- * @version 1.0
+ * @version 2.0
  * @since 1.0
  * @see Bairro
  */
-public class BairroDAO extends DAO {
-	private Connection conexao;
-
-	/**
-	 * Construtor que realiza a abertura do banco.
-	 * 
-	 * @throws Exception
-	 */
-	public BairroDAO() throws Exception {
-		abrirConexao();
-	}
-	
+public class BairroDAO {
 	/**
 	 * Grava os dados de um bairro no banco de dados.
 	 * 
 	 * @param bairro O bairro que será gravado
 	 * @throws Exception
 	 */
-	public void gravar(Bairro bairro) throws Exception {
+	public void gravar(Bairro bairro, Connection conexao) throws Exception {
 		try {
-			estrutura = conexao.prepareStatement("INSERT");
+			String sql = "INSERT";
+			PreparedStatement estrutura = conexao.prepareStatement(sql);
 
 			// Código
 
 			estrutura.execute();
 		} catch (Exception e) {
 			throw new Excecao(e);
-		} finally {
-			fecharConexao();
 		}
 	}
 
@@ -53,35 +43,35 @@ public class BairroDAO extends DAO {
 	 * @param bairro O bairro que está sendo alterado
 	 * @throws Exception
 	 */
-	public void editar(Bairro bairro) throws Exception {
+	public void editar(Bairro bairro, Connection conexao) throws Exception {
 		try{
-			estrutura = conexao.prepareStatement("UPDATE");
+			String sql = "UPDATE";
+			PreparedStatement estrutura = conexao.prepareStatement(sql);
 	
 			// Código
 	
 			estrutura.execute();
 		} catch (Exception e) {
 			throw new Excecao(e);
-		} finally {
-			fecharConexao();
 		}
 	}
 
 	/**
 	 * Busca todos os bairros cadastrados no banco de dados.
 	 * 
-	 * @return Uma lista com todos os bairros cadastrados
+	 * @return lstBairro Uma lista com todos os bairros cadastrados
 	 * @throws Exception
 	 */
-	public List<Bairro> buscarTodos() throws Exception {
+	public List<Bairro> buscarTodos(Bairro bairro, Connection conexao) throws Exception {
 		try{
 			List<Bairro> lstBairro = new ArrayList<Bairro>();
 			
-			estrutura = conexao.prepareStatement("SELECT");
+			String sql = "SELECT";
+			PreparedStatement estrutura = conexao.prepareStatement(sql);
 	
 			// Código
 	
-			resultadoDados = estrutura.executeQuery();
+			ResultSet resultadoDados = estrutura.executeQuery();
 	
 			if (resultadoDados.next()) {
 				// Código
@@ -91,8 +81,6 @@ public class BairroDAO extends DAO {
 			return lstBairro;
 		} catch (Exception e) {
 			throw new Excecao(e);
-		} finally {
-			fecharConexao();
 		}
 	}
 
@@ -102,17 +90,16 @@ public class BairroDAO extends DAO {
 	 * @param id O id do bairro que está sendo excluído
 	 * @throws Exception
 	 */
-	public void excluir(int id) throws Exception {
+	public void excluir(int id, Connection conexao) throws Exception {
 		try{
-			estrutura = conexao.prepareStatement("DELETE");
+			String sql = "DELETE";
+			PreparedStatement estrutura = conexao.prepareStatement(sql);
 	
 			// Código
 	
 			estrutura.execute();
 		} catch (Exception e) {
 			throw new Excecao(e);
-		} finally {
-			fecharConexao();
 		}
 	}
 }

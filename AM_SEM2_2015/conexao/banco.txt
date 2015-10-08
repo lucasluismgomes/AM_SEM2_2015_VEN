@@ -1,0 +1,3 @@
+jdbc:oracle:thin:/:@oracle.fiap.com.br:1521:ORCL
+OPS$RM74795
+251295

@@ -8,6 +8,6 @@ package br.com.fiap.am.ltp.dao;
  * @since 1.0
  * @see Meu Beans
  */
-public class TipoTelefoneDAO extends DAO{
+public class TipoTelefoneDAO {
 
 }
