@@ -11,18 +11,18 @@ import java.util.Calendar;
  */
 public class Funcionario extends Pessoa {
 	private Calendar dtAdmissao;
-	private String cargo;
-	
+	private Cargo cargo;
+
 	public Funcionario() {
 		super();
 	}
-	
+
 	public Funcionario(int codigo, String nome, Telefone telefone,
 			Logradouro endereco) {
 		super(codigo, nome, telefone, endereco);
 	}
 
-	public Funcionario(Calendar dtAdmissao, String cargo) {
+	public Funcionario(Calendar dtAdmissao, Cargo cargo) {
 		super();
 		this.dtAdmissao = dtAdmissao;
 		this.cargo = cargo;
@@ -36,11 +36,12 @@ public class Funcionario extends Pessoa {
 		this.dtAdmissao = dtAdmissao;
 	}
 
-	public String getCargo() {
+	public Cargo getCargo() {
 		return cargo;
 	}
 
-	public void setCargo(String cargo) {
+	public void setCargo(Cargo cargo) {
 		this.cargo = cargo;
 	}
+
 }
