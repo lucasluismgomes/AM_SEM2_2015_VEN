@@ -15,7 +15,7 @@ import br.com.fiap.am.ltp.excecoes.Excecao;
  * Classe de teste do CRUD de Status.
  * 
  * @author Lucas 74795
- * @version 3.0
+ * @version 4.0
  * @since 1.0
  */
 public class StatusTeste {
@@ -34,8 +34,8 @@ public class StatusTeste {
 				do {
 					status = new Status();
 
-					status.setNome(JOptionPane.showInputDialog("Digite o nome do status"));
 					status.setCodigo(Integer.parseInt(JOptionPane.showInputDialog("Digite o código do status")));
+					status.setNome(JOptionPane.showInputDialog("Digite o nome do status"));
 
 					StatusBO.gravar(status, conexao);
 
@@ -43,7 +43,21 @@ public class StatusTeste {
 					conexao.setAutoCommit(true);
 				} while (JOptionPane.showInputDialog("Deseja cadastrar mais? Digite 1").equals("1"));
 			} else if (funcionalidade == 2) {
-				// Código de edição
+				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74795", "251295");
+				conexao.setAutoCommit(false);
+				Status status = new Status();
+
+				do {
+					status = new Status();
+
+					status.setCodigo(Integer.parseInt(JOptionPane.showInputDialog("Digite o código do que será atualizado status")));
+					status.setNome(JOptionPane.showInputDialog("Digite o novo nome do status"));
+
+					StatusBO.editar(status, conexao);
+
+					conexao.commit();
+					conexao.setAutoCommit(true);
+				} while (JOptionPane.showInputDialog("Deseja cadastrar mais? Digite 1").equals("1"));
 			} else if (funcionalidade == 3) {
 				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74795", "251295");
 
@@ -55,7 +69,22 @@ public class StatusTeste {
 					System.out.println("Código: " + status.getCodigo() + " Nome: " + status.getNome());
 				}
 			} else if (funcionalidade == 4) {
-				// Código de deletar
+				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74795", "251295");
+				conexao.setAutoCommit(false);
+				Status status = new Status();
+
+				do {
+					status = new Status();
+
+					status.setCodigo(Integer.parseInt(JOptionPane.showInputDialog("Digite o código do Status que será excluído?")));
+
+					int id = status.getCodigo();
+					
+					StatusBO.excluir(id, conexao);
+
+					conexao.commit();
+					conexao.setAutoCommit(true);
+				} while (JOptionPane.showInputDialog("Deseja cadastrar mais? Digite 1").equals("1"));
 			} else if (funcionalidade == 5) {
 				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74795", "251295");
 				
@@ -63,7 +92,7 @@ public class StatusTeste {
 				
 				int id = Integer.parseInt(JOptionPane.showInputDialog("Qual código deseja buscar?"));
 				
-				status = StatusBO.buscar(id, conexao);
+				status = StatusBO.buscarPorCodigo(id, conexao);
 				
 				System.out.println("Código: " + status.getCodigo() + " Nome: " + status.getNome());
 			} else {
@@ -75,7 +104,6 @@ public class StatusTeste {
 			} catch (Exception ex) {
 				throw new Excecao(e);
 			}
-			System.out.println(e);
 			throw new Excecao(e);
 		} finally {
 			try {

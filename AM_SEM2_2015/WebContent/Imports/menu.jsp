@@ -27,7 +27,7 @@
 				</li>
 			</ul>
 			<div class="col-sm-6">
-		        <div class="pull-right  hidden-xs">    
+		        <div class="pull-right  hidden-xs">
 		          <a class="dropdown-toggle" href="#" data-toggle="dropdown"><h4 style="padding-top: 6px;"><i class="glyphicon glyphicon-cog"></i></h4></a>
 		          <ul class="dropdown-menu">
 		              <li><a href="#"><i class="glyphicon glyphicon-user"></i> Perfil</a></li>
@@ -45,11 +45,11 @@
 									<form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
 										<div class="form-group">
 											<label class="sr-only" for="exampleInputEmail2">E-mail</label>
-											<input type="email" class="form-control" id="exampleInputEmail2" placeholder="Email address" required="">
+											<input type="email" class="form-control" id="exampleInputEmail2" placeholder="Email address" required="required">
 										</div>
 										<div class="form-group">
 											<label class="sr-only" for="exampleInputPassword2">Senha</label>
-											<input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" required="">
+											<input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" required="required">
 											<div class="help-block text-right"><a href="">Esqueci minha senha</a></div>
 										</div>
 										<div class="form-group">

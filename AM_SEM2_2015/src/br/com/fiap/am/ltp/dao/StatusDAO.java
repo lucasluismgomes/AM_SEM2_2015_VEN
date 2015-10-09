@@ -13,7 +13,7 @@ import br.com.fiap.am.ltp.excecoes.Excecao;
  * Conexões e funcionalidades da classe Status.
  * 
  * @author Lucas 74795
- * @version 2.0
+ * @version 3.0
  * @since 1.0
  * @see Status
  */
@@ -21,13 +21,14 @@ public class StatusDAO {
 	/**
 	 * Grava os dados de um status no banco de dados.
 	 * 
+	 * @author Lucas 74795
 	 * @since 1.0
 	 * @param status
 	 *            O status que será gravado.
 	 * @param conexao
 	 *            As credenciais da conexão.
 	 * @throws Exception
-	 * @see Status
+	 * @see Status, StatusBO
 	 */
 	public void gravar(Status status, Connection conexao) throws Exception {
 		try {
@@ -47,13 +48,14 @@ public class StatusDAO {
 	/**
 	 * Busca todos os Status do banco de dados.
 	 * 
+	 * @author Lucas 74795
 	 * @since 2.0
 	 * @param conexao
-	 * 			As credenciais da conexão.
-	 * @return <code>lstStatus</code>
-	 * 			Uma lista com todos os status disponiveis no banco de dados.
+	 *            As credenciais da conexão.
+	 * @return <code>lstStatus</code> Uma lista com todos os status disponiveis
+	 *         no banco de dados.
 	 * @throws Exception
-	 * @see Status
+	 * @see Status, StatusBO
 	 */
 	public List<Status> buscarTodos(Connection conexao) throws Exception {
 		List<Status> lstStatus = new ArrayList<Status>();
@@ -82,41 +84,95 @@ public class StatusDAO {
 
 		return lstStatus;
 	}
-	
+
 	/**
 	 * Busca apenas o status com o código fornecido.
 	 * 
+	 * @author Lucas 74795
 	 * @since 2.0
 	 * @param id
-	 * 			O código do Status que está sendo pesquisado.
+	 *            O código do Status que está sendo pesquisado.
 	 * @param conexao
-	 * 			As credenciais da conexão.
-	 * @return <code>status</code>
-	 * 			O status de acordo com o id passado como parâmetro.
+	 *            As credenciais da conexão.
+	 * @return <code>status</code> O status de acordo com o id passado como
+	 *         parâmetro.
 	 * @throws Exception
 	 */
-	public Status buscar(int id, Connection conexao) throws Exception {
+	public Status buscarPorCodigo(int id, Connection conexao) throws Exception {
 		Status status = new Status();
-		
-		try{
+
+		try {
 			String sql = "SELECT CD_STATUS, NM_STATUS FROM T_AM_HBV_STATUS WHERE CD_STATUS = ?";
 			PreparedStatement estrutura = conexao.prepareStatement(sql);
 			estrutura.setInt(1, id);
-			
+
 			ResultSet resultadoDados = estrutura.executeQuery();
-			
-			if(resultadoDados.next()){
+
+			if (resultadoDados.next()) {
 				status.setCodigo(resultadoDados.getInt("CD_STATUS"));
 				status.setNome(resultadoDados.getString("NM_STATUS"));
 			}
-			
+
 			resultadoDados.close();
 			estrutura.close();
-			
+
 			return status;
+
+		} catch (Exception e) {
+			throw new Excecao(e);
+		}
+	}
+
+	/**
+	 * Atualiza o nome de um Status no banco de dados.
+	 * 
+	 * @author Lucas 74795
+	 * @since 3.0
+	 * @param status
+	 * 			Status que está sendo editado no banco de dados.
+	 * @param conexao
+	 * 			Credenciais da conexão.
+	 * @throws Exception
+	 * @see Status
+	 */
+	public void editar(Status status, Connection conexao) throws Exception {
+		try {
+			String sql = "UPDATE T_AM_HBV_STATUS SET NM_STATUS = ? WHERE CD_STATUS = ?";
+			PreparedStatement estrutura = conexao.prepareStatement(sql);
+			estrutura.setString(1, status.getNome());
+			estrutura.setInt(2, status.getCodigo());
+
+			estrutura.execute();
+			estrutura.close();
+
+		} catch (Exception e) {
+			throw new Excecao(e);
+		}
+	}
+	
+	/**
+	 * Exclui o status do banco de dado com o código passado.
+	 * 
+	 * @author Lucas 74795
+	 * @since 3.0
+	 * @param id
+	 * 			Código do status que será excluído.
+	 * @param conexao
+	 * 			Credenciais da conexão.
+	 * @throws Exception
+	 * @see Status
+	 */
+	public void excluir(int id, Connection conexao) throws Exception {
+		try{
+			String sql = "DELETE FROM T_AM_HBV_STATUS WHERE CD_STATUS = ?";
+			PreparedStatement estrutura = conexao.prepareStatement(sql);
+			estrutura.setInt(1, id);
+			
+			estrutura.execute();
+			estrutura.close();
 			
 		} catch(Exception e){
 			throw new Excecao(e);
-		}		
+		}
 	}
 }

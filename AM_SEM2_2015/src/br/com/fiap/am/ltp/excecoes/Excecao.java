@@ -16,7 +16,7 @@ public class Excecao extends Exception {
 		if (e.getClass().toString().equals("class java.lang")) {
 			System.out.println("Erro conhecido");
 		} else {
-			System.out.println("Erro desconhecido");
+			System.out.println("Erro desconhecido: " + e + " \n\n");
 		}
 	}
 	
