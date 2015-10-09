@@ -6,8 +6,8 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta charset="UTF-8">
 	<meta name="author" content="Lucas 74795">
-	<meta name="description" content="Melhores ofertas de hospedagm no Hotel Boa Viagem. Mais de 50 anos oferecendo serviços de qualidade">
-	<meta name="keywords" content="Hotel, Hotel Boa Viagem, Hospedagem, Reserva, Quartos, Hotel 5 Estrelas, HBV">
+	<meta name="description" content="Contatos dos hoteis e do grupo Hotel Boa Viagem">
+	<meta name="keywords" content="contato, telefone, endereço, informações, contato HBV">
 	<title>HBV</title>
 </head>
 <body>
@@ -17,8 +17,8 @@
 	<div class="container">
 	    <div class="jumbotron">
 		    <h1>Hotel Boa Viagem</h1>
-		    <p>Mais de 50 anos oferecendo serviços de hospedagem da mais alta qualidade. Torne-se um afiliado e tenha vantagens incríveis!</p>
-		    <p>Em apenas 1 minuto você cria uma conta para desfrutar de todos os nossos serviços, além de possuir a melhor e mais bem avaliada newsletter de hoteís!</p>
+		    <p>Reservas: 55+ (11) 3600-0000</p>
+		    <p>Dúvidas e Sugestões: 55+ (11) 9999-9999</p>
 		    <br/>
 		    <p><a class="btn btn-lg btn-primary" href="#" role="button">Seja nosso cliente »</a></p>
 	    </div>

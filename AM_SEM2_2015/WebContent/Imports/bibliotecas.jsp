@@ -9,3 +9,4 @@
 <%-- Scripts --%>
 <script src="./Style/js/jquery-1.11.3.min.js"></script>
 <script src="./Style/js/bootstrap.min.js"></script>
+<script src="./Style/js/menu.js"></script>
