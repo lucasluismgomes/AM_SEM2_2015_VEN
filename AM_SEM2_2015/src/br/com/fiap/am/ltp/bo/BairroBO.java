@@ -23,7 +23,7 @@ public abstract class BairroBO {
 	 * @param conexao
 	 * @throws Exception
 	 */
-	public static void novoBairro(Bairro bairro, Connection conexao)
+	public static void gravar(Bairro bairro, Connection conexao)
 			throws Exception {
 		if (bairro.getNome().length() < 2) {
 			throw new Excecao("Caracteres insuficientes no nome do Bairro");

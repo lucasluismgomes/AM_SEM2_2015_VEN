@@ -1,6 +1,8 @@
 package br.com.fiap.am.ltp.testes;
 
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -9,31 +11,33 @@ import br.com.fiap.am.ltp.bo.StatusBO;
 import br.com.fiap.am.ltp.conexao.ConexaoFactory;
 import br.com.fiap.am.ltp.excecoes.Excecao;
 
+/**
+ * Classe de teste do CRUD de Status.
+ * 
+ * @author Lucas 74795
+ * @version 3.0
+ * @since 1.0
+ */
 public class StatusTeste {
 
 	public static void main(String[] args) throws Excecao {
 		Connection conexao = null;
 		try {
-			int funcionalidade = Integer.parseInt(JOptionPane
-					.showInputDialog("Qual funcionalidade deseja testar?\n\n"
-							+ "1 - Cadastrar\n" + "2 - Editar\n"
-							+ "3 - Consultar\n" + "4 - Apagar\n"));
+			int funcionalidade = Integer.parseInt(JOptionPane.showInputDialog("Qual funcionalidade deseja testar?\n\n"
+					+ "1 - Gravar\n" + "2 - Editar\n" + "3 - Buscar Todos\n" + "4 - Apagar\n" + "5 - Buscar por ID\n"));
 
 			if (funcionalidade == 1) {
-				conexao = ConexaoFactory.controlarInstancia().getConnection(
-						"OPS$RM74795", "251295");
+				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74795", "251295");
 				conexao.setAutoCommit(false);
 				Status status = new Status();
 
 				do {
 					status = new Status();
 
-					status.setNomeStatus(JOptionPane
-							.showInputDialog("Digite o nome do status"));
-					status.setCodigo(Integer.parseInt(JOptionPane
-							.showInputDialog("Digite o código do status")));
+					status.setNome(JOptionPane.showInputDialog("Digite o nome do status"));
+					status.setCodigo(Integer.parseInt(JOptionPane.showInputDialog("Digite o código do status")));
 
-					StatusBO.novoStatus(status, conexao);
+					StatusBO.gravar(status, conexao);
 
 					conexao.commit();
 					conexao.setAutoCommit(true);
@@ -41,12 +45,29 @@ public class StatusTeste {
 			} else if (funcionalidade == 2) {
 				// Código de edição
 			} else if (funcionalidade == 3) {
-				// Código de consulta
+				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74795", "251295");
+
+				List<Status> lstStatus = new ArrayList<Status>();
+
+				lstStatus = StatusBO.buscarTodos(conexao);
+
+				for (Status status : lstStatus) {
+					System.out.println("Código: " + status.getCodigo() + " Nome: " + status.getNome());
+				}
 			} else if (funcionalidade == 4) {
 				// Código de deletar
+			} else if (funcionalidade == 5) {
+				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74795", "251295");
+				
+				Status status = new Status();
+				
+				int id = Integer.parseInt(JOptionPane.showInputDialog("Qual código deseja buscar?"));
+				
+				status = StatusBO.buscar(id, conexao);
+				
+				System.out.println("Código: " + status.getCodigo() + " Nome: " + status.getNome());
 			} else {
-				JOptionPane.showMessageDialog(null,
-						"Essa funcionalidade não existe! Tente novamente");
+				JOptionPane.showMessageDialog(null, "Essa funcionalidade não existe! Tente novamente");
 			}
 		} catch (Exception e) {
 			try {

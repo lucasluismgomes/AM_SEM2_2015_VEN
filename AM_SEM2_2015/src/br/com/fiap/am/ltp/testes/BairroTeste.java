@@ -33,7 +33,7 @@ public class BairroTeste {
 					
 					bairro.setNome(JOptionPane.showInputDialog("Digite o nome do bairro"));
 					
-					BairroBO.novoBairro(bairro, conexao);
+					BairroBO.gravar(bairro, conexao);
 				} while(JOptionPane.showConfirmDialog(null, "Deseja testar o cadastro novamente?") == 1);
 			} else if (funcionalidade == 2) {
 				// Código de edição
