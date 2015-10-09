@@ -26,18 +26,18 @@
 				</ul>
 				</li>
 			</ul>
-			<div class="col-sm-6">
+			<div class="col-sm-6" hidden="true">
 		        <div class="pull-right  hidden-xs">
 		          <a class="dropdown-toggle" href="#" data-toggle="dropdown"><h4 style="padding-top: 6px;"><i class="glyphicon glyphicon-cog"></i></h4></a>
 		          <ul class="dropdown-menu">
 		              <li><a href="#"><i class="glyphicon glyphicon-user"></i> Perfil</a></li>
-		              <li><a href="#"><i class="glyphicon glyphicon-lock"></i> Privacidade</a></li>
+		              <li><a href="#"><i class="glyphicon glyphicon-calendar"></i> Minhas reservas</a></li>
 		          </ul>
 		        </div>
 	      	</div>
 			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
+				<li class="dropdown" id="loginCliente">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Cliente</b> <span class="caret"></span></a>
 					<ul id="login-dp" class="dropdown-menu">
 						<li>
 							<div class="row">
@@ -45,11 +45,11 @@
 									<form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
 										<div class="form-group">
 											<label class="sr-only" for="exampleInputEmail2">E-mail</label>
-											<input type="email" class="form-control" id="exampleInputEmail2" placeholder="Email address" required="required">
+											<input type="email" class="form-control" id="exampleInputEmail2" placeholder="E-mail" required="required">
 										</div>
 										<div class="form-group">
 											<label class="sr-only" for="exampleInputPassword2">Senha</label>
-											<input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" required="required">
+											<input type="password" class="form-control" id="exampleInputPassword2" placeholder="Senha" required="required">
 											<div class="help-block text-right"><a href="">Esqueci minha senha</a></div>
 										</div>
 										<div class="form-group">
@@ -58,11 +58,42 @@
 									</form>
 								</div>
 								<div class="bottom text-center">
-									Prieiro acesso? <a href="#"><b>Cadastre-se</b></a>
+									Primeiro acesso? <a href="#"><b>Cadastre-se</b></a>
 								</div>
 							</div>
 						</li>
 					</ul>
+				</li>
+				<li class="dropdown" id="loginFuncionario">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Funcionário</b> <span class="caret"></span></a>
+					<ul id="login-dp" class="dropdown-menu">
+						<li>
+							<div class="row">
+								<div class="col-md-12">
+									<form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
+										<div class="form-group">
+											<label class="sr-only" for="exampleInputEmail2">Código do funcionário</label>
+											<input type="number" class="form-control" id="exampleInputEmail2" placeholder="Código do funcionário" required="required">
+										</div>
+										<div class="form-group">
+											<label class="sr-only" for="exampleInputPassword2">Senha</label>
+											<input type="password" class="form-control" id="exampleInputPassword2" placeholder="Senha" required="required">
+											<div class="help-block text-right"><a href="">Esqueci minha senha</a></div>
+										</div>
+										<div class="form-group">
+											<button type="submit" class="btn btn-primary btn-block">Entrar</button>
+										</div>
+									</form>
+								</div>
+								<div class="bottom text-center">
+									<a href="#"><b>Cadastrar novo funcionário</b></a>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle"><b>Sair</b></span></a>
 				</li>
 			</ul>
 		</div><%-- /.nav-collapse --%>
