@@ -10,44 +10,44 @@ import java.util.Calendar;
  * @since 1.0
  */
 public class Cliente extends Pessoa {
-	private String cpf;
-	private String rg;
+	private long cpf;
+	private long rg;
 	private Calendar dtNascimento;
+	private int quartoFavorito;
 	private String email;
 	private String senha;
-	
+
 	public Cliente() {
 		super();
 	}
 
-	public Cliente(String cpf, String rg, Calendar dtNascimento, String email,
-			String senha) {
+	public Cliente(int codigo, String nome, Telefone telefone, Logradouro endereco) {
+		super(codigo, nome, telefone, endereco);
+	}
+
+	public Cliente(long cpf, long rg, Calendar dtNascimento, int quartoFavorito, String email, String senha) {
 		super();
 		this.cpf = cpf;
 		this.rg = rg;
 		this.dtNascimento = dtNascimento;
+		this.quartoFavorito = quartoFavorito;
 		this.email = email;
 		this.senha = senha;
 	}
-	
-	public Cliente(int codigo, String nome, Telefone telefone,
-			Logradouro endereco) {
-		super(codigo, nome, telefone, endereco);
-	}
 
-	public String getCpf() {
+	public long getCpf() {
 		return cpf;
 	}
 
-	public void setCpf(String cpf) {
+	public void setCpf(long cpf) {
 		this.cpf = cpf;
 	}
 
-	public String getRg() {
+	public long getRg() {
 		return rg;
 	}
 
-	public void setRg(String rg) {
+	public void setRg(long rg) {
 		this.rg = rg;
 	}
 
@@ -57,6 +57,14 @@ public class Cliente extends Pessoa {
 
 	public void setDtNascimento(Calendar dtNascimento) {
 		this.dtNascimento = dtNascimento;
+	}
+
+	public int getQuartoFavorito() {
+		return quartoFavorito;
+	}
+
+	public void setQuartoFavorito(int quartoFavorito) {
+		this.quartoFavorito = quartoFavorito;
 	}
 
 	public String getEmail() {
@@ -73,5 +81,6 @@ public class Cliente extends Pessoa {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
-	}	
+	}
+
 }
