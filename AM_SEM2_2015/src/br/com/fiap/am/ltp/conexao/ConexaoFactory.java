@@ -54,7 +54,6 @@ public class ConexaoFactory {
 		}
 
 		dados.close();
-		System.out.println(url + " " + usuario + " " + (url.indexOf("oracle") > 0));
 
 		return DriverManager.getConnection(url, usuario, senha);
 	}

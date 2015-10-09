@@ -23,11 +23,10 @@ public class StatusDAO {
 	 */
 	public void gravar(Status status, Connection conexao) throws Exception {
 		try {
-			System.out.println("Chegou na DAO");
 			String sql = "INSERT INTO T_AM_HBV_STATUS VALUES(?,?)";
 			PreparedStatement estrutura = conexao.prepareStatement(sql);
-			estrutura.setString(1, status.getNomeStatus());
-			estrutura.setInt(2, status.getCodigo());
+			estrutura.setInt(1, status.getCodigo());
+			estrutura.setString(2, status.getNomeStatus());
 
 			estrutura.execute();
 			estrutura.close();

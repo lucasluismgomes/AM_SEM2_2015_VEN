@@ -32,8 +32,6 @@ public class StatusTeste {
 							.showInputDialog("Digite o nome do status"));
 					status.setCodigo(Integer.parseInt(JOptionPane
 							.showInputDialog("Digite o código do status")));
-					
-					System.out.println(status.getCodigo());
 
 					StatusBO.novoStatus(status, conexao);
 
