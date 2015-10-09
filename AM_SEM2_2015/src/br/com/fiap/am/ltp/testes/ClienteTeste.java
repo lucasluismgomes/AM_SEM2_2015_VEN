@@ -42,7 +42,11 @@ public class ClienteTeste {
 
 					Calendar c = Calendar.getInstance();
 					
-					String data = JOptionPane.showInputDialog("Qual a data de nascimento do cliente?");
+					String data = JOptionPane.showInputDialog("Qual a data de nascimento do cliente? Formato: DD/MM/AAAA");
+					
+					while(data.length() < 10){
+						data = JOptionPane.showInputDialog("DATA ERRADA! Use o Formato: DD/MM/AAAA ex: 25/12/1995)");
+					}
 					
 					int dia = Integer.parseInt(data.substring(0, 2));
 					int mes = Integer.parseInt(data.substring(3, 5));
