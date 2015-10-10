@@ -17,7 +17,7 @@
 				<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hospedagem<span class="caret"></span></a>
 				<ul class="dropdown-menu">
-					<li><a href="#">Reserva</a></li>
+					<li><a href="reservarQuarto.jsp">Reserva</a></li>
 					<li><a href="#">Calendário</a></li>
 					<li role="separator" class="divider"></li>
 					<li class="dropdown-header">Serviços</li>
