@@ -1,5 +1,20 @@
 package br.com.fiap.am.ltp.utils;
 
-public class Utils {
+import java.util.Date;
+import java.util.Calendar;
 
+/**
+ * Métodos para conversões e outras funções uteís.
+ * 
+ * @author Lucas 74795
+ * @version 1.0
+ * @since 1.0
+ *
+ */
+public class Utils {
+	public static Calendar DateToCalendar(Date date){ 
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		return cal;
+	}
 }
