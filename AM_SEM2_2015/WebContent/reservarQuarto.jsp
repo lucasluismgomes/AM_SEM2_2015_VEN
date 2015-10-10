@@ -11,9 +11,9 @@
 	<div id="wrap">
 		<c:import url="Imports/menu.jsp"></c:import>
 
-<section id="container-reservar-quarto">
+		<section id="container-reservar-quarto">
 		<h2>RESERVAR QUARTO</h2>
-		
+
 		<form class="form-horizontal">
 
 			<!-- Prepended text-->
@@ -41,7 +41,7 @@
 
 				</div>
 			</div>
-			
+
 			<!-- Select Basic -->
 			<div class="form-group">
 				<label class="col-md-4 control-label" for="qtdQuartos">Quantidade
@@ -52,30 +52,39 @@
 					</select>
 				</div>
 			</div>
-			
-			<div class="form-group">
-				<label class="col-md-4 control-label" for="tpQuarto">Tipos
-					de quarto</label>
-				<div class="col-md-4">
-					<div class="btn-group" role="group" aria-label="...">
-						<button type="button" name="tpQuarto" class="btn btn-default">Single</button>
-						<button type="button" name="tpQuarto" class="btn btn-default">Double</button>
-						<button type="button" name="tpQuarto" class="btn btn-default">Suíte Luxo</button>
-						<button type="button" name="tpQuarto" class="btn btn-default">Suíte Presidencial</button>
+
+			<div class="row">
+				<div class="col-sm-6 col-md-4">
+					<div class="thumbnail">
+						<img
+							src="https://xicneeg.files.wordpress.com/2009/10/quarto-hotel-st-eu.jpg"
+							alt="">
+						<div class="caption">
+							<h3>Thumbnail label</h3>
+							<ul class="nav nav-pills">
+								<li role="presentation"><a href="#">Standard</a></li>
+								<li role="presentation"><a href="#">Master</a></li>
+								<li role="presentation"><a href="#">Luxo</a></li>
+								<li role="presentation"><a href="#">Master Luxo</a></li>
+								
+							</ul>
+							
+							<div class="form-group">
+								<label class="col-md-4 control-label" for="qtdQuartos">Quantidade
+									de pessoas</label>
+								<div class="col-md-4">
+									<select id="qtdQuartos" name="qtdQuartos" class="form-control">
+										<option value="1">1</option>
+									</select>
+								</div>
+							</div>
+
+						</div>
 					</div>
+
 				</div>
 			</div>
-			
-			<!-- Select Basic -->
-			<div class="form-group">
-				<label class="col-md-4 control-label" for="qtdQuartos">Quantidade
-					de pessoas</label>
-				<div class="col-md-4">
-					<select id="qtdQuartos" name="qtdQuartos" class="form-control">
-						<option value="1">1</option>
-					</select>
-				</div>
-			</div>
+
 
 			<!-- Button -->
 			<div class="form-group">
@@ -92,7 +101,7 @@
 
 		</form>
 
-</section>
+		</section>
 
 
 
