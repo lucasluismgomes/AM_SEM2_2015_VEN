@@ -78,7 +78,7 @@ public class ClienteTeste {
 					cliente = new Cliente();
 
 					cliente.setCodigo(Integer.parseInt(JOptionPane
-							.showInputDialog("Digite o código do que será atualizado Cliente")));
+							.showInputDialog("Digite o código do Cliente que será atualizado")));
 					cliente.setNome(JOptionPane
 							.showInputDialog("Digite o novo nome do Cliente"));
 
@@ -98,7 +98,11 @@ public class ClienteTeste {
 
 				for (Cliente cliente : lstCliente) {
 					System.out.println("Código: " + cliente.getCodigo()
-							+ " Nome: " + cliente.getNome());
+									 + "\nNome: " + cliente.getNome()
+									 + "\nCPF: " + cliente.getCpf()
+									 + "\nRG: " + cliente.getRg()
+									 + "\nData de nascimento: " + cliente.getDtNascimento().getTime()
+									 + "\nE-mail: " + cliente.getEmail() + "\n");
 				}
 			} else if (funcionalidade == 4) {
 				conexao = ConexaoFactory.controlarInstancia().getConnection(
@@ -131,8 +135,12 @@ public class ClienteTeste {
 
 				cliente = ClienteBO.buscarPorCodigo(id, conexao);
 
-				System.out.println("Código: " + cliente.getCodigo() + " Nome: "
-						+ cliente.getNome());
+				System.out.println("Código: " + cliente.getCodigo()
+				 	+ "\nNome: " + cliente.getNome()
+				 	+ "\nCPF: " + cliente.getCpf()
+				 	+ "\nRG: " + cliente.getRg()
+				 	+ "\nData de nascimento: " + cliente.getDtNascimento().getTime()
+				 	+ "\nE-mail: " + cliente.getEmail() + "\n");
 			} else {
 				JOptionPane.showMessageDialog(null,
 						"Essa funcionalidade não existe! Tente novamente");

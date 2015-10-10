@@ -5,7 +5,9 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import br.com.fiap.am.ltp.beans.Cliente;
 import br.com.fiap.am.ltp.excecoes.Excecao;
@@ -77,20 +79,30 @@ public class ClienteDAO {
 		List<Cliente> lstCliente = new ArrayList<Cliente>();
 
 		try {
-			sql = "SELECT CD_CLIENTE, NM_CLIENTE FROM T_AM_HBV_CLIENTE";
+			sql = "SELECT 	P.CD_PESSOA, "
+						 + "P.NM_PESSOA, "
+						 + "C.NR_CPF, "
+						 + "C.NR_RG, "
+						 + "C.DT_NASCIMENTO, "
+						 + "C.DS_EMAIL "
+				+ "FROM T_AM_HBV_PESSOA P INNER JOIN T_AM_HBV_CLIENTE C "
+				+ "ON P.CD_PESSOA = C.CD_CLIENTE";
 			estrutura = conexao.prepareStatement(sql);
 
 			rs = estrutura.executeQuery();
 
 			while (rs.next()) {
 				Cliente cliente = new Cliente();
+				Locale l = new Locale("pt", "BR");
+				Calendar c = Calendar.getInstance(l);
+				c.setTime(rs.getDate("DT_NASCIMENTO"));
 
-				cliente.setCodigo(Integer.parseInt(rs.getString("CD_CLIENTE")));
-				cliente.setNome(rs.getString("NM_CLIENTE"));
+				cliente.setCodigo(Integer.parseInt(rs.getString("CD_PESSOA")));
+				cliente.setNome(rs.getString("NM_PESSOA"));
 				cliente.setCpf(rs.getLong("NR_CPF"));
 				cliente.setRg(rs.getLong("NR_RG"));
-				// cliente.setDtNascimento(resultadoDados.getDate(""));
-				// cliente.setEmail(email);
+				cliente.setDtNascimento(c);
+				cliente.setEmail(rs.getString("DS_EMAIL"));
 
 				lstCliente.add(cliente);
 			}
@@ -116,15 +128,31 @@ public class ClienteDAO {
 		Cliente cliente = new Cliente();
 
 		try {
-			sql = "SELECT CD_STATUS, NM_STATUS FROM T_AM_HBV_STATUS WHERE CD_STATUS = ?";
+			sql = "SELECT 	P.CD_PESSOA, "
+					 + "P.NM_PESSOA, "
+					 + "C.NR_CPF, "
+					 + "C.NR_RG, "
+					 + "C.DT_NASCIMENTO, "
+					 + "C.DS_EMAIL "
+			+ "FROM T_AM_HBV_PESSOA P INNER JOIN T_AM_HBV_CLIENTE C "
+			+ "ON P.CD_PESSOA = C.CD_CLIENTE "
+			+ "WHERE P.CD_PESSOA = ?";
 			estrutura = conexao.prepareStatement(sql);
 			estrutura.setInt(1, id);
 
 			rs = estrutura.executeQuery();
 
 			if (rs.next()) {
-				cliente.setCodigo(rs.getInt("CD_STATUS"));
-				cliente.setNome(rs.getString("NM_STATUS"));
+				Locale l = new Locale("pt", "BR");
+				Calendar c = Calendar.getInstance(l);
+				c.setTime(rs.getDate("DT_NASCIMENTO"));
+
+				cliente.setCodigo(Integer.parseInt(rs.getString("CD_PESSOA")));
+				cliente.setNome(rs.getString("NM_PESSOA"));
+				cliente.setCpf(rs.getLong("NR_CPF"));
+				cliente.setRg(rs.getLong("NR_RG"));
+				cliente.setDtNascimento(c);
+				cliente.setEmail(rs.getString("DS_EMAIL"));
 			}
 
 			rs.close();
