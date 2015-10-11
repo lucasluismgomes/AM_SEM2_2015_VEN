@@ -88,4 +88,8 @@ public class FuncionarioBO {
 		
 		new FuncionarioDAO().editar(funcionario, conexao);
 	}
+	
+	public static void excluir(int codigo, Connection conexao) throws Exception {
+		new FuncionarioDAO().excluir(codigo, conexao);
+	}
 }

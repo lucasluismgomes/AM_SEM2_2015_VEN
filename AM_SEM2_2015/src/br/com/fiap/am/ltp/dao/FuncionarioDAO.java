@@ -168,9 +168,9 @@ public class FuncionarioDAO {
 	 * @author Lucas 74795
 	 * @since 1.0
 	 * @param funcionario
-	 * 			O funcionário que terá seus dados editados no banco de dados.
+	 *            O funcionário que terá seus dados editados no banco de dados.
 	 * @param conexao
-	 * 			As credenciais da conexão.
+	 *            As credenciais da conexão.
 	 * @throws Exception
 	 * @see Funcionario, FuncionarioBO
 	 */
@@ -189,6 +189,33 @@ public class FuncionarioDAO {
 			estrutura.setInt(1, funcionario.getCargo().getCodigo());
 			estrutura.setDate(2, new Date(funcionario.getDtAdmissao().getTimeInMillis()));
 			estrutura.setInt(3, funcionario.getCodigo());
+
+			estrutura.executeQuery();
+			estrutura.close();
+
+		} catch (Exception e) {
+			throw new Excecao(e);
+		}
+	}
+
+	/**
+	 * Apaga um funcionário do banco de dados. Essa ação irá apgar todas as
+	 * informações dele, bem como hospedagens e consumos que registrou.
+	 * 
+	 * @author Lucas 74795
+	 * @since 1.0
+	 * @param codigo
+	 *            Código do funcionário que será excluído do banco de dados.
+	 * @param conexao
+	 *            As credenciais da conexão.
+	 * @throws Exception
+	 * @see Funcionario, FuncionarioBO
+	 */
+	public void excluir(int codigo, Connection conexao) throws Exception {
+		try {
+			sql = "DELETE FROM T_AM_HBV_PESSOA WHERE CD_PESSOA = ?";
+			estrutura = conexao.prepareStatement(sql);
+			estrutura.setInt(1, codigo);
 
 			estrutura.executeQuery();
 			estrutura.close();
