@@ -76,8 +76,6 @@ public class ClienteTeste {
 					
 					Calendar c = Calendar.getInstance();
 
-					
-
 					cliente.setCodigo(Integer
 							.parseInt(JOptionPane.showInputDialog("Digite o código do Cliente que será atualizado")));
 					cliente.setNome(JOptionPane.showInputDialog("Digite o novo nome do Cliente"));
