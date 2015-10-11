@@ -89,6 +89,19 @@ public class FuncionarioBO {
 		new FuncionarioDAO().editar(funcionario, conexao);
 	}
 	
+	/**
+	 * Apaga um funcionário do banco de dados. Essa ação irá apgar todas as
+	 * informações dele, bem como hospedagens e consumos que registrou.
+	 * 
+	 * @author Lucas 74795
+	 * @since 1.0
+	 * @param codigo
+	 * 			O código do funcionário que será excluído.
+	 * @param conexao
+	 * 			As credenciais da conexão.
+	 * @throws Exception
+	 * @see Funcionario, FuncionarioDAO
+	 */
 	public static void excluir(int codigo, Connection conexao) throws Exception {
 		new FuncionarioDAO().excluir(codigo, conexao);
 	}

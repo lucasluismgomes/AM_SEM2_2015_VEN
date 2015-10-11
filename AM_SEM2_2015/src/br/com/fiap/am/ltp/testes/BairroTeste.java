@@ -10,7 +10,7 @@ import br.com.fiap.am.ltp.conexao.ConexaoFactory;
 import br.com.fiap.am.ltp.excecoes.Excecao;
 
 /**
- * Teste do CRUD de Bairro
+ * Teste do CRUD de Bairro.
  * 
  * @author Lucas 74795
  * @version 2.0
@@ -19,28 +19,30 @@ import br.com.fiap.am.ltp.excecoes.Excecao;
  */
 public class BairroTeste {
 
-	public static void main(String[] args) throws Excecao{
+	public static void main(String[] args) throws Excecao {
 		try {
 			int funcionalidade = Integer.parseInt(JOptionPane.showInputDialog("Qual funcionalidade deseja testar?\n\n"
-					+ "1 - Cadastrar\n" + "2 - Editar\n" + "3 - Consultar\n" + "4 - Apagar\n"));
+					+ "1 - Gravar\n" + "2 - Editar\n" + "3 - Buscar Todos\n" + "4 - Apagar\n" + "5 - Buscar por ID\n"));
 
 			if (funcionalidade == 1) {
 				Connection conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$74795", "251295");
 				Bairro bairro = new Bairro();
-				
-				do{
+
+				do {
 					bairro = new Bairro();
-					
+
 					bairro.setNome(JOptionPane.showInputDialog("Digite o nome do bairro"));
-					
+
 					BairroBO.gravar(bairro, conexao);
-				} while(JOptionPane.showConfirmDialog(null, "Deseja testar o cadastro novamente?") == 1);
+				} while (JOptionPane.showConfirmDialog(null, "Deseja testar o cadastro novamente?") == 1);
 			} else if (funcionalidade == 2) {
 				// Código de edição
 			} else if (funcionalidade == 3) {
 				// Código de consulta
 			} else if (funcionalidade == 4) {
 				// Código de deletar
+			} else if (funcionalidade == 5) {
+				// Código de buscar por código
 			} else {
 				JOptionPane.showMessageDialog(null, "Essa funcionalidade não existe! Tente novamente");
 			}

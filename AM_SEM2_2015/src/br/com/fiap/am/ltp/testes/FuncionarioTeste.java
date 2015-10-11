@@ -8,15 +8,13 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import br.com.fiap.am.ltp.beans.Cargo;
-import br.com.fiap.am.ltp.beans.Cliente;
 import br.com.fiap.am.ltp.beans.Funcionario;
-import br.com.fiap.am.ltp.bo.ClienteBO;
 import br.com.fiap.am.ltp.bo.FuncionarioBO;
 import br.com.fiap.am.ltp.conexao.ConexaoFactory;
 import br.com.fiap.am.ltp.excecoes.Excecao;
 
 /**
- * Teste do CRUD de Funcionario
+ * Teste do CRUD de Funcionario.
  * 
  * @author Lucas 74795
  * @version 1.0
@@ -24,8 +22,8 @@ import br.com.fiap.am.ltp.excecoes.Excecao;
  * @see Funcionario, FuncionarioDAO, FuncionarioBO
  */
 public class FuncionarioTeste {
-	
-	public static void main(String[] args) throws Excecao {
+
+	public static void main(String[] args) throws Exception {
 		Connection conexao = null;
 		try {
 			int funcionalidade = Integer.parseInt(JOptionPane.showInputDialog("Qual funcionalidade deseja testar?\n\n"
@@ -55,13 +53,14 @@ public class FuncionarioTeste {
 					int ano = Integer.parseInt(data.substring(6, 10));
 
 					c.set(ano, (mes - 1), dia);
-					
+
 					funcionario.setDtAdmissao(c);
-					
+
 					Cargo cargo = new Cargo();
-					
-					cargo.setCodigo(Integer.parseInt(JOptionPane.showInputDialog("Qual o código do cargo do Funcionário? Valor entre 1 e 6")));
-					
+
+					cargo.setCodigo(Integer.parseInt(
+							JOptionPane.showInputDialog("Qual o código do cargo do Funcionário? Valor entre 1 e 6")));
+
 					funcionario.setCargo(cargo);
 
 					FuncionarioBO.gravar(funcionario, conexao);
@@ -79,7 +78,8 @@ public class FuncionarioTeste {
 
 					Calendar c = Calendar.getInstance();
 
-					funcionario.setCodigo(Integer.parseInt(JOptionPane.showInputDialog("Qual o código do funcionário que será editado?")));
+					funcionario.setCodigo(Integer
+							.parseInt(JOptionPane.showInputDialog("Qual o código do funcionário que será editado?")));
 					funcionario.setNome(JOptionPane.showInputDialog("Digite o novo nome do Funcionário"));
 
 					String data = JOptionPane
@@ -94,13 +94,14 @@ public class FuncionarioTeste {
 					int ano = Integer.parseInt(data.substring(6, 10));
 
 					c.set(ano, (mes - 1), dia);
-					
+
 					funcionario.setDtAdmissao(c);
-					
+
 					Cargo cargo = new Cargo();
-					
-					cargo.setCodigo(Integer.parseInt(JOptionPane.showInputDialog("Qual o código do novo cargo do Funcionário? Valor entre 1 e 6")));
-					
+
+					cargo.setCodigo(Integer.parseInt(JOptionPane
+							.showInputDialog("Qual o código do novo cargo do Funcionário? Valor entre 1 e 6")));
+
 					funcionario.setCargo(cargo);
 
 					FuncionarioBO.editar(funcionario, conexao);
@@ -116,25 +117,26 @@ public class FuncionarioTeste {
 				lstFuncionario = FuncionarioBO.buscarTodos(conexao);
 
 				for (Funcionario funcionario : lstFuncionario) {
-					System.out.println("Código: " + funcionario.getCodigo() + "\nNome: " + funcionario.getNome() + "\nCódigo do cargo: "
-							+ funcionario.getCargo().getCodigo()
-							+ "\nCargo: " + funcionario.getCargo().getNome()
-							+ "\nSalário base: " + funcionario.getCargo().getSalarioBase() + "\n");
+					System.out.println("Código: " + funcionario.getCodigo() + "\nNome: " + funcionario.getNome()
+							+ "\nCódigo do cargo: " + funcionario.getCargo().getCodigo() + "\nCargo: "
+							+ funcionario.getCargo().getNome() + "\nSalário base: "
+							+ funcionario.getCargo().getSalarioBase() + "\nData de admissão: "
+							+ funcionario.getDtAdmissao().getTime() + "\n");
 				}
 			} else if (funcionalidade == 4) {
 				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74795", "251295");
 				conexao.setAutoCommit(false);
-				Cliente Cliente = new Cliente();
+				Funcionario funcionario = new Funcionario();
 
 				do {
-					Cliente = new Cliente();
+					funcionario = new Funcionario();
 
-					Cliente.setCodigo(Integer
+					funcionario.setCodigo(Integer
 							.parseInt(JOptionPane.showInputDialog("Digite o código do Cliente que será excluído?")));
 
-					int id = Cliente.getCodigo();
+					int codigo = funcionario.getCodigo();
 
-					ClienteBO.excluir(id, conexao);
+					FuncionarioBO.excluir(codigo, conexao);
 
 					conexao.commit();
 					conexao.setAutoCommit(true);
@@ -148,10 +150,11 @@ public class FuncionarioTeste {
 
 				funcionario = FuncionarioBO.buscarPorCodigo(codigo, conexao);
 
-				System.out.println("Código: " + funcionario.getCodigo() + "\nNome: " + funcionario.getNome() + "\nCódigo do cargo: "
-						+ funcionario.getCargo().getCodigo()
-						+ "\nCargo: " + funcionario.getCargo().getNome()
-						+ "\nSalário base: R$" + funcionario.getCargo().getSalarioBase() + "\n");
+				System.out.println("Código: " + funcionario.getCodigo() + "\nNome: " + funcionario.getNome()
+						+ "\nCódigo do cargo: " + funcionario.getCargo().getCodigo() + "\nCargo: "
+						+ funcionario.getCargo().getNome() + "\nSalário base: "
+						+ funcionario.getCargo().getSalarioBase() + "\nData de admissão: "
+						+ funcionario.getDtAdmissao().getTime() + "\n");
 			} else {
 				JOptionPane.showMessageDialog(null, "Essa funcionalidade não existe! Tente novamente");
 			}

@@ -17,6 +17,7 @@ import br.com.fiap.am.ltp.excecoes.Excecao;
  * @author Lucas 74795
  * @version 4.0
  * @since 1.0
+ * @see Status, StatusDAO, StatusBO
  */
 public class StatusTeste {
 
@@ -50,7 +51,8 @@ public class StatusTeste {
 				do {
 					status = new Status();
 
-					status.setCodigo(Integer.parseInt(JOptionPane.showInputDialog("Digite o código do que será atualizado status")));
+					status.setCodigo(Integer
+							.parseInt(JOptionPane.showInputDialog("Digite o código do que será atualizado status")));
 					status.setNome(JOptionPane.showInputDialog("Digite o novo nome do status"));
 
 					StatusBO.editar(status, conexao);
@@ -76,10 +78,11 @@ public class StatusTeste {
 				do {
 					status = new Status();
 
-					status.setCodigo(Integer.parseInt(JOptionPane.showInputDialog("Digite o código do Status que será excluído?")));
+					status.setCodigo(Integer
+							.parseInt(JOptionPane.showInputDialog("Digite o código do Status que será excluído?")));
 
 					int id = status.getCodigo();
-					
+
 					StatusBO.excluir(id, conexao);
 
 					conexao.commit();
@@ -87,13 +90,13 @@ public class StatusTeste {
 				} while (JOptionPane.showInputDialog("Deseja cadastrar mais? Digite 1").equals("1"));
 			} else if (funcionalidade == 5) {
 				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74795", "251295");
-				
+
 				Status status = new Status();
-				
+
 				int id = Integer.parseInt(JOptionPane.showInputDialog("Qual código deseja buscar?"));
-				
+
 				status = StatusBO.buscarPorCodigo(id, conexao);
-				
+
 				System.out.println("Código: " + status.getCodigo() + " Nome: " + status.getNome());
 			} else {
 				JOptionPane.showMessageDialog(null, "Essa funcionalidade não existe! Tente novamente");

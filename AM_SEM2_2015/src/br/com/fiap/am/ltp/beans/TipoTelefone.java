@@ -9,16 +9,16 @@ package br.com.fiap.am.ltp.beans;
  */
 public class TipoTelefone {
 	private int codigo;
-	private String nomeTipo;
+	private String nome;
 	
 	public TipoTelefone() {
 		super();
 	}
 	
-	public TipoTelefone(int codigo, String nomeTipo) {
+	public TipoTelefone(int codigo, String nome) {
 		super();
 		this.codigo = codigo;
-		this.nomeTipo = nomeTipo;
+		this.nome = nome;
 	}
 
 	public int getCodigo() {
@@ -30,10 +30,10 @@ public class TipoTelefone {
 	}
 
 	public String getNomeTipo() {
-		return nomeTipo;
+		return nome;
 	}
 
-	public void setNomeTipo(String nomeTipo) {
-		this.nomeTipo = nomeTipo;
+	public void setNomeTipo(String nome) {
+		this.nome = nome;
 	}
 }

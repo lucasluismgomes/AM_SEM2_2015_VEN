@@ -13,7 +13,7 @@ import br.com.fiap.am.ltp.conexao.ConexaoFactory;
 import br.com.fiap.am.ltp.excecoes.Excecao;
 
 /**
- * Teste do CRUD de Cliente
+ * Teste do CRUD de Cliente.
  * 
  * @author Lucas 74795
  * @version 1.0
@@ -41,7 +41,7 @@ public class ClienteTeste {
 					cliente.setNome(JOptionPane.showInputDialog("Digite o nome do Cliente"));
 					cliente.setCpf(Long.parseLong(JOptionPane.showInputDialog("Digite o CPF do Cliente")));
 					cliente.setRg(Long.parseLong(JOptionPane.showInputDialog("Digite o RG do Cliente")));
-					
+
 					String data = JOptionPane
 							.showInputDialog("Qual a data de nascimento do cliente? Formato: DD/MM/AAAA");
 
@@ -54,7 +54,7 @@ public class ClienteTeste {
 					int ano = Integer.parseInt(data.substring(6, 10));
 
 					c.set(ano, (mes - 1), dia);
-					
+
 					cliente.setDtNascimento(c);
 					cliente.setEmail(JOptionPane.showInputDialog("Qual o email do cliente?"));
 					cliente.setSenha(JOptionPane.showInputDialog("Qual a senha do cliente?"));
@@ -73,7 +73,7 @@ public class ClienteTeste {
 
 				do {
 					cliente = new Cliente();
-					
+
 					Calendar c = Calendar.getInstance();
 
 					cliente.setCodigo(Integer
@@ -81,7 +81,7 @@ public class ClienteTeste {
 					cliente.setNome(JOptionPane.showInputDialog("Digite o novo nome do Cliente"));
 					cliente.setCpf(Long.parseLong(JOptionPane.showInputDialog("Digite o novo CPF do Cliente")));
 					cliente.setRg(Long.parseLong(JOptionPane.showInputDialog("Digite o novo RG do Cliente")));
-					
+
 					String data = JOptionPane
 							.showInputDialog("Qual a nova data de nascimento do cliente? Formato: DD/MM/AAAA");
 
@@ -94,7 +94,7 @@ public class ClienteTeste {
 					int ano = Integer.parseInt(data.substring(6, 10));
 
 					c.set(ano, (mes - 1), dia);
-					
+
 					cliente.setDtNascimento(c);
 					cliente.setEmail(JOptionPane.showInputDialog("Qual o novo email do cliente?"));
 					cliente.setSenha(JOptionPane.showInputDialog("Qual a nova senha do cliente?"));
@@ -121,15 +121,15 @@ public class ClienteTeste {
 			} else if (funcionalidade == 4) {
 				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74795", "251295");
 				conexao.setAutoCommit(false);
-				Cliente Cliente = new Cliente();
+				Cliente cliente = new Cliente();
 
 				do {
-					Cliente = new Cliente();
+					cliente = new Cliente();
 
-					Cliente.setCodigo(Integer
+					cliente.setCodigo(Integer
 							.parseInt(JOptionPane.showInputDialog("Digite o código do Cliente que será excluído?")));
 
-					int codigo = Cliente.getCodigo();
+					int codigo = cliente.getCodigo();
 
 					ClienteBO.excluir(codigo, conexao);
 
