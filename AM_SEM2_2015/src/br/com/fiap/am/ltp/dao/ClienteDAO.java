@@ -7,13 +7,13 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 import br.com.fiap.am.ltp.beans.Cliente;
 import br.com.fiap.am.ltp.excecoes.Excecao;
 
 /**
- * Descrição da classe/método
+ * Métodos de acesso ao banco de Cliente. Operações do CRUD e funcionalidades
+ * ligada a ele.
  * 
  * @author Lucas 74795
  * @version 1.0
@@ -79,22 +79,16 @@ public class ClienteDAO {
 		List<Cliente> lstCliente = new ArrayList<Cliente>();
 
 		try {
-			sql = "SELECT 	P.CD_PESSOA, "
-						 + "P.NM_PESSOA, "
-						 + "C.NR_CPF, "
-						 + "C.NR_RG, "
-						 + "C.DT_NASCIMENTO, "
-						 + "C.DS_EMAIL "
-				+ "FROM T_AM_HBV_PESSOA P INNER JOIN T_AM_HBV_CLIENTE C "
-				+ "ON P.CD_PESSOA = C.CD_CLIENTE";
+			sql = "SELECT 	P.CD_PESSOA, " + "P.NM_PESSOA, " + "C.NR_CPF, " + "C.NR_RG, " + "C.DT_NASCIMENTO, "
+					+ "C.DS_EMAIL " + "FROM T_AM_HBV_PESSOA P INNER JOIN T_AM_HBV_CLIENTE C "
+					+ "ON P.CD_PESSOA = C.CD_CLIENTE";
 			estrutura = conexao.prepareStatement(sql);
 
 			rs = estrutura.executeQuery();
 
 			while (rs.next()) {
 				Cliente cliente = new Cliente();
-				Locale l = new Locale("pt", "BR");
-				Calendar c = Calendar.getInstance(l);
+				Calendar c = Calendar.getInstance();
 				c.setTime(rs.getDate("DT_NASCIMENTO"));
 
 				cliente.setCodigo(Integer.parseInt(rs.getString("CD_PESSOA")));
@@ -118,33 +112,32 @@ public class ClienteDAO {
 	}
 
 	/**
+	 * Faz a busca de um cliente no banco de dados que tenha o id especificado.
 	 * 
+	 * @author Lucas 74795
+	 * @since 1.0
 	 * @param id
+	 *            O id do cliente que está sendo buscado no banco de dados.
 	 * @param conexao
-	 * @return
+	 *            As credenciais da conexão.
+	 * @return <code>cliente</code> Dados do cliente com o id especificado.
 	 * @throws Exception
+	 * @see Cliente, ClienteBO
 	 */
 	public Cliente buscarPorCodigo(int id, Connection conexao) throws Exception {
 		Cliente cliente = new Cliente();
 
 		try {
-			sql = "SELECT 	P.CD_PESSOA, "
-					 + "P.NM_PESSOA, "
-					 + "C.NR_CPF, "
-					 + "C.NR_RG, "
-					 + "C.DT_NASCIMENTO, "
-					 + "C.DS_EMAIL "
-			+ "FROM T_AM_HBV_PESSOA P INNER JOIN T_AM_HBV_CLIENTE C "
-			+ "ON P.CD_PESSOA = C.CD_CLIENTE "
-			+ "WHERE P.CD_PESSOA = ?";
+			sql = "SELECT 	P.CD_PESSOA, " + "P.NM_PESSOA, " + "C.NR_CPF, " + "C.NR_RG, " + "C.DT_NASCIMENTO, "
+					+ "C.DS_EMAIL " + "FROM T_AM_HBV_PESSOA P INNER JOIN T_AM_HBV_CLIENTE C "
+					+ "ON P.CD_PESSOA = C.CD_CLIENTE " + "WHERE P.CD_PESSOA = ?";
 			estrutura = conexao.prepareStatement(sql);
 			estrutura.setInt(1, id);
 
 			rs = estrutura.executeQuery();
 
 			if (rs.next()) {
-				Locale l = new Locale("pt", "BR");
-				Calendar c = Calendar.getInstance(l);
+				Calendar c = Calendar.getInstance();
 				c.setTime(rs.getDate("DT_NASCIMENTO"));
 
 				cliente.setCodigo(Integer.parseInt(rs.getString("CD_PESSOA")));
@@ -165,14 +158,39 @@ public class ClienteDAO {
 		}
 	}
 
+	/**
+	 * Edita as informações de um Cliente no banco de dados.
+	 * 
+	 * @author Lucas 74795
+	 * @since 1.0
+	 * @param cliente
+	 *            Os dados do cliente que está sendo editado.
+	 * @param conexao
+	 *            As credenciais da conexão.
+	 * @throws Exception
+	 * @see Cliente, ClienteBO
+	 */
 	public void editar(Cliente cliente, Connection conexao) throws Exception {
 		try {
-			sql = "UPDATE T_AM_HBV_STATUS SET NM_STATUS = ? WHERE CD_STATUS = ?";
+			sql = "UPDATE T_AM_HBV_PESSOA SET NM_PESSOA = ? WHERE CD_PESSOA = ?";
 			estrutura = conexao.prepareStatement(sql);
 			estrutura.setString(1, cliente.getNome());
 			estrutura.setInt(2, cliente.getCodigo());
 
-			estrutura.execute();
+			estrutura.executeQuery();
+			estrutura.close();
+
+			sql = "UPDATE T_AM_HBV_CLIENTE SET NR_CPF = ?, NR_RG = ?, DT_NASCIMENTO = ?, NR_QUARTO_PREFERIDO = ?, DS_EMAIL = ?, DS_SENHA = ? WHERE CD_CLIENTE = ?";
+			estrutura = conexao.prepareStatement(sql);
+			estrutura.setLong(1, cliente.getCpf());
+			estrutura.setLong(2, cliente.getRg());
+			estrutura.setDate(3, new Date(cliente.getDtNascimento().getTimeInMillis()));
+			estrutura.setInt(4, cliente.getQuartoFavorito());
+			estrutura.setString(5, cliente.getEmail());
+			estrutura.setString(6, cliente.getSenha());
+			estrutura.setInt(7, cliente.getCodigo());
+
+			estrutura.executeQuery();
 			estrutura.close();
 
 		} catch (Exception e) {
@@ -180,6 +198,19 @@ public class ClienteDAO {
 		}
 	}
 
+	/**
+	 * Excluí um cliente do banco de dados. Isso irá apagar todos os seus dados,
+	 * bem como suas reservas, hospedagens e consumos.
+	 * 
+	 * @author Lucas 74795
+	 * @since 1.0
+	 * @param id
+	 *            O id do cliente que está sendo excluído.
+	 * @param conexao
+	 *            As credenciais da conexão.
+	 * @throws Exception
+	 * @see Cliente, ClienteBO
+	 */
 	public void excluir(int id, Connection conexao) throws Exception {
 		try {
 			sql = "DELETE FROM T_AM_HBV_PESSOA WHERE CD_PESSOA = ?";

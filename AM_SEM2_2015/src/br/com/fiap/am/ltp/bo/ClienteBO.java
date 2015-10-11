@@ -8,25 +8,28 @@ import br.com.fiap.am.ltp.dao.ClienteDAO;
 import br.com.fiap.am.ltp.excecoes.Excecao;
 
 /**
- * Descrição da classe/método
+ * Regras de negócio da classe Cliente.
  * 
  * @author Lucas 74795
  * @version 1.0
  * @since 1.0
+ * @see Cliente, ClienteDAO
  */
 public class ClienteBO {
 	/**
-	 * Descrição
+	 * Faz a gravação de um Cliente no banco de dados. Seu nome deve possuir no
+	 * minímo 3 caracteres.
 	 * 
 	 * @author Lucas 74795
 	 * @since 1.0
 	 * @param cliente
+	 *            O cliente que está sendo gravado no banco de dados.
 	 * @param conexao
+	 *            As credenciais da conexão.
 	 * @throws Exception
 	 * @see Cliente, ClienteDAO
 	 */
-	public static void gravar(Cliente cliente, Connection conexao)
-			throws Exception {
+	public static void gravar(Cliente cliente, Connection conexao) throws Exception {
 		if (cliente.getNome().length() < 2) {
 			throw new Excecao("Caracteres insuficientes no nome do Cliente");
 		}
@@ -35,11 +38,12 @@ public class ClienteBO {
 	}
 
 	/**
-	 * Descrição
+	 * Busca todos os clientes cadastrados no banco de dados.
 	 * 
 	 * @author Lucas 74795
 	 * @since 1.0
 	 * @param conexao
+	 *            As credenciais da conexão.
 	 * @return lstCliente
 	 * @throws Exception
 	 * @see Cliente, ClienteDAO
@@ -49,12 +53,14 @@ public class ClienteBO {
 	}
 
 	/**
-	 * Descrição
+	 * Busca um Cliente especifico no banco de dados.
 	 * 
 	 * @author Lucas 74795
 	 * @since 1.0
 	 * @param id
+	 *            O id do Cliente que está sendo buscado.
 	 * @param conexao
+	 *            As credenciais da conexão.
 	 * @return cliente
 	 * @throws Exception
 	 * @see Cliente, ClienteDAO
@@ -64,12 +70,14 @@ public class ClienteBO {
 	}
 
 	/**
-	 * Descrição
+	 * Edita os dados do cliente no banco de dados.
 	 * 
 	 * @author Lucas 74795
 	 * @since 1.0
 	 * @param cliente
+	 *            O Cliente que está sendo editado.
 	 * @param conexao
+	 *            As credenciais da conexão.
 	 * @throws Exception
 	 * @see Cliente, ClienteDAO
 	 */
@@ -77,17 +85,20 @@ public class ClienteBO {
 		if (cliente.getNome().length() < 2) {
 			throw new Excecao("Caracteres insuficientes no nome do Cliente");
 		}
-		
+
 		new ClienteDAO().editar(cliente, conexao);
 	}
 
 	/**
-	 * Descrição
+	 * Excluí um Cliente do banco de dados. isso irá excluir suas reservas,
+	 * hospedagens, telefone, endereço e consumos.
 	 * 
 	 * @author Lucas 74795
 	 * @since 1.0
 	 * @param id
+	 *            O id do Cliente que será excluído do banco de dados.
 	 * @param conexao
+	 * 			As credenciais da conexão.
 	 * @throws Exception
 	 * @see Cliente, ClienteDAO
 	 */
