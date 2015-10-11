@@ -129,9 +129,9 @@ public class ClienteTeste {
 					Cliente.setCodigo(Integer
 							.parseInt(JOptionPane.showInputDialog("Digite o código do Cliente que será excluído?")));
 
-					int id = Cliente.getCodigo();
+					int codigo = Cliente.getCodigo();
 
-					ClienteBO.excluir(id, conexao);
+					ClienteBO.excluir(codigo, conexao);
 
 					conexao.commit();
 					conexao.setAutoCommit(true);
@@ -141,9 +141,9 @@ public class ClienteTeste {
 
 				Cliente cliente = new Cliente();
 
-				int id = Integer.parseInt(JOptionPane.showInputDialog("Qual código deseja buscar?"));
+				int codigo = Integer.parseInt(JOptionPane.showInputDialog("Qual código deseja buscar?"));
 
-				cliente = ClienteBO.buscarPorCodigo(id, conexao);
+				cliente = ClienteBO.buscarPorCodigo(codigo, conexao);
 
 				System.out.println("Código: " + cliente.getCodigo() + "\nNome: " + cliente.getNome() + "\nCPF: "
 						+ cliente.getCpf() + "\nRG: " + cliente.getRg() + "\nData de nascimento: "

@@ -60,9 +60,7 @@ public class FuncionarioTeste {
 					
 					Cargo cargo = new Cargo();
 					
-					cargo.setCodigo(1);
-					cargo.setNome("Gerente");
-					cargo.setSalarioBase(500);
+					cargo.setCodigo(Integer.parseInt(JOptionPane.showInputDialog("Qual o código do cargo do Funcionário? Valor entre 1 e 6")));
 					
 					funcionario.setCargo(cargo);
 
@@ -74,21 +72,18 @@ public class FuncionarioTeste {
 			} else if (funcionalidade == 2) {
 				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74795", "251295");
 				conexao.setAutoCommit(false);
-				Cliente cliente = new Cliente();
+				Funcionario funcionario = new Funcionario();
 
 				do {
-					cliente = new Cliente();
-					
+					funcionario = new Funcionario();
+
 					Calendar c = Calendar.getInstance();
 
-					cliente.setCodigo(Integer
-							.parseInt(JOptionPane.showInputDialog("Digite o código do Cliente que será atualizado")));
-					cliente.setNome(JOptionPane.showInputDialog("Digite o novo nome do Cliente"));
-					cliente.setCpf(Long.parseLong(JOptionPane.showInputDialog("Digite o novo CPF do Cliente")));
-					cliente.setRg(Long.parseLong(JOptionPane.showInputDialog("Digite o novo RG do Cliente")));
-					
+					funcionario.setCodigo(Integer.parseInt(JOptionPane.showInputDialog("Qual o código do funcionário que será editado?")));
+					funcionario.setNome(JOptionPane.showInputDialog("Digite o novo nome do Funcionário"));
+
 					String data = JOptionPane
-							.showInputDialog("Qual a nova data de nascimento do cliente? Formato: DD/MM/AAAA");
+							.showInputDialog("Qual a nova data de nascimento do Funcionário? Formato: DD/MM/AAAA");
 
 					while (data.length() < 10) {
 						data = JOptionPane.showInputDialog("DATA ERRADA! Use o Formato: DD/MM/AAAA ex: 25/12/1995)");
@@ -100,17 +95,19 @@ public class FuncionarioTeste {
 
 					c.set(ano, (mes - 1), dia);
 					
-					cliente.setDtNascimento(c);
-					cliente.setEmail(JOptionPane.showInputDialog("Qual o novo email do cliente?"));
-					cliente.setSenha(JOptionPane.showInputDialog("Qual a nova senha do cliente?"));
-					cliente.setQuartoFavorito(
-							Integer.parseInt(JOptionPane.showInputDialog("Qual o novo quarto favorito do cliente?")));
+					funcionario.setDtAdmissao(c);
+					
+					Cargo cargo = new Cargo();
+					
+					cargo.setCodigo(Integer.parseInt(JOptionPane.showInputDialog("Qual o código do novo cargo do Funcionário? Valor entre 1 e 6")));
+					
+					funcionario.setCargo(cargo);
 
-					ClienteBO.editar(cliente, conexao);
+					FuncionarioBO.editar(funcionario, conexao);
 
 					conexao.commit();
 					conexao.setAutoCommit(true);
-				} while (JOptionPane.showInputDialog("Deseja cadastrar mais? Digite 1").equals("1"));
+				} while (JOptionPane.showInputDialog("Deseja editar mais? Digite 1").equals("1"));
 			} else if (funcionalidade == 3) {
 				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74795", "251295");
 
@@ -145,15 +142,16 @@ public class FuncionarioTeste {
 			} else if (funcionalidade == 5) {
 				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74795", "251295");
 
-				Cliente cliente = new Cliente();
+				Funcionario funcionario = new Funcionario();
 
-				int id = Integer.parseInt(JOptionPane.showInputDialog("Qual código deseja buscar?"));
+				int codigo = Integer.parseInt(JOptionPane.showInputDialog("Qual código deseja buscar?"));
 
-				cliente = ClienteBO.buscarPorCodigo(id, conexao);
+				funcionario = FuncionarioBO.buscarPorCodigo(codigo, conexao);
 
-				System.out.println("Código: " + cliente.getCodigo() + "\nNome: " + cliente.getNome() + "\nCPF: "
-						+ cliente.getCpf() + "\nRG: " + cliente.getRg() + "\nData de nascimento: "
-						+ cliente.getDtNascimento().getTime() + "\nE-mail: " + cliente.getEmail() + "\n");
+				System.out.println("Código: " + funcionario.getCodigo() + "\nNome: " + funcionario.getNome() + "\nCódigo do cargo: "
+						+ funcionario.getCargo().getCodigo()
+						+ "\nCargo: " + funcionario.getCargo().getNome()
+						+ "\nSalário base: R$" + funcionario.getCargo().getSalarioBase() + "\n");
 			} else {
 				JOptionPane.showMessageDialog(null, "Essa funcionalidade não existe! Tente novamente");
 			}

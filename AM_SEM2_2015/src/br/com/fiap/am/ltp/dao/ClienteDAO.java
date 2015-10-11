@@ -18,7 +18,7 @@ import br.com.fiap.am.ltp.excecoes.Excecao;
  * @author Lucas 74795
  * @version 1.0
  * @since 1.0
- * @see Meu Beans
+ * @see Cliente, ClienteBO
  */
 public class ClienteDAO {
 	private String sql = "";
@@ -116,15 +116,15 @@ public class ClienteDAO {
 	 * 
 	 * @author Lucas 74795
 	 * @since 1.0
-	 * @param id
-	 *            O id do cliente que está sendo buscado no banco de dados.
+	 * @param codigo
+	 *            O código do cliente que está sendo buscado no banco de dados.
 	 * @param conexao
 	 *            As credenciais da conexão.
 	 * @return <code>cliente</code> Dados do cliente com o id especificado.
 	 * @throws Exception
 	 * @see Cliente, ClienteBO
 	 */
-	public Cliente buscarPorCodigo(int id, Connection conexao) throws Exception {
+	public Cliente buscarPorCodigo(int codigo, Connection conexao) throws Exception {
 		Cliente cliente = new Cliente();
 
 		try {
@@ -132,7 +132,7 @@ public class ClienteDAO {
 					+ "C.DS_EMAIL " + "FROM T_AM_HBV_PESSOA P INNER JOIN T_AM_HBV_CLIENTE C "
 					+ "ON P.CD_PESSOA = C.CD_CLIENTE " + "WHERE P.CD_PESSOA = ?";
 			estrutura = conexao.prepareStatement(sql);
-			estrutura.setInt(1, id);
+			estrutura.setInt(1, codigo);
 
 			rs = estrutura.executeQuery();
 
@@ -204,18 +204,18 @@ public class ClienteDAO {
 	 * 
 	 * @author Lucas 74795
 	 * @since 1.0
-	 * @param id
-	 *            O id do cliente que está sendo excluído.
+	 * @param codigo
+	 *            O código do cliente que está sendo excluído.
 	 * @param conexao
 	 *            As credenciais da conexão.
 	 * @throws Exception
 	 * @see Cliente, ClienteBO
 	 */
-	public void excluir(int id, Connection conexao) throws Exception {
+	public void excluir(int codigo, Connection conexao) throws Exception {
 		try {
 			sql = "DELETE FROM T_AM_HBV_PESSOA WHERE CD_PESSOA = ?";
 			estrutura = conexao.prepareStatement(sql);
-			estrutura.setInt(1, id);
+			estrutura.setInt(1, codigo);
 
 			estrutura.execute();
 			estrutura.close();

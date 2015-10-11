@@ -57,16 +57,16 @@ public class ClienteBO {
 	 * 
 	 * @author Lucas 74795
 	 * @since 1.0
-	 * @param id
-	 *            O id do Cliente que está sendo buscado.
+	 * @param codigo
+	 *            O codigo do Cliente que está sendo buscado.
 	 * @param conexao
 	 *            As credenciais da conexão.
 	 * @return cliente
 	 * @throws Exception
 	 * @see Cliente, ClienteDAO
 	 */
-	public static Cliente buscarPorCodigo(int id, Connection conexao) throws Exception {
-		return new ClienteDAO().buscarPorCodigo(id, conexao);
+	public static Cliente buscarPorCodigo(int codigo, Connection conexao) throws Exception {
+		return new ClienteDAO().buscarPorCodigo(codigo, conexao);
 	}
 
 	/**
@@ -95,14 +95,14 @@ public class ClienteBO {
 	 * 
 	 * @author Lucas 74795
 	 * @since 1.0
-	 * @param id
-	 *            O id do Cliente que será excluído do banco de dados.
+	 * @param codigo
+	 *            O código do Cliente que será excluído do banco de dados.
 	 * @param conexao
 	 * 			As credenciais da conexão.
 	 * @throws Exception
 	 * @see Cliente, ClienteDAO
 	 */
-	public static void excluir(int id, Connection conexao) throws Exception {
-		new ClienteDAO().excluir(id, conexao);
+	public static void excluir(int codigo, Connection conexao) throws Exception {
+		new ClienteDAO().excluir(codigo, conexao);
 	}
 }

@@ -40,12 +40,52 @@ public class FuncionarioBO {
 	 * @author Lucas 74795
 	 * @since 1.0
 	 * @param conexao
-	 * 			As credenciais da conexão.
-	 * @return <code>lstFuncionario</code> Uma lsiat com todos os funcionários do banco de dados.
+	 *            As credenciais da conexão.
+	 * @return <code>lstFuncionario</code> Uma lista com todos os funcionários
+	 *         do banco de dados.
 	 * @throws Exception
 	 * @see Funcionario, FuncionarioDAO
 	 */
 	public static List<Funcionario> buscarTodos(Connection conexao) throws Exception {
 		return new FuncionarioDAO().buscarTodos(conexao);
+	}
+
+	/**
+	 * Faz a busca de um funcionário no banco de dados que tenha um id
+	 * especifico.
+	 * 
+	 * @author Lucas 74795
+	 * @since 1.0
+	 * @param codigo
+	 *            O código do funcionário que será buscado.
+	 * @param conexao
+	 *            As credenciais da conexão.
+	 * @return <code>funcionario</code> O funcionario que foi buscado no banco
+	 *         de dados.
+	 * @throws Exception
+	 * @see Funcionario, FuncionarioDAO
+	 */
+	public static Funcionario buscarPorCodigo(int codigo, Connection conexao) throws Exception {
+		return new FuncionarioDAO().buscarPorCodigo(codigo, conexao);
+	}
+	
+	/**
+	 * Edita as informações de um funcionário no banco de dados.
+	 * 
+	 * @author Lucas 74795
+	 * @since 1.0
+	 * @param funcionario
+	 * 			O funcionário que será editado no banco de dados.
+	 * @param conexao
+	 * 			As credenciais da conexão.
+	 * @throws Exception
+	 * @see Funcionario, FuncionarioDAO
+	 */
+	public static void editar(Funcionario funcionario, Connection conexao) throws Exception {
+		if (funcionario.getNome().length() < 2) {
+			throw new Excecao("Número insuficiente de caracteres no nome do funcionário");
+		}
+		
+		new FuncionarioDAO().editar(funcionario, conexao);
 	}
 }
