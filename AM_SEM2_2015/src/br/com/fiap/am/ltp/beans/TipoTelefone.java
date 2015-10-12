@@ -29,11 +29,11 @@ public class TipoTelefone {
 		this.codigo = codigo;
 	}
 
-	public String getNomeTipo() {
+	public String getNome() {
 		return nome;
 	}
 
-	public void setNomeTipo(String nome) {
+	public void setNome(String nome) {
 		this.nome = nome;
 	}
 }
