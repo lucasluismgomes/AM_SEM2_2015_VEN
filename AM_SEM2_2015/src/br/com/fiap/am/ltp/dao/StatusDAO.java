@@ -13,7 +13,7 @@ import br.com.fiap.am.ltp.excecoes.Excecao;
  * Conexões e funcionalidades da classe Status.
  * 
  * @author Lucas 74795
- * @version 3.0
+ * @version 4.0
  * @since 1.0
  * @see Status
  */
@@ -32,10 +32,9 @@ public class StatusDAO {
 	 */
 	public void gravar(Status status, Connection conexao) throws Exception {
 		try {
-			String sql = "INSERT INTO T_AM_HBV_STATUS VALUES(?,?)";
+			String sql = "INSERT INTO T_AM_HBV_STATUS (NM_STATUS) VALUES(?)";
 			PreparedStatement estrutura = conexao.prepareStatement(sql);
-			estrutura.setInt(1, status.getCodigo());
-			estrutura.setString(2, status.getNome());
+			estrutura.setString(1, status.getNome());
 
 			estrutura.execute();
 			estrutura.close();

@@ -35,7 +35,6 @@ public class StatusTeste {
 				do {
 					status = new Status();
 
-					status.setCodigo(Integer.parseInt(JOptionPane.showInputDialog("Digite o código do status")));
 					status.setNome(JOptionPane.showInputDialog("Digite o nome do status"));
 
 					StatusBO.gravar(status, conexao);
@@ -52,7 +51,7 @@ public class StatusTeste {
 					status = new Status();
 
 					status.setCodigo(Integer
-							.parseInt(JOptionPane.showInputDialog("Digite o código do que será atualizado status")));
+							.parseInt(JOptionPane.showInputDialog("Digite o código do status que será atualizado")));
 					status.setNome(JOptionPane.showInputDialog("Digite o novo nome do status"));
 
 					StatusBO.editar(status, conexao);
@@ -87,7 +86,7 @@ public class StatusTeste {
 
 					conexao.commit();
 					conexao.setAutoCommit(true);
-				} while (JOptionPane.showInputDialog("Deseja cadastrar mais? Digite 1").equals("1"));
+				} while (JOptionPane.showInputDialog("Deseja editar mais? Digite 1").equals("1"));
 			} else if (funcionalidade == 5) {
 				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74795", "251295");
 

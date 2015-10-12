@@ -11,7 +11,7 @@ import br.com.fiap.am.ltp.excecoes.Excecao;
  * Regras de negócio de Status.
  * 
  * @author Lucas 74795
- * @version 3.0
+ * @version 4.0
  * @since 1.0
  */
 public class StatusBO {

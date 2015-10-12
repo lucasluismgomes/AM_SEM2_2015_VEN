@@ -87,7 +87,7 @@ public class TipoTelefoneTeste {
 
 					conexao.commit();
 					conexao.setAutoCommit(true);
-				} while (JOptionPane.showInputDialog("Deseja cadastrar mais? Digite 1").equals("1"));
+				} while (JOptionPane.showInputDialog("Deseja editar mais? Digite 1").equals("1"));
 			} else if (funcionalidade == 5) {
 				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74795", "251295");
 
