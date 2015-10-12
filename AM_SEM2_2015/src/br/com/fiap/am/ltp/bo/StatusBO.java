@@ -57,7 +57,7 @@ public class StatusBO {
 	 * 
 	 * @author Lucas 74795
 	 * @since 3.0
-	 * @param id
+	 * @param codigo
 	 * 			Código do status que está sendo buscado.
 	 * @param conexao
 	 * 			As credenciais da conexão.
@@ -66,8 +66,8 @@ public class StatusBO {
 	 * @throws Exception
 	 * @see StatusDAO
 	 */
-	public static Status buscarPorCodigo(int id, Connection conexao) throws Exception {
-		return new StatusDAO().buscarPorCodigo(id, conexao);
+	public static Status buscarPorCodigo(int codigo, Connection conexao) throws Exception {
+		return new StatusDAO().buscarPorCodigo(codigo, conexao);
 	}
 	
 	/**
@@ -92,18 +92,18 @@ public class StatusBO {
 	}
 	
 	/**
-	 * Excluí um Status do banco que tenha o código correspondente ao ID passado.
+	 * Excluí um Status do banco que tenha o código correspondente ao código passado.
 	 * 
 	 * @author Lucas 74795
 	 * @since 3.0
-	 * @param id
+	 * @param codigo
 	 * 			Código do Status que será excluído.
 	 * @param conexao
 	 * 			Credenciais da conexão.
 	 * @throws Exception
 	 * @see StatusDAO
 	 */
-	public static void excluir(int id, Connection conexao) throws Exception {
-		new StatusDAO().excluir(id, conexao);
+	public static void excluir(int codigo, Connection conexao) throws Exception {
+		new StatusDAO().excluir(codigo, conexao);
 	}
 }
