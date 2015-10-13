@@ -4,6 +4,7 @@
 <%-- Estilos --%>
 <link rel="stylesheet" href="./Style/css/bootstrap.min.css">
 <link rel="stylesheet" href="./Style/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="./Style/css/font-awesome.min.css">
 <link rel="stylesheet" href="./Style/css/layout.css">
 
 <%-- Scripts --%>

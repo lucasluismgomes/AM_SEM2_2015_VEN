@@ -48,3 +48,15 @@ html,body {
 #container-reservar-quarto {
 	text-align: center;	
 }
+.caption { 
+	margin: 0 10px;
+}
+#secaoQuartos {
+	height : auto;
+	display : block;
+	position : relative;
+	width : 100%;
+	padding : 0 15%;	
+	text-align: center;
+	margin : 0;
+}

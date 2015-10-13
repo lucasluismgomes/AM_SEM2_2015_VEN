@@ -5,7 +5,8 @@
 <head>
 <%@ include file="Imports/bibliotecas.jsp"%>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<script type="text/javascript" src="Style/js/reservaQuarto.js"></script>
+<title>HBV - Reserva</title>
 </head>
 <body>
 	<div id="wrap">
@@ -39,6 +40,7 @@
 							class="input-group-addon">Data saída</span>
 					</div>
 
+
 				</div>
 			</div>
 
@@ -49,54 +51,69 @@
 				<div class="col-md-4">
 					<select id="qtdQuartos" name="qtdQuartos" class="form-control">
 						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
 					</select>
 				</div>
 			</div>
+			<div id="secaoQuartos" class="row">
 
-			<div class="row">
-				<div class="col-sm-6 col-md-4">
-					<div class="thumbnail">
-						<img
-							src="https://xicneeg.files.wordpress.com/2009/10/quarto-hotel-st-eu.jpg"
-							alt="">
-						<div class="caption">
-							<h3>Thumbnail label</h3>
-							<ul class="nav nav-pills">
-								<li role="presentation"><a href="#">Standard</a></li>
-								<li role="presentation"><a href="#">Master</a></li>
-								<li role="presentation"><a href="#">Luxo</a></li>
-								<li role="presentation"><a href="#">Master Luxo</a></li>
-								
-							</ul>
-							
-							<div class="form-group">
-								<label class="col-md-4 control-label" for="qtdQuartos">Quantidade
-									de pessoas</label>
-								<div class="col-md-4">
-									<select id="qtdQuartos" name="qtdQuartos" class="form-control">
-										<option value="1">1</option>
-									</select>
+				<div class="row">
+					<div class="col-sm-6 col-md-4 col-md-offset-4">
+						<div class="thumbnail">
+							<img
+								src="https://xicneeg.files.wordpress.com/2009/10/quarto-hotel-st-eu.jpg"
+								alt="">
+							<div class="caption">
+								<h3>Thumbnail label</h3>
+								<div class="form-group">
+									<div class="btn-group btn-group-justified" role="group"
+										aria-label="...">
+										<div class="btn-group" role="group">
+											<button type="button" class="btn btn-default active">Standard</button>
+										</div>
+										<div class="btn-group" role="group">
+											<button type="button" class="btn btn-default">Master</button>
+										</div>
+										<div class="btn-group" role="group">
+											<button type="button" class="btn btn-default">Luxo</button>
+										</div>
+										<div class="btn-group" role="group">
+											<button type="button" class="btn btn-default">Master Luxo</button>
+										</div>
+									</div>
 								</div>
+								<div class="form-group">
+									<div class="input-group">
+										<span class="input-group-addon" id="basic-addon1"><i
+											class='fa fa-users'></i></span> <select id="qtdQuartos"
+											name="qtdQuartos" class="form-control">
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+											<option value="4">4</option>
+										</select>
+									</div>
+								</div>
+
 							</div>
-
 						</div>
-					</div>
 
+					</div>
 				</div>
+
+
 			</div>
 
-
 			<!-- Button -->
-			<div class="form-group">
-				<label class="col-md-4 control-label" for="btnReservarQuarto"></label>
-				<div class="col-md-2">
-					<button id="btnReservarQuarto" name="btnReservarQuarto"
-						class="btn btn-info">Calcular Valor</button>
-				</div>
-				<div class="col-md-2">
-					<button id="btnReservarQuarto" name="btnReservarQuarto"
-						class="btn btn-success">Reservar Quarto</button>
-				</div>
+			<div class="form-group row">
+				<button id="btnCalcularValor" name="btnReservarQuarto"
+					class="btn btn-info col-md-4 col-md-offset-2 ">Calcular
+					Valor</button>
+				<button id="btnReservarQuarto" name="btnReservarQuarto"
+					class="btn btn-success col-md-4 col-md-offset-right-2 ">Reservar
+					Quarto</button>
 			</div>
 
 		</form>
