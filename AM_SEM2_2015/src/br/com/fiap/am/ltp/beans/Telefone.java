@@ -4,20 +4,20 @@ package br.com.fiap.am.ltp.beans;
  * Descrição da classe/método
  * 
  * @author Lucas 74795
- * @version 1.0
+ * @version 2.0
  * @since 1.0
  */
 public class Telefone {
 	private int codigo;
 	private TipoTelefone tipo;
-	private int ddd;
+	private short ddd;
 	private Long numero;
 	
 	public Telefone() {
 		super();
 	}
 
-	public Telefone(int codigo, TipoTelefone tipo, int ddd, Long numero) {
+	public Telefone(int codigo, TipoTelefone tipo, short ddd, Long numero) {
 		super();
 		this.codigo = codigo;
 		this.tipo = tipo;
@@ -41,11 +41,11 @@ public class Telefone {
 		this.tipo = tipo;
 	}
 
-	public int getDdd() {
+	public short getDdd() {
 		return ddd;
 	}
 
-	public void setDdd(int ddd) {
+	public void setDdd(short ddd) {
 		this.ddd = ddd;
 	}
 

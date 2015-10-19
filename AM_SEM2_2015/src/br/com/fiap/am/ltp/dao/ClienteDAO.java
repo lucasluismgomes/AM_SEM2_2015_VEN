@@ -104,11 +104,11 @@ public class ClienteDAO {
 			rs.close();
 			estrutura.close();
 
+			return lstCliente;
+			
 		} catch (Exception e) {
 			throw new Excecao(e);
 		}
-
-		return lstCliente;
 	}
 
 	/**
