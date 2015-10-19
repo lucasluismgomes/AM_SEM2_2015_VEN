@@ -3,7 +3,7 @@ package br.com.fiap.am.ltp.beans;
 /**
  * Descrição da classe/método
  * 
- * @author Lucas 74795
+ * @author Lucas 74795, Estevão 74803
  * @version 1.0
  * @since 1.0
  */
@@ -12,18 +12,20 @@ public class Quarto {
 	private TipoQuarto tipo;
 	private String descricaoQuarto;
 	private int nrAndar;
+	private boolean status;
 
 	public Quarto() {
 		super();
 	}
 
 	public Quarto(int codigo, TipoQuarto tipo, String descricaoQuarto,
-			int nrAndar) {
+			int nrAndar, boolean status) {
 		super();
 		this.codigo = codigo;
 		this.tipo = tipo;
 		this.descricaoQuarto = descricaoQuarto;
 		this.nrAndar = nrAndar;
+		this.status = status;
 	}
 
 	public int getCodigo() {
@@ -56,6 +58,14 @@ public class Quarto {
 
 	public void setNrAndar(int nrAndar) {
 		this.nrAndar = nrAndar;
+	}
+
+	public boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 
 }

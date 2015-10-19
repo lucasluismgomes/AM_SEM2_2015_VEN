@@ -1,12 +1,39 @@
 package br.com.fiap.am.ltp.bo;
 
+import java.sql.Connection;
+
+import br.com.fiap.am.ltp.beans.Quarto;
+import br.com.fiap.am.ltp.dao.QuartoDAO;
+import br.com.fiap.am.ltp.excecoes.Excecao;
+
 /**
  * Descrição da classe/método
  * 
- * @author Lucas 74795
+ * @author Estevão 74803
  * @version 1.0
  * @since 1.0
  */
 public class QuartoBO {
 
+	/**
+	 * Faz a gravação de um Quarto no banco de dados. A descrição deve possuir no
+	 * minímo 5 caracteres.
+	 * 
+	 * @author Estevão 74803
+	 * @since 1.0
+	 * @param quarto
+	 *            O quarto que está sendo gravado no banco de dados.
+	 * @param conexao
+	 *            As credenciais da conexão.
+	 * @throws Exception
+	 * @see Quarto, QuartoDAO
+	 */
+	public static void gravar(Quarto quarto, Connection conexao) throws Exception {
+		if (quarto.getDescricaoQuarto().length() < 4) {
+			throw new Excecao("Caracteres insuficientes na descrição do quarto");
+		}
+
+		new QuartoDAO().gravar(quarto, conexao);
+	}
+	
 }
