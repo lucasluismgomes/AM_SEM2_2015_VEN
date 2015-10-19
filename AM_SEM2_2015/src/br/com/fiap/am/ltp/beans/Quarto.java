@@ -12,20 +12,18 @@ public class Quarto {
 	private TipoQuarto tipo;
 	private String descricaoQuarto;
 	private int nrAndar;
-	private ValorQuarto valor;
 
 	public Quarto() {
 		super();
 	}
 
 	public Quarto(int codigo, TipoQuarto tipo, String descricaoQuarto,
-			int nrAndar, ValorQuarto valor) {
+			int nrAndar) {
 		super();
 		this.codigo = codigo;
 		this.tipo = tipo;
 		this.descricaoQuarto = descricaoQuarto;
 		this.nrAndar = nrAndar;
-		this.valor = valor;
 	}
 
 	public int getCodigo() {
@@ -60,11 +58,4 @@ public class Quarto {
 		this.nrAndar = nrAndar;
 	}
 
-	public ValorQuarto getValor() {
-		return valor;
-	}
-
-	public void setValor(ValorQuarto valor) {
-		this.valor = valor;
-	}
 }
