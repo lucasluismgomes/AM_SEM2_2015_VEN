@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import br.com.fiap.am.ltp.beans.Quarto;
 import br.com.fiap.am.ltp.beans.TipoQuarto;
 import br.com.fiap.am.ltp.bo.QuartoBO;
+import br.com.fiap.am.ltp.bo.TipoQuartoBO;
 import br.com.fiap.am.ltp.conexao.ConexaoFactory;
 import br.com.fiap.am.ltp.excecoes.Excecao;
 
@@ -19,20 +20,21 @@ public class QuartoTeste {
 					+ "1 - Gravar\n" + "2 - Editar\n" + "3 - Buscar Todos\n" + "4 - Apagar\n" + "5 - Buscar por ID\n"));
 
 			if (funcionalidade == 1) {
-				Connection conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$74803", "071195");
+				Connection conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74803", "071195");
 				Quarto quarto = new Quarto();
 				conexao.setAutoCommit(false);
 				TipoQuarto tipoQuarto = new TipoQuarto();
 
 				do {
 					quarto = new Quarto();
-					tipoQuarto = new TipoQuarto();
-
-					//Integer.parseInt(JOptionPane.showInputDialog("Digite o tipo do Quarto")));
 					
-					quarto.setDescricaoQuarto(JOptionPane.showInputDialog("Digite a descrição do Quarto"));
+
+					int codigoTipo = Integer.parseInt(JOptionPane.showInputDialog("Digite o tipo do Quarto"));
+					tipoQuarto = TipoQuartoBO.buscarPorCodigo(codigoTipo, conexao);
+					quarto.setTipo(tipoQuarto);
 					quarto.setNrAndar(Integer.parseInt(JOptionPane.showInputDialog("Digite o número do Andar")));
-					quarto.setStatus(Boolean.parseBoolean(JOptionPane.showInputDialog("Digite o número do Andar")));
+					quarto.setNrCapacidade(Short.parseShort(JOptionPane.showInputDialog("Digite o número da Capacidade")));
+					quarto.setStatus(Boolean.parseBoolean(JOptionPane.showInputDialog("Digite o status do quarto")));
 
 					QuartoBO.gravar(quarto, conexao);
 					conexao.commit();
