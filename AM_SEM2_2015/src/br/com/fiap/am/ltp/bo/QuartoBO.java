@@ -29,8 +29,8 @@ public class QuartoBO {
 	 * @see Quarto, QuartoDAO
 	 */
 	public static void gravar(Quarto quarto, Connection conexao) throws Exception {
-		if (quarto.getDescricaoQuarto().length() < 4) {
-			throw new Excecao("Caracteres insuficientes na descrição do quarto");
+		if (quarto.getNrAndar() < 0 && quarto.getNrAndar() > 11) {
+			throw new Excecao("O andar não confere.");
 		}
 
 		new QuartoDAO().gravar(quarto, conexao);
