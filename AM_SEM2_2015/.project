@@ -3,6 +3,7 @@
 	<name>AM_SEM2_2015</name>
 	<comment></comment>
 	<projects>
+		<project>Servers</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

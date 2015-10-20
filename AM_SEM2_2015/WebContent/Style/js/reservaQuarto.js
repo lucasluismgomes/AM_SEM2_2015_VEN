@@ -1,3 +1,54 @@
+function atualizaQuartos(element){
+	var imgHoteis = ['./Style/img/quartos/FuradouroBoutiqueHotel_quarto.jpg',
+	                 './Style/img/quartos/HTSP_SuitePresidencial1.jpg',
+	                 './Style/img/quartos/Quarto-de-hotel-de-luxo-768x1366.jpg',
+	                 './Style/img/quartos/Suite_Presidencial-casacor.jpg']
+	
+	$input = element.children("input");
+	
+	switch($input.val()){
+	case "S":
+		element.parent().parent().parent().find("h3").html("Standard");
+		element.parent().parent().parent().parent().find("img").attr("src",imgHoteis[0]);
+		break;
+	case "M":	
+		element.parent().parent().parent().find("h3").html("Master");
+		element.parent().parent().parent().parent().find("img").attr("src",imgHoteis[1]);
+		break;
+	case "L":	
+		element.parent().parent().parent().find("h3").html("Luxo");
+		element.parent().parent().parent().parent().find("img").attr("src",imgHoteis[2]);
+		break;
+	case "ML":		
+		element.parent().parent().parent().find("h3").html("Master Luxo");
+		element.parent().parent().parent().parent().find("img").attr("src",imgHoteis[3]);
+		break;
+	}	
+}
+
+function tagSelectCriancas(qtdPessoas){
+	var tag = "<div class='input-group'>\
+	<span class='input-group-addon' id='basic-addon1'><i\
+	class='fa fa-child'></i> </i></span> <select\
+	name='qtdcriancas' class='form-control qtdCriancas'>\
+	<option value=''>Quantidade de crianças</option>";
+	
+	var qtdCriancas = 4 - qtdPessoas;
+	if(qtdCriancas == 0){
+		return "";	
+	}else{
+		for (i=1; i <= qtdCriancas; i++){
+			tag = tag + "<option value='"+i+"'>"+i+"</option>";
+		}	
+	}
+	tag = tag + "</select>\
+				</div>\
+				<div class='idadeCriancas'>\
+				</div>";
+	
+	return tag;
+}
+
 $(document).ready(function(){
 
 	$("#qtdQuartos").change(function(){
@@ -25,7 +76,7 @@ $(document).ready(function(){
 		for(i = 0; i < qtdQuartos; i++){
 			$("#secaoQuartos").append("<div class='col-sm-4 col-md-4 col-md-offset-"+count+"'>\
 							<div class='thumbnail'>\
-								<img\
+								<img height=500 width=300\
 									src='http://waldorfastoria3.hilton.com/resources/media/wa/BERWAWA/en_US/img/hotel/roomtypeimages/large/WA_presidentialsuite04_2.jpg'\
 									alt=''>\
 								<div class='caption'>\
@@ -60,41 +111,41 @@ $(document).ready(function(){
 											</select>\
 										</div>\
 									</div>\
+									<div class='criancas-section'>\
+											<div class='input-group'>\
+												<span class='input-group-addon' id='basic-addon1'><i\
+													class='fa fa-child'></i> </i></span> <select\
+													name='qtdcriancas' class='form-control qtdCriancas'>\
+													<option value='1'>1</option>\
+													<option value='2'>2</option>\
+													<option value='3'>3</option>\
+													<option value='4'>4</option>\
+												</select>\
+											</div>\
+									</div>\
+									<div class='idadeCriancas'>\
+									<\div>\
 								</div>\
 							</div>\
 						</div>");					
 		}
 		
 		$(".caption .btn").click(function(){
-			var imgHoteis = ['./Style/img/quartos/FuradouroBoutiqueHotel_quarto.jpg',
-			                 './Style/img/quartos/HTSP_SuitePresidencial1.jpg',
-			                 './Style/img/quartos/Quarto-de-hotel-de-luxo-768x1366.jpg',
-			                 './Style/img/quartos/Suite_Presidencial-casacor.jpg']
-			
-			$input = $(this).children("input");
-			
-			switch($input.val()){
-			case "S":
-				$(this).parent().parent().parent().find("h3").html("Standard");
-				$(this).parent().parent().parent().parent().find("img").attr("src",imgHoteis[0]);
-				break;
-			case "M":	
-				$(this).parent().parent().parent().find("h3").html("Master");
-				$(this).parent().parent().parent().parent().find("img").attr("src",imgHoteis[1]);
-				break;
-			case "L":	
-				$(this).parent().parent().parent().find("h3").html("Luxo");
-				$(this).parent().parent().parent().parent().find("img").attr("src",imgHoteis[2]);
-				break;
-			case "ML":		
-				$(this).parent().parent().parent().find("h3").html("Master Luxo");
-				$(this).parent().parent().parent().parent().find("img").attr("src",imgHoteis[3]);
-				break;
-			}
-			
+			atualizaQuartos($(this));			
+		});
+		$(".qtdPessoas").change(function(){
 		});
 	});
-
+	$(".qtdPessoas").change(function(){
+		//alert("ds");
+		$(this).parent().siblings(".criancas-section").html(tagSelectCriancas($(this).val()));
+		$(".qtdCriancas").change(function(){
+			$(this).parent().siblings(".idadeCriancas").html("TESTEE, AQUI VAI MOSTRAR OS INPUTS DAS IDADES DAS CRIANÇASS");
+		});
+	});
+	$(".caption .btn").click(function(){
+		atualizaQuartos($(this));			
+	});
 	
 	
 	

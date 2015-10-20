@@ -69,39 +69,39 @@
 					<div class="row">
 						<div class="col-sm-6 col-md-4 col-md-offset-4">
 							<div class="thumbnail">
-								<img
+								<img height=500 width=300
 									src="http://waldorfastoria3.hilton.com/resources/media/wa/BERWAWA/en_US/img/hotel/roomtypeimages/large/WA_presidentialsuite04_2.jpg"
 									alt="">
 								<div class="caption">
-									<h3>Thumbnail label</h3>
+									<h3>Standard</h3>
 									<div class="form-group">
-										<div class="btn-group" data-toggle="buttons">
-											<label class="btn btn-primary active" > <input
+										<div class="btn-group-xs" data-toggle="buttons">
+											<label class="btn btn-primary active"> <input
 												type="radio" name="options" value="S" autocomplete="off"
 												checked> Standard
-											</label> <label class="btn btn-primary" > <input type="radio"
-												name="options" value="M" autocomplete="off">
-												Master
 											</label> <label class="btn btn-primary"> <input type="radio"
-												name="options" value="L" autocomplete="off">
+												name="options" value="M" autocomplete="off"> Master
+											</label> <label class="btn btn-primary"> <input type="radio"
+												name="options" value="L" autocomplete="off"> Luxo
+											</label> <label class="btn btn-primary"> <input type="radio"
+												name="options" value="ML" autocomplete="off"> Master
 												Luxo
-											</label>
-											<label class="btn btn-primary"> <input type="radio"
-												name="options" value="ML" autocomplete="off">
-												Master Luxo
 											</label>
 										</div>
 									</div>
 									<div class="form-group">
 										<div class="input-group">
 											<span class="input-group-addon" id="basic-addon1"><i
-												class='fa fa-users'></i></span> <select id="qtdPessoa"
-												name="qtdPessoa" class="form-control">
+												class='fa fa-users'></i></span> <select
+												name="qtdPessoa" class="form-control qtdPessoas">
+												<option value="0">Quantidade de pessoas</option>
 												<option value="1">1</option>
 												<option value="2">2</option>
 												<option value="3">3</option>
 												<option value="4">4</option>
 											</select>
+										</div>
+										<div class="criancas-section">
 										</div>
 									</div>
 
