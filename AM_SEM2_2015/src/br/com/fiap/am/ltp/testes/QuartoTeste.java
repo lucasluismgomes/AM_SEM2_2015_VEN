@@ -21,6 +21,7 @@ public class QuartoTeste {
 			if (funcionalidade == 1) {
 				Connection conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$74803", "071195");
 				Quarto quarto = new Quarto();
+				conexao.setAutoCommit(false);
 				TipoQuarto tipoQuarto = new TipoQuarto();
 
 				do {
@@ -34,6 +35,8 @@ public class QuartoTeste {
 					quarto.setStatus(Boolean.parseBoolean(JOptionPane.showInputDialog("Digite o número do Andar")));
 
 					QuartoBO.gravar(quarto, conexao);
+					conexao.commit();
+					conexao.setAutoCommit(true);
 				} while (JOptionPane.showConfirmDialog(null, "Deseja testar o cadastro novamente?") == 1);
 			} else if (funcionalidade == 2) {
 				// Código de edição

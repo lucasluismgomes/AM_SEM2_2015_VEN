@@ -10,6 +10,7 @@ package br.com.fiap.am.ltp.beans;
 public class TipoQuarto {
 	private int codigo;
 	private String nomeTipo;
+	private String descricao;
 	private double valor;
 	
 	public TipoQuarto() {

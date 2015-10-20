@@ -47,4 +47,46 @@ public class TipoQuartoDAO {
 			throw new Excecao(e);
 		}
 	}
+	
+	/**
+	 * Faz a busca de um tipo de quarto no banco de dados que tenha o id especificado.
+	 * 
+	 * @author Estevão 74803
+	 * @since 1.0
+	 * @param codigo
+	 *            O código do tipo de quarto que está sendo buscado no banco de dados.
+	 * @param conexao
+	 *            As credenciais da conexão.
+	 * @return <code>tipoQuarto</code> Dados do tipo de quarto com o id especificado.
+	 * @throws Exception
+	 * @see TipoQuarto, TipoQuartoBO
+	 */
+	public TipoQuarto buscarPorCodigo(int codigo, Connection conexao) throws Exception {
+		TipoQuarto tipoQuarto = new TipoQuarto();
+
+		try {
+			sql = "SELECT CD_TIPO_QUARTO, " + "DS_TIPO_QUARTO, " + "VL_QUARTO "
+					+ "FROM T_AM_HBV_TIPO_QUARTO "
+					+ "WHERE CD_TIPO_QUARTO = ?";
+			estrutura = conexao.prepareStatement(sql);
+			estrutura.setInt(1, codigo);
+
+			rs = estrutura.executeQuery();
+
+			if (rs.next()) {
+
+				tipoQuarto.setCodigo(Integer.parseInt(rs.getString("CD_TIPO_QUARTO")));
+				tipoQuarto.setNomeTipo(rs.getString("DS_TIPO_QUARTO"));
+				tipoQuarto.setValor(rs.getDouble("VL_QUARTO"));
+			}
+
+			rs.close();
+			estrutura.close();
+
+			return tipoQuarto;
+
+		} catch (Exception e) {
+			throw new Excecao(e);
+		}
+	}
 }

@@ -36,4 +36,21 @@ public class TipoQuartoBO {
 		new TipoQuartoDAO().gravar(tipoQuarto, conexao);
 	}
 	
+	/**
+	 * Busca um Tipo de Quarto especifico no banco de dados.
+	 * 
+	 * @author Estevão 74803
+	 * @since 1.0
+	 * @param codigo
+	 *            O codigo do Tipo de Quarto que está sendo buscado.
+	 * @param conexao
+	 *            As credenciais da conexão.
+	 * @return tipoQuarto
+	 * @throws Exception
+	 * @see TipoQuarto, TipoQuartoDAO
+	 */
+	public static TipoQuarto buscarPorCodigo(int codigo, Connection conexao) throws Exception {
+		return new TipoQuartoDAO().buscarPorCodigo(codigo, conexao);
+	}
+	
 }
