@@ -37,7 +37,7 @@ public class FormaPagamentoDAO {
 	 */
 	public void gravar(FormaPagamento formaPagamento, Connection conexao) throws Exception {
 		try {
-			sql = "INSERT INTO T_AM_HBV_FORMAPAG (DS_FORMAPAG) VALUES(?)";
+			sql = "INSERT INTO T_AM_HBV_TIPO_FORMAPAG (DS_FORMAPAG) VALUES(?)";
 			estrutura = conexao.prepareStatement(sql);
 			estrutura.setString(1, formaPagamento.getDescricao());
 
@@ -67,7 +67,8 @@ public class FormaPagamentoDAO {
 		
 		try{
 			
-			sql = "SELECT CD_TIPO_FORMAPAG," + "DS_FORMAPAG" + " FROM T_AM_HBV_TIPO_FORMAPAG";
+			sql = "SELECT CD_TIPO_FORMAPAG," + "DS_FORMAPAG" + " FROM T_AM_HBV_TIPO_FORMAPAG" 
+			+ "ORDER BY CD_TIPO_FORMAPAG";
 			estrutura = conexao.prepareStatement(sql);
 			
 			rs = estrutura.executeQuery();
@@ -174,7 +175,7 @@ public class FormaPagamentoDAO {
 	public void excluir(int codigo, Connection conexao) throws Exception{
 		try{
 			
-			sql = "DELETE FROM T_AM_HBV_FORMAPAG WHERE CD_TIPO_FORMAPAG = ?";
+			sql = "DELETE FROM T_AM_HBV_TIPO_FORMAPAG WHERE CD_TIPO_FORMAPAG = ?";
 			estrutura = conexao.prepareStatement(sql);
 			estrutura.setInt(1, codigo);
 			
