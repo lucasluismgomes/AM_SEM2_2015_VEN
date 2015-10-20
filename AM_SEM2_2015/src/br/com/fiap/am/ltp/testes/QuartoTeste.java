@@ -1,11 +1,15 @@
 package br.com.fiap.am.ltp.testes;
 
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import br.com.fiap.am.ltp.beans.Cliente;
 import br.com.fiap.am.ltp.beans.Quarto;
 import br.com.fiap.am.ltp.beans.TipoQuarto;
+import br.com.fiap.am.ltp.bo.ClienteBO;
 import br.com.fiap.am.ltp.bo.QuartoBO;
 import br.com.fiap.am.ltp.bo.TipoQuartoBO;
 import br.com.fiap.am.ltp.conexao.ConexaoFactory;
@@ -14,13 +18,13 @@ import br.com.fiap.am.ltp.excecoes.Excecao;
 public class QuartoTeste {
 
 	public static void main(String[] args) throws Excecao {
-		
+		Connection conexao = null;
 		try {
 			int funcionalidade = Integer.parseInt(JOptionPane.showInputDialog("Qual funcionalidade deseja testar?\n\n"
 					+ "1 - Gravar\n" + "2 - Editar\n" + "3 - Buscar Todos\n" + "4 - Apagar\n" + "5 - Buscar por ID\n"));
 
 			if (funcionalidade == 1) {
-				Connection conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74803", "071195");
+				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74803", "071195");
 				Quarto quarto = new Quarto();
 				conexao.setAutoCommit(false);
 				TipoQuarto tipoQuarto = new TipoQuarto();
@@ -43,7 +47,19 @@ public class QuartoTeste {
 			} else if (funcionalidade == 2) {
 				// Código de edição
 			} else if (funcionalidade == 3) {
-				// Código de consulta
+				
+				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74803", "071195");
+
+				List<Quarto> lstQuarto = new ArrayList<Quarto>();
+
+				lstQuarto = QuartoBO.buscarTodos(conexao);
+
+				for (Quarto quarto : lstQuarto) {
+					System.out.println("Número do quarto: " + quarto.getCodigo() + "\nNome do Tipo de Quarto: " + quarto.getTipo().getNomeTipo() 
+							+ "\nAndar: "	+ quarto.getNrAndar() + "\nCapacidade: "	+ quarto.getNrCapacidade()
+							+ "\nCapacidade: " + (quarto.getStatus() == false ? "Ocupado" : "Disponível"));
+				}
+
 			} else if (funcionalidade == 4) {
 				// Código de deletar
 			} else if (funcionalidade == 5) {
