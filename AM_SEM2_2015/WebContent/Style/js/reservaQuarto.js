@@ -49,6 +49,23 @@ function tagSelectCriancas(qtdPessoas){
 	return tag;
 }
 
+
+function tagIdadeCriancas(qtdCriancas){
+	var tag = "";
+	
+	for(i=1;i<=qtdCriancas;i++){
+		tag = tag + "<select\
+		name='idadeCrianca' class='form-control idadeCrianca col-md-4'>\
+				<option value='0'>0</option>\
+				<option value='1'>1</option>\
+				<option value='2'>2</option>\
+				<option value='3'>3</option>\
+				<option value='4'>4</option>\
+				<option value='5'>5</option>\
+				</select>"
+	}
+	return tag;
+}
 $(document).ready(function(){
 
 	$("#qtdQuartos").change(function(){
@@ -76,11 +93,11 @@ $(document).ready(function(){
 		for(i = 0; i < qtdQuartos; i++){
 			$("#secaoQuartos").append("<div class='col-sm-4 col-md-4 col-md-offset-"+count+"'>\
 							<div class='thumbnail'>\
-								<img height=500 width=300\
+								<img \
 									src='http://waldorfastoria3.hilton.com/resources/media/wa/BERWAWA/en_US/img/hotel/roomtypeimages/large/WA_presidentialsuite04_2.jpg'\
 									alt=''>\
 								<div class='caption'>\
-									<h3>Thumbnail label</h3>\
+									<h3>Standard</h3>\
 									<div class='form-group'>\
 										<div class='btn-group' data-toggle='buttons'>\
 											<label class='btn btn-primary active' > <input\
@@ -140,7 +157,8 @@ $(document).ready(function(){
 		//alert("ds");
 		$(this).parent().siblings(".criancas-section").html(tagSelectCriancas($(this).val()));
 		$(".qtdCriancas").change(function(){
-			$(this).parent().siblings(".idadeCriancas").html("TESTEE, AQUI VAI MOSTRAR OS INPUTS DAS IDADES DAS CRIANÇASS");
+			$(this).parent().siblings(".idadeCriancas").html("Idade das crianças: " + tagIdadeCriancas($(this).val()));
+			
 		});
 	});
 	$(".caption .btn").click(function(){

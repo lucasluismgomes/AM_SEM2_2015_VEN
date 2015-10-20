@@ -69,7 +69,7 @@
 					<div class="row">
 						<div class="col-sm-6 col-md-4 col-md-offset-4">
 							<div class="thumbnail">
-								<img height=500 width=300
+								<img
 									src="http://waldorfastoria3.hilton.com/resources/media/wa/BERWAWA/en_US/img/hotel/roomtypeimages/large/WA_presidentialsuite04_2.jpg"
 									alt="">
 								<div class="caption">
@@ -80,7 +80,7 @@
 												type="radio" name="options" value="S" autocomplete="off"
 												checked> Standard
 											</label> <label class="btn btn-primary"> <input type="radio"
-												name="options" value="M" autocomplete="off"> Master
+												name="options" value="M" autocomplete="off"> Master 
 											</label> <label class="btn btn-primary"> <input type="radio"
 												name="options" value="L" autocomplete="off"> Luxo
 											</label> <label class="btn btn-primary"> <input type="radio"
@@ -94,7 +94,7 @@
 											<span class="input-group-addon" id="basic-addon1"><i
 												class='fa fa-users'></i></span> <select
 												name="qtdPessoa" class="form-control qtdPessoas">
-												<option value="0">Quantidade de pessoas</option>
+												<option value="0">Quantidade de adultos</option>
 												<option value="1">1</option>
 												<option value="2">2</option>
 												<option value="3">3</option>
