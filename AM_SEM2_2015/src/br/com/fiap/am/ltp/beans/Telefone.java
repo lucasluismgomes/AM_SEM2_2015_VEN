@@ -1,7 +1,7 @@
 package br.com.fiap.am.ltp.beans;
 
 /**
- * Descrição da classe/método
+ * Atributos e métodos de acesso da classe Telefone.
  * 
  * @author Lucas 74795
  * @version 2.0
