@@ -3,7 +3,7 @@ package br.com.fiap.am.ltp.beans;
 /**
  * Descrição da classe/método
  * 
- * @author Lucas 74795
+ * @author Lucas 74795, Mateus 74793
  * @version 1.0
  * @since 1.0
  */
