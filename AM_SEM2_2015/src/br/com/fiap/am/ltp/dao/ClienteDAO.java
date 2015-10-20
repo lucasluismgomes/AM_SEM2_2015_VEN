@@ -58,6 +58,8 @@ public class ClienteDAO {
 
 			estrutura.executeQuery();
 			estrutura.close();
+			
+			
 
 		} catch (Exception e) {
 			throw new Excecao(e);
