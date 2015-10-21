@@ -9,7 +9,6 @@ import java.util.Calendar;
  * @author Lucas 74795
  * @version 1.0
  * @since 1.0
- *
  */
 public class Utils {
 	public static Calendar DateToCalendar(Date date){ 

@@ -286,7 +286,8 @@ CREATE TABLE T_AM_HBV_RESERVA (
   dt_final_reserva  DATE NOT NULL,
   qt_adulto         NUMBER(1) NOT NULL,
   qt_crianca        NUMBER(1) NOT NULL,
-  st_reserva        NUMBER(1) NOT NULL
+  st_reserva        NUMBER(1) NOT NULL,
+  vl_reserva        NUMBER(8,2) NOT NULL
 );
 
 ALTER TABLE     T_AM_HBV_RESERVA 
