@@ -16,7 +16,7 @@ import br.com.fiap.am.ltp.excecoes.Excecao;
  * ligada a ele.
  * 
  * @author Lucas 74795
- * @version 1.0
+ * @version 2.0
  * @since 1.0
  * @see Cliente, ClienteBO
  */

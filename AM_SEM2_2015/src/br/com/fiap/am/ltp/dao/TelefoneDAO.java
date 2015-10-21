@@ -14,7 +14,7 @@ import br.com.fiap.am.ltp.excecoes.Excecao;
  * Descrição da classe/método
  * 
  * @author Lucas 74795
- * @version 1.0
+ * @version 2.0
  * @since 1.0
  * @see Meu Beans
  */
@@ -211,7 +211,7 @@ public class TelefoneDAO {
 	 * Verifica se os dados de um telefone já existem no banco de dados.
 	 * 
 	 * @author Lucas 74795
-	 * @since 1.0
+	 * @since 2.0
 	 * @param telefone
 	 * 			O telefone que está sendo verificado.
 	 * @param conexao

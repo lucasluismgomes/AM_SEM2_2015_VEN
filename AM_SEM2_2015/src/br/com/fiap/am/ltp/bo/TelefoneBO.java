@@ -10,7 +10,7 @@ import br.com.fiap.am.ltp.dao.TelefoneDAO;
  * Regras de negócio e chamadas da DAO da classe Telefone.
  * 
  * @author Lucas 74795
- * @version 1.0
+ * @version 2.0
  * @since 1.0
  */
 public class TelefoneBO {
@@ -29,11 +29,15 @@ public class TelefoneBO {
 	 */
 	public static void gravar(Telefone telefone, Connection conexao)
 			throws Exception {
-		if (TelefoneBO.verificarExistencia(telefone, conexao)) {
-			return;
+		try{
+			if (TelefoneBO.verificarExistencia(telefone, conexao)) {
+				return;
+			} else {
+				new TelefoneDAO().gravar(telefone, conexao);
+			}
+		} catch(Exception e) {
+			throw new Exception(e);
 		}
-
-		new TelefoneDAO().gravar(telefone, conexao);
 	}
 
 	/**
@@ -110,7 +114,7 @@ public class TelefoneBO {
 	 * Verifica se os dados de um telefone já existem no banco de dados.
 	 * 
 	 * @author Lucas 74795
-	 * @since 1.0
+	 * @since 2.0
 	 * @param telefone
 	 *            O telefone que está sendo verificado.
 	 * @param conexao
