@@ -30,6 +30,7 @@ public static void main(String[] args) throws Excecao {
 					tipoQuarto = new TipoQuarto();
 
 					tipoQuarto.setNomeTipo(JOptionPane.showInputDialog("Digite o nome do tipo de Quarto"));
+					tipoQuarto.setDescricao(JOptionPane.showInputDialog("Digite as observações/descrições do tipo de Quarto"));
 					tipoQuarto.setValor(Double.parseDouble(JOptionPane.showInputDialog("Digite o valor do tipo de Quarto")));
 
 					TipoQuartoBO.gravar(tipoQuarto, conexao);
@@ -37,6 +38,7 @@ public static void main(String[] args) throws Excecao {
 					conexao.setAutoCommit(true);
 				} while (JOptionPane.showConfirmDialog(null, "Deseja testar o cadastro novamente?") == 1);
 			} else if (funcionalidade == 2) {
+				
 				// Código de edição
 			} else if (funcionalidade == 3) {
 				
@@ -47,11 +49,12 @@ public static void main(String[] args) throws Excecao {
 				lstTipoQuarto = TipoQuartoBO.buscarTodos(conexao);
 
 				for (TipoQuarto tipoQuarto : lstTipoQuarto) {
-					System.out.println("Código: " + tipoQuarto.getCodigo() + "\nNomeTipo: " + tipoQuarto.getNomeTipo() 
+					System.out.println("\n\nCódigo: " + tipoQuarto.getCodigo() + "\nNomeTipo: " + tipoQuarto.getNomeTipo() 
 							+ "\nValor: "	+ tipoQuarto.getValor());
 				}
 				
 			} else if (funcionalidade == 4) {
+				
 				// Código de deletar
 			} else if (funcionalidade == 5) {
 				

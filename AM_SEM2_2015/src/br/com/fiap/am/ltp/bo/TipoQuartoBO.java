@@ -33,12 +33,49 @@ public class TipoQuartoBO {
 	 */
 	public static void gravar(TipoQuarto tipoQuarto, Connection conexao) throws Exception {
 		if (tipoQuarto.getNomeTipo().length() < 3) {
-			throw new Excecao("Caracteres insuficientes na descrição do quarto");
+			throw new Excecao("Caracteres insuficientes no nome do tipo de quarto");
 		}
 
 		new TipoQuartoDAO().gravar(tipoQuarto, conexao);
 	}
 	
+	/**
+	 * Edita os dados do tipo de quarto no banco de dados.
+	 * 
+	 * @author Estevão 74803
+	 * @since 1.0
+	 * @param quarto
+	 *            O Tipo de Quarto que está sendo editado.
+	 * @param conexao
+	 *            As credenciais da conexão.
+	 * @throws Exception
+	 * @see TipoQuarto, TipoQuartoDAO
+	 */
+	public static void editar(TipoQuarto tipoQuarto, Connection conexao) throws Exception {
+		if (tipoQuarto.getNomeTipo().length() < 3) {
+			throw new Excecao("O andar não confere.");
+		}
+
+		new TipoQuartoDAO().editar(tipoQuarto, conexao);
+	}
+	
+	/**
+	 * Excluí um Tipo de Quarto do banco de dados.
+	 * 
+	 * @author Estevão 74803
+	 * @since 1.0
+	 * @param codigo
+	 *            O código do Tipo de Quarto que será excluído do banco de dados.
+	 * @param conexao
+	 * 			As credenciais da conexão.
+	 * @throws Exception
+	 * @see TipoQuarto, TipoQuartoDAO
+	 */
+	public static void excluir(int codigo, Connection conexao) throws Exception {
+		new TipoQuartoDAO().excluir(codigo, conexao);
+	}
+	
+		
 	/**
 	 * Busca todos os tipos de quartos cadastrados no banco de dados.
 	 * 

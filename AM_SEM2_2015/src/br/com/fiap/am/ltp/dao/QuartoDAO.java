@@ -1,11 +1,13 @@
 package br.com.fiap.am.ltp.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.fiap.am.ltp.beans.Cliente;
 import br.com.fiap.am.ltp.beans.Quarto;
 import br.com.fiap.am.ltp.beans.TipoQuarto;
 import br.com.fiap.am.ltp.bo.TipoQuartoBO;
@@ -39,15 +41,73 @@ public class QuartoDAO {
 	 */
 	public void gravar(Quarto quarto, Connection conexao) throws Exception {
 		try {
-			sql = "INSERT INTO T_AM_HBV_QUARTO (CD_TIPO_QUARTO,NR_ANDAR,NR_CAPACIDADE, STATUS) VALUES(?,?,?,?)";
+			sql = "INSERT INTO T_AM_HBV_QUARTO VALUES(?,?,?,?,?)";
+			estrutura = conexao.prepareStatement(sql);
+			estrutura.setInt(1, quarto.getCodigo());
+			estrutura.setInt(2, quarto.getTipo().getCodigo());
+			estrutura.setInt(3, quarto.getNrAndar());
+			estrutura.setShort(4, quarto.getNrCapacidade());
+			estrutura.setBoolean(5, quarto.getStatus());
+			
+
+			estrutura.executeQuery();
+			estrutura.close();
+
+		} catch (Exception e) {
+			throw new Excecao(e);
+		}
+	}
+	
+	/**
+	 * Edita as informações de um Quarto no banco de dados.
+	 * 
+	 * @author Estevão 74803
+	 * @since 1.0
+	 * @param quarto
+	 *            Os dados do quarto que está sendo editado.
+	 * @param conexao
+	 *            As credenciais da conexão.
+	 * @throws Exception
+	 * @see Quarto, QuartoBO
+	 */
+	public void editar(Quarto quarto, Connection conexao) throws Exception {
+		try {
+
+			sql = "UPDATE T_AM_HBV_QUARTO SET CD_TIPO_QUARTO = ?, NR_ANDAR = ?, NR_CAPACIDADE = ?, STATUS = ? WHERE NR_QUARTO = ?";
 			estrutura = conexao.prepareStatement(sql);
 			estrutura.setInt(1, quarto.getTipo().getCodigo());
 			estrutura.setInt(2, quarto.getNrAndar());
 			estrutura.setShort(3, quarto.getNrCapacidade());
 			estrutura.setBoolean(4, quarto.getStatus());
-			
+			estrutura.setInt(5, quarto.getCodigo());
 
 			estrutura.executeQuery();
+			estrutura.close();
+
+		} catch (Exception e) {
+			throw new Excecao(e);
+		}
+	}
+	
+	/**
+	 * Excluí um quarto do banco de dados. Isso irá apagar todos os seus dados.
+	 * 
+	 * @author Estevão 74803
+	 * @since 1.0
+	 * @param codigo
+	 *            O código do quarto que está sendo excluído.
+	 * @param conexao
+	 *            As credenciais da conexão.
+	 * @throws Exception
+	 * @see Quarto, QuartoBO
+	 */
+	public void excluir(int codigo, Connection conexao) throws Exception {
+		try {
+			sql = "DELETE FROM T_AM_HBV_QUARTO WHERE NR_QUARTO = ?";
+			estrutura = conexao.prepareStatement(sql);
+			estrutura.setInt(1, codigo);
+
+			estrutura.execute();
 			estrutura.close();
 
 		} catch (Exception e) {

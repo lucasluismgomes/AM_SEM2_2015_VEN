@@ -42,6 +42,42 @@ public class QuartoBO {
 	}
 	
 	/**
+	 * Edita os dados do quarto no banco de dados.
+	 * 
+	 * @author Estevão 74803
+	 * @since 1.0
+	 * @param quarto
+	 *            O Quarto que está sendo editado.
+	 * @param conexao
+	 *            As credenciais da conexão.
+	 * @throws Exception
+	 * @see Quarto, QuartoDAO
+	 */
+	public static void editar(Quarto quarto, Connection conexao) throws Exception {
+		if (quarto.getNrAndar() < 0 && quarto.getNrAndar() > 11) {
+			throw new Excecao("O andar não confere.");
+		}
+
+		new QuartoDAO().editar(quarto, conexao);
+	}
+	
+	/**
+	 * Excluí um Quarto do banco de dados.
+	 * 
+	 * @author Estevão 74803
+	 * @since 1.0
+	 * @param codigo
+	 *            O código do Quarto que será excluído do banco de dados.
+	 * @param conexao
+	 * 			As credenciais da conexão.
+	 * @throws Exception
+	 * @see Quarto, QuartoDAO
+	 */
+	public static void excluir(int codigo, Connection conexao) throws Exception {
+		new QuartoDAO().excluir(codigo, conexao);
+	}
+	
+	/**
 	 * Busca todos os quartos cadastrados no banco de dados.
 	 * 
 	 * @author Estevão 74803
@@ -55,6 +91,7 @@ public class QuartoBO {
 	public static List<Quarto> buscarTodos(Connection conexao) throws Exception {
 		return new QuartoDAO().buscarTodos(conexao);
 	}
+	
 	
 	/**
 	 * Busca um Quarto especifico no banco de dados.
