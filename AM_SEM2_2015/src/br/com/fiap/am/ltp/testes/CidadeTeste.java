@@ -11,7 +11,15 @@ import br.com.fiap.am.ltp.bo.CidadeBO;
 import br.com.fiap.am.ltp.conexao.ConexaoFactory;
 import br.com.fiap.am.ltp.excecoes.Excecao;
 
-public class CidadeTeste {
+public class CidadeTeste 
+{
+	/**
+	 * Classe para teste dos metodos criados na classes CidadeDAO e CidadeBO.
+	 * @author Mateus rm74793
+	 * @throws Excecao
+	 * @since 1.0
+	 * @see Cidade,CidadeBO,Estado
+	 */
 	public static void main(String[] args) throws Excecao {
 		try {
 			int funcionalidade = Integer.parseInt(JOptionPane
@@ -34,7 +42,7 @@ public class CidadeTeste {
 							.showInputDialog("CODIGO do estado")));
 					cidade.setEstado(estado);
 					boolean retorno = cidadeBO.gravar(cidade, conexao);
-					if (retorno) {
+					if (!retorno) {
 						System.out.println("Gravou!");
 					} else {
 						System.out.println("Não Gravo!");
@@ -63,7 +71,7 @@ public class CidadeTeste {
 						.showInputDialog("Qual é o novo codigo do estado?")));
 				cidade.setEstado(estado);
 				boolean resultado = cidadeBO.editar(cidade, conexao);
-				if (resultado) {
+				if (!resultado) {
 					System.out.println("Atualizou!");
 				} else {
 					System.out.println("Não Atualizou!");
@@ -80,27 +88,41 @@ public class CidadeTeste {
 							+ " SIGLA: " + cidade.getEstado().getSigla());
 				}
 			} else if (funcionalidade == 4) {
-				Connection conexao = ConexaoFactory.controlarInstancia()
-						.getConnection("OPS$RM74793", "150395");
+				Connection conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74793", "150395");
 				CidadeBO cidadeBO = new CidadeBO();
 				List<Cidade> lstCidade = cidadeBO.buscarTodos(conexao);
+				
 				for (Cidade cidade : lstCidade) {
 					System.out.println("Codigo: " + cidade.getCodigo()
 							+ " Cidade: " + cidade.getNome() + " Estado: "
 							+ cidade.getEstado().getNome() + " SIGLA: "
 							+ cidade.getEstado().getSigla());
 				}
+				
 				Cidade cidade = new Cidade();
-				cidade.setCodigo(Integer.parseInt(JOptionPane
-						.showInputDialog("Qual é o codigo da cidade?")));
+				cidade.setCodigo(Integer.parseInt(JOptionPane.showInputDialog("Qual é o codigo da cidade?")));
+				
 				boolean resultado = cidadeBO.excluir(cidade, conexao);
-				if (resultado) {
+				
+				if (!resultado) {
 					System.out.println("Deletou!");
 				} else {
 					System.out.println("Não Deletou!");
 				}
 			} else if (funcionalidade == 5) {
-				// Código de buscar por código
+				Connection conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74793", "150395");
+				CidadeBO cidadeBO = new CidadeBO();
+				Cidade c = new Cidade();
+				c.setNome(JOptionPane.showInputDialog("Pesquisa por nome de cidade"));
+				List<Cidade> lstCidade = cidadeBO.buscarPorNome(c, conexao);
+				
+				for (Cidade cidade : lstCidade) {
+					System.out.println("Codigo: " + cidade.getCodigo()
+							+ " Cidade: " + cidade.getNome() + " Estado: "
+							+ cidade.getEstado().getNome() + " SIGLA: "
+							+ cidade.getEstado().getSigla());
+				}
+				
 			} else {
 				JOptionPane.showMessageDialog(null,
 						"Essa funcionalidade não existe! Tente novamente");

@@ -88,29 +88,32 @@ public class CidadeDAO {
 	 * @return <code>lstCidade</code> Lista com as cidades que contém o nome ou
 	 *         parte dele.
 	 * @throws Excecao
-	 * @see Cidade, CidadeBO
+	 * @see Cidade, CidadeBO,Estado
 	 */
-	public List<Cidade> buscarPorNome(Cidade cidade, Connection conexao)
-			throws Excecao {
+	public List<Cidade> buscarPorNome(Cidade cidade, Connection conexao) throws Excecao 
+	{		
 		try {
 			List<Cidade> lstCidade = new ArrayList<Cidade>();
-			PreparedStatement estrutura = conexao
-					.prepareStatement("SELECT E.SG_ESTADO,E.NM_ESTADO, C.NM_CIDADE FROM T_AM_HBV_CIDADE C INNER JOIN T_AM_HBV_ESTADO E ON C.CD_ESTADO = E.CD_ESTADO WHERE UPPER(C.NM_CIDADE) LIKE UPPER('%?%')");
-			estrutura.setString(1, cidade.getNome());
+			PreparedStatement estrutura = conexao.prepareStatement("SELECT C.CD_CIDADE,E.SG_ESTADO,E.NM_ESTADO, C.NM_CIDADE FROM T_AM_HBV_CIDADE C INNER JOIN T_AM_HBV_ESTADO E ON C.CD_ESTADO = E.CD_ESTADO WHERE UPPER(C.NM_CIDADE) LIKE UPPER(?)");
+			estrutura.setString(1,"%"+ cidade.getNome()+"%");
+			
 			ResultSet resultado = estrutura.executeQuery();
+			
 			while (resultado.next()) {
 				Cidade cid = new Cidade();
 				Estado est = new Estado();
+				cid.setCodigo(resultado.getInt("CD_CIDADE"));
 				cid.setNome(resultado.getString("NM_CIDADE"));
 				est.setSigla(resultado.getString("SG_ESTADO"));
 				est.setNome(resultado.getString("NM_ESTADO"));
 				cid.setEstado(est);
 				lstCidade.add(cid);
 			}
+			
 			return lstCidade;
 		} catch (Exception e) {
 			throw new Excecao(e);
-		}
+		}	
 	}
 
 	/**
@@ -122,7 +125,7 @@ public class CidadeDAO {
 	 * 			As credenciais da conexão.
 	 * @return <code>lstCidade</code> Lista com as cidades retornadas do banco de dados.
 	 * @throws Excecao
-	 * @see Cidade, CidadeBO
+	 * @see Cidade, CidadeBO,Estado
 	 */
 	public List<Cidade> buscarTodos(Connection conexao) throws Excecao {
 		try {
@@ -155,7 +158,8 @@ public class CidadeDAO {
 	 *            A cidade que será excluída.
 	 * @param conexao
 	 *            As credenciais da conexão.
-	 * @return
+	 * @return <code>estrutura.execute()</code> True caso um registro sera apagado, e
+	 *         False caso não deletado.
 	 * @throws Excecao
 	 * @see Cidade, CidadeBO
 	 */
