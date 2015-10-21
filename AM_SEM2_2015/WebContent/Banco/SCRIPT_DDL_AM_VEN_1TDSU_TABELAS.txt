@@ -245,7 +245,8 @@ CREATE TABLE T_AM_HBV_QUARTO (
   nr_quarto      NUMBER(4) NOT NULL,
   cd_tipo_quarto NUMBER(2) NOT NULL,
   nr_andar       NUMBER(2) NOT NULL,
-  nr_capacidade  NUMBER(1) NOT NULL
+  nr_capacidade  NUMBER(1) NOT NULL,
+  status         CHAR(1) NOT NULL
 );
 
 ALTER TABLE     T_AM_HBV_QUARTO 
@@ -356,7 +357,8 @@ ALTER TABLE T_AM_HBV_TIPO_LOGRADOURO ADD CONSTRAINT UN_AM_HBV_TIPO_LOG UNIQUE ( 
 CREATE TABLE T_AM_HBV_TIPO_QUARTO (
   cd_tipo_quarto NUMBER(2) NOT NULL,
   ds_tipo_quarto VARCHAR2(25) NOT NULL,
-  ds_observacao   VARCHAR2(128)
+  ds_observacao VARCHAR2(25) NULL,
+  vl_quarto   NUMBER(6,2) NOT NULL
 );
   
 ALTER TABLE     T_AM_HBV_TIPO_QUARTO 
