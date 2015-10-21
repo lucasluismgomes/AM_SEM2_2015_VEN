@@ -16,13 +16,15 @@ function arrumarCol(qtd){
 	
 }
 
-function tagQuarto(qtdQuartos){
+function tagQuarto(qtdQuartos, numeroQuarto){
 	
 	return "<div class='col-sm-6 col-md-4 col-md-offset-"+arrumarCol(qtdQuartos)+"'>\
 			<div class='thumbnail'>\
 			<img\
 				src='http://waldorfastoria3.hilton.com/resources/media/wa/BERWAWA/en_US/img/hotel/roomtypeimages/large/WA_presidentialsuite04_2.jpg'\
 				alt=''>\
+				<input type='hidden' name='numeroQuarto' class='numeroQuarto' value='"+numeroQuarto+"'/>\
+				<input type='hidden' name='tipoQuarto"+numeroQuarto+"' class='tipoQuarto' value='1' />\
 			<div class='caption'>\
 				<h3>Standard</h3>\
 				<div class='form-group'>\
@@ -44,7 +46,7 @@ function tagQuarto(qtdQuartos){
 					<div class='input-group'>\
 						<span class='input-group-addon'><i\
 							class='fa fa-user'></i></span> <select\
-							name='qtdPessoa' class='form-control qtdPessoas'>\
+							name='qtdPessoasQuarto"+numeroQuarto+"' class='form-control qtdPessoas'>\
 							<option value='0'>Quantidade de adultos</option>\
 							<option value='1'>1</option>\
 							<option value='2'>2</option>\
@@ -70,32 +72,36 @@ function atualizaQuartos(element){
 	
 	switch($input.val()){
 	case "S":
+		element.parent().parent().parent().parent().find(".tipoQuarto").val(1);
 		element.parent().parent().parent().find("h3").html("Standard");
 		element.parent().parent().parent().parent().find("img").attr("src",imgHoteis[0]);
 		break;
-	case "M":	
+	case "M":
+		element.parent().parent().parent().parent().find(".tipoQuarto").val(2);
 		element.parent().parent().parent().find("h3").html("Master");
 		element.parent().parent().parent().parent().find("img").attr("src",imgHoteis[1]);
 		break;
-	case "L":	
+	case "L":
+		element.parent().parent().parent().parent().find(".tipoQuarto").val(3);
 		element.parent().parent().parent().find("h3").html("Luxo");
 		element.parent().parent().parent().parent().find("img").attr("src",imgHoteis[2]);
 		break;
-	case "ML":		
+	case "ML":
+		element.parent().parent().parent().parent().find(".tipoQuarto").val(4);
 		element.parent().parent().parent().find("h3").html("Master Luxo");
 		element.parent().parent().parent().parent().find("img").attr("src",imgHoteis[3]);
 		break;
 	}	
 }
 
-function tagSelectCriancas(qtdPessoas){
+function tagSelectCriancas(qtdPessoas,numeroQuarto){
 	if(qtdPessoas == 0){
 		return "";		
 	}else{	
 	var tag = "<div class='input-group'>\
 	<span class='input-group-addon' id='basic-addon1'><i\
 	class='fa fa-users'></i> </i></span> <select\
-	name='qtdcriancas' class='form-control qtdCriancas'>\
+	name='qtdcriancasQuarto"+numeroQuarto+"' class='form-control qtdCriancas'>\
 	<option value=''>Quantidade de crianças</option>";
 	
 	var qtdCriancas = 4 - qtdPessoas;
@@ -116,7 +122,7 @@ function tagSelectCriancas(qtdPessoas){
 }
 
 
-function tagIdadeCriancas(qtdCriancas){
+function tagIdadeCriancas(qtdCriancas,numeroQuarto){
 	if(qtdCriancas == 0){
 		return "";		
 	}else{	
@@ -124,7 +130,7 @@ function tagIdadeCriancas(qtdCriancas){
 	
 	for(i=1;i<=qtdCriancas;i++){
 		tag = tag + "<select\
-		name='idadeCrianca' class='form-control '>\
+		name='idadeCrianca"+i+"Quarto"+numeroQuarto+"' class='form-control '>\
 				<option value='0'>0</option>\
 				<option value='1'>1</option>\
 				<option value='2'>2</option>\
@@ -142,24 +148,27 @@ $(document).ready(function(){
 		$("#secaoQuartos").html('');
 		var qtdQuartos = $("#qtdQuartos option:selected").val();
 
-		for(i = 0; i < qtdQuartos; i++){
-			$("#secaoQuartos").append(tagQuarto(qtdQuartos));					
+		for(i = 1; i <= qtdQuartos; i++){
+			$("#secaoQuartos").append(tagQuarto(qtdQuartos,i));					
 		}
 		
 		$(".caption .btn").click(function(){
 			atualizaQuartos($(this));			
 		});
 		$(".qtdPessoas").change(function(){
-			$(this).parent().siblings(".criancas-section").html(tagSelectCriancas($(this).val()));
+			var numeroQuarto  = $(this).parent().parent().parent().parent().find(".numeroQuarto").val();
+			
+			$(this).parent().siblings(".criancas-section").html(tagSelectCriancas($(this).val(),numeroQuarto));
 			$(".qtdCriancas").change(function(){
-				$(this).parent().siblings(".idadeCriancas").html(tagIdadeCriancas($(this).val()));
+				$(this).parent().siblings(".idadeCriancas").html(tagIdadeCriancas($(this).val(),numeroQuarto));
 			});
 		});
 	});
 	$(".qtdPessoas").change(function(){
-		$(this).parent().siblings(".criancas-section").html(tagSelectCriancas($(this).val()));
+		var numeroQuarto  = $(this).parent().parent().parent().parent().find(".numeroQuarto").val();
+		$(this).parent().siblings(".criancas-section").html(tagSelectCriancas($(this).val(),numeroQuarto));
 		$(".qtdCriancas").change(function(){
-			$(this).parent().siblings(".idadeCriancas").html(tagIdadeCriancas($(this).val()));
+			$(this).parent().siblings(".idadeCriancas").html(tagIdadeCriancas($(this).val(),numeroQuarto));
 		});
 	});
 	$(".caption .btn").click(function(){

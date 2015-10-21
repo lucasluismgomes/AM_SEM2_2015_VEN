@@ -19,9 +19,9 @@ public class Reserva {
 	private Calendar dtSaida;
 	private short qtAdulto;
 	private short qtCrianca;
-	private double vlReserva;
 	private List<Quarto> quarto;
 	private String observacao;
+	private double vlReserva;
 	
 	public Reserva() {
 		super();

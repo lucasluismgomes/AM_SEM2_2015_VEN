@@ -1,10 +1,14 @@
 package br.com.fiap.am.ltp.testes;
 
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import br.com.fiap.am.ltp.beans.Quarto;
 import br.com.fiap.am.ltp.beans.TipoQuarto;
+import br.com.fiap.am.ltp.bo.QuartoBO;
 import br.com.fiap.am.ltp.bo.TipoQuartoBO;
 import br.com.fiap.am.ltp.conexao.ConexaoFactory;
 import br.com.fiap.am.ltp.excecoes.Excecao;
@@ -26,6 +30,7 @@ public static void main(String[] args) throws Excecao {
 					tipoQuarto = new TipoQuarto();
 
 					tipoQuarto.setNomeTipo(JOptionPane.showInputDialog("Digite o nome do tipo de Quarto"));
+					tipoQuarto.setDescricao(JOptionPane.showInputDialog("Digite as observações/descrições do tipo de Quarto"));
 					tipoQuarto.setValor(Double.parseDouble(JOptionPane.showInputDialog("Digite o valor do tipo de Quarto")));
 
 					TipoQuartoBO.gravar(tipoQuarto, conexao);
@@ -33,11 +38,64 @@ public static void main(String[] args) throws Excecao {
 					conexao.setAutoCommit(true);
 				} while (JOptionPane.showConfirmDialog(null, "Deseja testar o cadastro novamente?") == 1);
 			} else if (funcionalidade == 2) {
-				// Código de edição
+				
+				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74803", "071195");
+				conexao.setAutoCommit(false);
+				TipoQuarto tipoQuarto = new TipoQuarto();
+
+				do {
+					tipoQuarto = new TipoQuarto();
+
+					tipoQuarto.setCodigo(Integer
+							.parseInt(JOptionPane.showInputDialog("Digite o código do Tipo de Quarto que será atualizado")));
+					tipoQuarto.setNomeTipo(JOptionPane.showInputDialog("Digite o novo nome do tipo de quarto"));
+					tipoQuarto.setDescricao(JOptionPane.showInputDialog("Digite a nova descrição do tipo de quarto"));
+					tipoQuarto.setValor(Double.parseDouble(JOptionPane.showInputDialog("Digite o novo valor do tipo de quarto")));
+					
+
+					TipoQuartoBO.editar(tipoQuarto, conexao);
+
+					conexao.commit();
+					conexao.setAutoCommit(true);
+					
+					TipoQuartoBO.buscarPorCodigo(tipoQuarto.getCodigo(), conexao);
+
+					System.out.println("\n\nCódigo: " + tipoQuarto.getCodigo() + "\nNomeTipo: " + tipoQuarto.getNomeTipo() 
+							+ "\nValor: "	+ tipoQuarto.getValor());
+					
+				} while (JOptionPane.showInputDialog("Deseja atualizar mais? Digite 1").equals("1"));
 			} else if (funcionalidade == 3) {
-				// Código de consulta
+				
+				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74803", "071195");
+
+				List<TipoQuarto> lstTipoQuarto = new ArrayList<TipoQuarto>();
+
+				lstTipoQuarto = TipoQuartoBO.buscarTodos(conexao);
+
+				for (TipoQuarto tipoQuarto : lstTipoQuarto) {
+					System.out.println("\n\nCódigo: " + tipoQuarto.getCodigo() + "\nNomeTipo: " + tipoQuarto.getNomeTipo() 
+							+ "\nValor: "	+ tipoQuarto.getValor());
+				}
+				
 			} else if (funcionalidade == 4) {
-				// Código de deletar
+				
+				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74803", "071195");
+				conexao.setAutoCommit(false);
+				TipoQuarto tipoQuarto = new TipoQuarto();
+
+				do {
+					tipoQuarto = new TipoQuarto();
+
+					tipoQuarto.setCodigo(Integer
+							.parseInt(JOptionPane.showInputDialog("Digite o código do Tipo de Quarto que será excluído?")));
+
+					int codigo = tipoQuarto.getCodigo();
+
+					TipoQuartoBO.excluir(codigo, conexao);
+
+					conexao.commit();
+					conexao.setAutoCommit(true);
+				} while (JOptionPane.showInputDialog("Deseja excluir mais? Digite 1").equals("1"));
 			} else if (funcionalidade == 5) {
 				
 				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74803", "071195");
