@@ -46,8 +46,6 @@
 								placeholder="__/__/__" type="date" required=""> <span
 								class="input-group-addon">Data saída</span>
 						</div>
-
-
 					</div>
 				</div>
 
@@ -72,6 +70,8 @@
 								<img
 									src="http://waldorfastoria3.hilton.com/resources/media/wa/BERWAWA/en_US/img/hotel/roomtypeimages/large/WA_presidentialsuite04_2.jpg"
 									alt="">
+								<input type="hidden" name="numeroQuarto" class="numeroQuarto" value="1"/>
+								<input type="hidden" name="tipoQuarto1" class="tipoQuarto" value="1"/>
 								<div class="caption">
 									<h3>Standard</h3>
 									<div class="form-group">
@@ -93,7 +93,7 @@
 										<div class="input-group">
 											<span class="input-group-addon" id="basic-addon1"><i
 												class='fa fa-user'></i></span> <select
-												name="qtdPessoa" class="form-control qtdPessoas">
+												name="qtdPessoasQuarto1" class="form-control qtdPessoas">
 												<option value="0">Quantidade de adultos</option>
 												<option value="1">1</option>
 												<option value="2">2</option>
