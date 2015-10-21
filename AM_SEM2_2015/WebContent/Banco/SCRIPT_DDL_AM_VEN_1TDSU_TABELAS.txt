@@ -279,7 +279,7 @@ UNIQUE          (nm_status);
 CREATE TABLE T_AM_HBV_RESERVA (
   cd_reserva        NUMBER(8) NOT NULL,
   cd_cliente        NUMBER(8) NOT NULL,
-  cd_funcionario    NUMBER(8) NOT NULL,
+  cd_funcionario    NUMBER(8) NULL,
   dt_solicitacao    DATE NOT NULL,
   dt_inicio_reserva DATE NOT NULL,
   dt_final_reserva  DATE NOT NULL,

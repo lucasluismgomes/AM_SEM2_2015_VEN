@@ -206,4 +206,45 @@ public class TelefoneDAO {
 			throw new Excecao(e);
 		}
 	}
+	
+	/**
+	 * Verifica se os dados de um telefone já existem no banco de dados.
+	 * 
+	 * @author Lucas 74795
+	 * @since 1.0
+	 * @param telefone
+	 * 			O telefone que está sendo verificado.
+	 * @param conexao
+	 * 			As credenciais da conexão.
+	 * @return <code>existe</code> Retorna <code>True</code> se já existir, e <code>False</code> caso não exista.
+	 * @throws Exception
+	 * @see Telefone, TelefoneBO
+	 */
+	public boolean verificarExistencia(Telefone telefone, Connection conexao) throws Exception {
+		try {
+			sql = "SELECT  T.NR_DDD,T.NR_TELEFONE "
+					+	"FROM T_AM_HBV_TELEFONE T "
+					+	"WHERE T.NR_DDD = ? AND T.NR_TELEFONE = ?";
+			estrutura = conexao.prepareStatement(sql);
+			estrutura.setShort(1, telefone.getDdd());
+			estrutura.setLong(2, telefone.getNumero());
+
+			rs = estrutura.executeQuery();
+			
+			boolean existe;
+			
+			if(rs.next()) {
+				existe = true;
+			} else {
+				existe = false;
+			}
+			
+			estrutura.close();
+			
+			return existe;
+			
+		} catch (Exception e) {
+			throw new Excecao(e);
+		}
+	}
 }

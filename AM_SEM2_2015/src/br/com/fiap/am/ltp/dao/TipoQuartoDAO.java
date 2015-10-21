@@ -36,10 +36,10 @@ public class TipoQuartoDAO {
 	public void gravar(TipoQuarto tipoQuarto, Connection conexao) throws Exception {
 		try {
 			sql = "INSERT INTO T_AM_HBV_TIPO_QUARTO VALUES(SQ_AM_TIPO_QUARTO.NEXTVAL,?,?)";
+			estrutura = conexao.prepareStatement(sql);
 			estrutura.setString(1, tipoQuarto.getNomeTipo());
 			estrutura.setDouble(2, tipoQuarto.getValor());
-			estrutura = conexao.prepareStatement(sql);
-
+			
 			estrutura.executeQuery();
 			estrutura.close();
 
