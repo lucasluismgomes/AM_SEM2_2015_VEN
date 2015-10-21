@@ -7,7 +7,8 @@ package br.com.fiap.am.ltp.beans;
  * @version 1.0
  * @since 1.0
  */
-public class Estado {
+public class Estado 
+{
 	private int codigo;
 	private String nome;
 	private String sigla;

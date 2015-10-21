@@ -21,6 +21,7 @@ public class CidadeTeste
 	 * @see Cidade,CidadeBO,Estado
 	 */
 	public static void main(String[] args) throws Excecao {
+		Connection conexao = null;
 		try {
 			int funcionalidade = Integer.parseInt(JOptionPane
 					.showInputDialog("Qual funcionalidade deseja testar?\n\n"
@@ -29,7 +30,7 @@ public class CidadeTeste
 							+ "5 - Buscar por ID\n"));
 
 			if (funcionalidade == 1) {
-				Connection conexao = ConexaoFactory.controlarInstancia()
+				conexao = ConexaoFactory.controlarInstancia()
 						.getConnection("OPS$RM74793", "150395");
 
 				do {
@@ -51,7 +52,7 @@ public class CidadeTeste
 				} while (JOptionPane.showConfirmDialog(null,
 						"Deseja testar o cadastro novamente?") == 1);
 			} else if (funcionalidade == 2) {
-				Connection conexao = ConexaoFactory.controlarInstancia()
+				conexao = ConexaoFactory.controlarInstancia()
 						.getConnection("OPS$RM74793", "150395");
 				CidadeBO cidadeBO = new CidadeBO();
 				List<Cidade> lstCidade = cidadeBO.buscarTodos(conexao);
@@ -79,7 +80,7 @@ public class CidadeTeste
 
 			} else if (funcionalidade == 3) {
 				CidadeBO cidadeBO = new CidadeBO();
-				Connection conexao = ConexaoFactory.controlarInstancia()
+				conexao = ConexaoFactory.controlarInstancia()
 						.getConnection("OPS$RM74793", "150395");
 				List<Cidade> lstCidade = cidadeBO.buscarTodos(conexao);
 				for (Cidade cidade : lstCidade) {
@@ -88,7 +89,7 @@ public class CidadeTeste
 							+ " SIGLA: " + cidade.getEstado().getSigla());
 				}
 			} else if (funcionalidade == 4) {
-				Connection conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74793", "150395");
+				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74793", "150395");
 				CidadeBO cidadeBO = new CidadeBO();
 				List<Cidade> lstCidade = cidadeBO.buscarTodos(conexao);
 				
@@ -110,7 +111,7 @@ public class CidadeTeste
 					System.out.println("Não Deletou!");
 				}
 			} else if (funcionalidade == 5) {
-				Connection conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74793", "150395");
+				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74793", "150395");
 				CidadeBO cidadeBO = new CidadeBO();
 				Cidade c = new Cidade();
 				c.setNome(JOptionPane.showInputDialog("Pesquisa por nome de cidade"));
@@ -129,6 +130,12 @@ public class CidadeTeste
 			}
 		} catch (Exception e) {
 			throw new Excecao(e);
+		} finally {
+			try {
+				conexao.close();
+			} catch (Exception e) {
+				throw new Excecao(e);
+			}
 		}
 	}
 }
