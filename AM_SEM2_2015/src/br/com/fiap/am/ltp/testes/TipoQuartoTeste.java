@@ -39,7 +39,31 @@ public static void main(String[] args) throws Excecao {
 				} while (JOptionPane.showConfirmDialog(null, "Deseja testar o cadastro novamente?") == 1);
 			} else if (funcionalidade == 2) {
 				
-				// Código de edição
+				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74803", "071195");
+				conexao.setAutoCommit(false);
+				TipoQuarto tipoQuarto = new TipoQuarto();
+
+				do {
+					tipoQuarto = new TipoQuarto();
+
+					tipoQuarto.setCodigo(Integer
+							.parseInt(JOptionPane.showInputDialog("Digite o código do Tipo de Quarto que será atualizado")));
+					tipoQuarto.setNomeTipo(JOptionPane.showInputDialog("Digite o novo nome do tipo de quarto"));
+					tipoQuarto.setDescricao(JOptionPane.showInputDialog("Digite a nova descrição do tipo de quarto"));
+					tipoQuarto.setValor(Double.parseDouble(JOptionPane.showInputDialog("Digite o novo valor do tipo de quarto")));
+					
+
+					TipoQuartoBO.editar(tipoQuarto, conexao);
+
+					conexao.commit();
+					conexao.setAutoCommit(true);
+					
+					TipoQuartoBO.buscarPorCodigo(tipoQuarto.getCodigo(), conexao);
+
+					System.out.println("\n\nCódigo: " + tipoQuarto.getCodigo() + "\nNomeTipo: " + tipoQuarto.getNomeTipo() 
+							+ "\nValor: "	+ tipoQuarto.getValor());
+					
+				} while (JOptionPane.showInputDialog("Deseja atualizar mais? Digite 1").equals("1"));
 			} else if (funcionalidade == 3) {
 				
 				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74803", "071195");
@@ -55,7 +79,23 @@ public static void main(String[] args) throws Excecao {
 				
 			} else if (funcionalidade == 4) {
 				
-				// Código de deletar
+				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74803", "071195");
+				conexao.setAutoCommit(false);
+				TipoQuarto tipoQuarto = new TipoQuarto();
+
+				do {
+					tipoQuarto = new TipoQuarto();
+
+					tipoQuarto.setCodigo(Integer
+							.parseInt(JOptionPane.showInputDialog("Digite o código do Tipo de Quarto que será excluído?")));
+
+					int codigo = tipoQuarto.getCodigo();
+
+					TipoQuartoBO.excluir(codigo, conexao);
+
+					conexao.commit();
+					conexao.setAutoCommit(true);
+				} while (JOptionPane.showInputDialog("Deseja excluir mais? Digite 1").equals("1"));
 			} else if (funcionalidade == 5) {
 				
 				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74803", "071195");

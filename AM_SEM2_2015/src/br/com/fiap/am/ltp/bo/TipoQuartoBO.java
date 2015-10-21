@@ -33,7 +33,7 @@ public class TipoQuartoBO {
 	 */
 	public static void gravar(TipoQuarto tipoQuarto, Connection conexao) throws Exception {
 		if (tipoQuarto.getNomeTipo().length() < 3) {
-			throw new Excecao("Caracteres insuficientes no nome do tipo de quarto");
+			throw new Excecao("Caracteres insuficientes no nome do tipo de quarto.");
 		}
 
 		new TipoQuartoDAO().gravar(tipoQuarto, conexao);
@@ -53,7 +53,7 @@ public class TipoQuartoBO {
 	 */
 	public static void editar(TipoQuarto tipoQuarto, Connection conexao) throws Exception {
 		if (tipoQuarto.getNomeTipo().length() < 3) {
-			throw new Excecao("O andar não confere.");
+			throw new Excecao("Caracteres insuficientes no nome do tipo de quarto.");
 		}
 
 		new TipoQuartoDAO().editar(tipoQuarto, conexao);

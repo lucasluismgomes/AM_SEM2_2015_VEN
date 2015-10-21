@@ -69,11 +69,12 @@ public class TipoQuartoDAO {
 	public void editar(TipoQuarto tipoQuarto, Connection conexao) throws Exception {
 		try {
 
-			sql = "UPDATE T_AM_HBV_TIPO_QUARTO SET DS_TIPO_QUARTO = ?, DS_OBSERVACAO = ?, VL_QUARTO = ? WHERE NR_QUARTO = ?";
+			sql = "UPDATE T_AM_HBV_TIPO_QUARTO SET DS_TIPO_QUARTO = ?, DS_OBSERVACAO = ?, VL_QUARTO = ? WHERE CD_TIPO_QUARTO = ?";
 			estrutura = conexao.prepareStatement(sql);
 			estrutura.setString(1, tipoQuarto.getNomeTipo());
-			estrutura.setString(1, tipoQuarto.getDescricao());
-			estrutura.setDouble(1, tipoQuarto.getValor());
+			estrutura.setString(2, tipoQuarto.getDescricao());
+			estrutura.setDouble(3, tipoQuarto.getValor());
+			estrutura.setDouble(4, tipoQuarto.getCodigo());
 
 			estrutura.executeQuery();
 			estrutura.close();
