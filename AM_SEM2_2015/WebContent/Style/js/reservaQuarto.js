@@ -1,3 +1,65 @@
+function arrumarCol(qtd){
+	switch(qtd){
+	case "1":
+		return 4;
+	break;
+	case "2":
+		return 1;
+	break;
+	case "3":
+		return 0;
+	break;
+	case "4":
+		return 1;
+	break;
+	}
+	
+}
+
+function tagQuarto(qtdQuartos){
+	
+	return "<div class='col-sm-6 col-md-4 col-md-offset-"+arrumarCol(qtdQuartos)+"'>\
+			<div class='thumbnail'>\
+			<img\
+				src='http://waldorfastoria3.hilton.com/resources/media/wa/BERWAWA/en_US/img/hotel/roomtypeimages/large/WA_presidentialsuite04_2.jpg'\
+				alt=''>\
+			<div class='caption'>\
+				<h3>Standard</h3>\
+				<div class='form-group'>\
+					<div class='btn-group-xs' data-toggle='buttons'>\
+						<label class='btn btn-primary active'> <input\
+							type='radio' name='options' value='S' autocomplete='off'\
+							checked> Standard\
+						</label> <label class='btn btn-primary'> <input type='radio'\
+							name='options' value='M' autocomplete='off'> Master \
+						</label> <label class='btn btn-primary'> <input type='radio'\
+							name='options' value='L' autocomplete='off'> Luxo\
+						</label> <label class='btn btn-primary'> <input type='radio'\
+							name='options' value='ML' autocomplete='off'> Master\
+							Luxo\
+						</label>\
+					</div>\
+				</div>\
+				<div class='form-group'>\
+					<div class='input-group'>\
+						<span class='input-group-addon'><i\
+							class='fa fa-user'></i></span> <select\
+							name='qtdPessoa' class='form-control qtdPessoas'>\
+							<option value='0'>Quantidade de adultos</option>\
+							<option value='1'>1</option>\
+							<option value='2'>2</option>\
+							<option value='3'>3</option>\
+							<option value='4'>4</option>\
+						</select>\
+					</div>\
+					<div class='criancas-section'>\
+					</div>\
+				</div>\
+			</div>\
+		</div>\
+	</div>";
+}
+
 function atualizaQuartos(element){
 	var imgHoteis = ['./Style/img/quartos/FuradouroBoutiqueHotel_quarto.jpg',
 	                 './Style/img/quartos/HTSP_SuitePresidencial1.jpg',
@@ -27,9 +89,12 @@ function atualizaQuartos(element){
 }
 
 function tagSelectCriancas(qtdPessoas){
+	if(qtdPessoas == 0){
+		return "";		
+	}else{	
 	var tag = "<div class='input-group'>\
 	<span class='input-group-addon' id='basic-addon1'><i\
-	class='fa fa-child'></i> </i></span> <select\
+	class='fa fa-users'></i> </i></span> <select\
 	name='qtdcriancas' class='form-control qtdCriancas'>\
 	<option value=''>Quantidade de crianças</option>";
 	
@@ -47,15 +112,19 @@ function tagSelectCriancas(qtdPessoas){
 				</div>";
 	
 	return tag;
+	}
 }
 
 
 function tagIdadeCriancas(qtdCriancas){
-	var tag = "";
+	if(qtdCriancas == 0){
+		return "";		
+	}else{	
+	var tag = "<label class='control-label'>Idade das crianças</label><br><div class='input-group idadeCrianca'>";
 	
 	for(i=1;i<=qtdCriancas;i++){
 		tag = tag + "<select\
-		name='idadeCrianca' class='form-control idadeCrianca col-md-4'>\
+		name='idadeCrianca' class='form-control '>\
 				<option value='0'>0</option>\
 				<option value='1'>1</option>\
 				<option value='2'>2</option>\
@@ -64,101 +133,33 @@ function tagIdadeCriancas(qtdCriancas){
 				<option value='5'>5</option>\
 				</select>"
 	}
-	return tag;
+	return tag + "<span class='input-group-addon' id='basic-addon1'><i class='fa fa-child'></i></span></div>";
+	}
 }
 $(document).ready(function(){
 
 	$("#qtdQuartos").change(function(){
 		$("#secaoQuartos").html('');
 		var qtdQuartos = $("#qtdQuartos option:selected").val();
-		var count;
-		var h = 400;
-		switch(qtdQuartos){
-		case "1":
-			count = 4;
-			h = 400;
-		break;
-		case "2":
-			count = 1;
-		break;
-		case "3":
-			count = 0;
-		break;
-		case "4":
-			count = 1;
-			h = 800;
-		break;
-		}
-		$("#secaoQuartos").height(h);
+
 		for(i = 0; i < qtdQuartos; i++){
-			$("#secaoQuartos").append("<div class='col-sm-4 col-md-4 col-md-offset-"+count+"'>\
-							<div class='thumbnail'>\
-								<img \
-									src='http://waldorfastoria3.hilton.com/resources/media/wa/BERWAWA/en_US/img/hotel/roomtypeimages/large/WA_presidentialsuite04_2.jpg'\
-									alt=''>\
-								<div class='caption'>\
-									<h3>Standard</h3>\
-									<div class='form-group'>\
-										<div class='btn-group' data-toggle='buttons'>\
-											<label class='btn btn-primary active' > <input\
-												type='radio' name='options' value='S' autocomplete='off'\
-												checked> Standard\
-											</label> <label class='btn btn-primary' > <input type='radio'\
-												name='options' value='M' autocomplete='off'>\
-												Master\
-											</label> <label class='btn btn-primary'> <input type='radio'\
-												name='options' value='L' autocomplete='off'>\
-												Luxo\
-											</label>\
-											<label class='btn btn-primary'> <input type='radio'\
-												name='options' value='ML' autocomplete='off'>\
-												Master Luxo\
-											</label>\
-										</div>\
-									</div>\
-									<div class='form-group'>\
-										<div class='input-group'>\
-											<span class='input-group-addon' id='basic-addon1'><i\
-												class='fa fa-users'></i></span> <select id='qtdPessoa'\
-												name='qtdPessoa' class='form-control'>\
-												<option value='1'>1</option>\
-												<option value='2'>2</option>\
-												<option value='3'>3</option>\
-												<option value='4'>4</option>\
-											</select>\
-										</div>\
-									</div>\
-									<div class='criancas-section'>\
-											<div class='input-group'>\
-												<span class='input-group-addon' id='basic-addon1'><i\
-													class='fa fa-child'></i> </i></span> <select\
-													name='qtdcriancas' class='form-control qtdCriancas'>\
-													<option value='1'>1</option>\
-													<option value='2'>2</option>\
-													<option value='3'>3</option>\
-													<option value='4'>4</option>\
-												</select>\
-											</div>\
-									</div>\
-									<div class='idadeCriancas'>\
-									<\div>\
-								</div>\
-							</div>\
-						</div>");					
+			$("#secaoQuartos").append(tagQuarto(qtdQuartos));					
 		}
 		
 		$(".caption .btn").click(function(){
 			atualizaQuartos($(this));			
 		});
 		$(".qtdPessoas").change(function(){
+			$(this).parent().siblings(".criancas-section").html(tagSelectCriancas($(this).val()));
+			$(".qtdCriancas").change(function(){
+				$(this).parent().siblings(".idadeCriancas").html(tagIdadeCriancas($(this).val()));
+			});
 		});
 	});
 	$(".qtdPessoas").change(function(){
-		//alert("ds");
 		$(this).parent().siblings(".criancas-section").html(tagSelectCriancas($(this).val()));
 		$(".qtdCriancas").change(function(){
-			$(this).parent().siblings(".idadeCriancas").html("Idade das crianças: " + tagIdadeCriancas($(this).val()));
-			
+			$(this).parent().siblings(".idadeCriancas").html(tagIdadeCriancas($(this).val()));
 		});
 	});
 	$(".caption .btn").click(function(){

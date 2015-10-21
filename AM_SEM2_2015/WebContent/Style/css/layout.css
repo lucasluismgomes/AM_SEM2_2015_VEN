@@ -60,3 +60,8 @@ html,body {
 	text-align: center;
 	margin : 0;
 }
+
+.idadeCrianca{
+	float: left;	
+	margin : 5% 1%;
+}
