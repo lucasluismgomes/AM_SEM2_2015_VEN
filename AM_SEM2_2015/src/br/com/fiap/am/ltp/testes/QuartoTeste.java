@@ -63,7 +63,18 @@ public class QuartoTeste {
 			} else if (funcionalidade == 4) {
 				// Código de deletar
 			} else if (funcionalidade == 5) {
-				// Código de buscar por código
+
+				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74803", "071195");
+
+				Quarto quarto = new Quarto();
+
+				int codigo = Integer.parseInt(JOptionPane.showInputDialog("Qual quarto deseja buscar?"));
+
+				quarto = QuartoBO.buscarPorCodigo(codigo, conexao);
+
+				System.out.println("Número do quarto: " + quarto.getCodigo() + "\nNome do Tipo de Quarto: " + quarto.getTipo().getNomeTipo() 
+						+ "\nAndar: "	+ quarto.getNrAndar() + "\nCapacidade: "	+ quarto.getNrCapacidade()
+						+ "\nCapacidade: " + (quarto.getStatus() == false ? "Ocupado" : "Disponível"));
 			} else {
 				JOptionPane.showMessageDialog(null, "Essa funcionalidade não existe! Tente novamente");
 			}

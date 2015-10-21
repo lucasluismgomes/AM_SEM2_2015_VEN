@@ -119,7 +119,7 @@ public class QuartoDAO {
 		try {
 			sql = "SELECT 	NR_QUARTO, " + "CD_TIPO_QUARTO, " + "NR_ANDAR, " + "NR_CAPACIDADE, " + "STATUS "
 					+ "FROM T_AM_HBV_QUARTO"
-					+ "WHERE NR_QUARTO = ?";
+					+ " WHERE NR_QUARTO = ?";
 			estrutura = conexao.prepareStatement(sql);
 			estrutura.setInt(1, codigo);
 
