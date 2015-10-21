@@ -5,8 +5,10 @@ import java.util.List;
 
 import br.com.fiap.am.ltp.beans.Cliente;
 import br.com.fiap.am.ltp.beans.Quarto;
+import br.com.fiap.am.ltp.beans.TipoQuarto;
 import br.com.fiap.am.ltp.dao.ClienteDAO;
 import br.com.fiap.am.ltp.dao.QuartoDAO;
+import br.com.fiap.am.ltp.dao.TipoQuartoDAO;
 import br.com.fiap.am.ltp.excecoes.Excecao;
 
 /**
@@ -40,7 +42,7 @@ public class QuartoBO {
 	}
 	
 	/**
-	 * Busca todos os clientes cadastrados no banco de dados.
+	 * Busca todos os quartos cadastrados no banco de dados.
 	 * 
 	 * @author Estevão 74803
 	 * @since 1.0
@@ -52,5 +54,22 @@ public class QuartoBO {
 	 */
 	public static List<Quarto> buscarTodos(Connection conexao) throws Exception {
 		return new QuartoDAO().buscarTodos(conexao);
+	}
+	
+	/**
+	 * Busca um Quarto especifico no banco de dados.
+	 * 
+	 * @author Estevão 74803
+	 * @since 1.0
+	 * @param codigo
+	 *            O codigo do Quarto que está sendo buscado.
+	 * @param conexao
+	 *            As credenciais da conexão.
+	 * @return quarto
+	 * @throws Exception
+	 * @see Quarto, QuartoDAO
+	 */
+	public static Quarto buscarPorCodigo(int codigo, Connection conexao) throws Exception {
+		return new QuartoDAO().buscarPorCodigo(codigo, conexao);
 	}
 }

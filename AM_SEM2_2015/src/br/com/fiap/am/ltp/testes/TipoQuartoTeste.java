@@ -1,10 +1,14 @@
 package br.com.fiap.am.ltp.testes;
 
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import br.com.fiap.am.ltp.beans.Quarto;
 import br.com.fiap.am.ltp.beans.TipoQuarto;
+import br.com.fiap.am.ltp.bo.QuartoBO;
 import br.com.fiap.am.ltp.bo.TipoQuartoBO;
 import br.com.fiap.am.ltp.conexao.ConexaoFactory;
 import br.com.fiap.am.ltp.excecoes.Excecao;
@@ -35,7 +39,18 @@ public static void main(String[] args) throws Excecao {
 			} else if (funcionalidade == 2) {
 				// Código de edição
 			} else if (funcionalidade == 3) {
-				// Código de consulta
+				
+				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74803", "071195");
+
+				List<TipoQuarto> lstTipoQuarto = new ArrayList<TipoQuarto>();
+
+				lstTipoQuarto = TipoQuartoBO.buscarTodos(conexao);
+
+				for (TipoQuarto tipoQuarto : lstTipoQuarto) {
+					System.out.println("Código: " + tipoQuarto.getCodigo() + "\nNomeTipo: " + tipoQuarto.getNomeTipo() 
+							+ "\nValor: "	+ tipoQuarto.getValor());
+				}
+				
 			} else if (funcionalidade == 4) {
 				// Código de deletar
 			} else if (funcionalidade == 5) {

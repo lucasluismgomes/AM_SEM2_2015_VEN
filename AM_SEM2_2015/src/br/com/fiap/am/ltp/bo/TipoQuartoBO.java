@@ -1,8 +1,11 @@
 package br.com.fiap.am.ltp.bo;
 
 import java.sql.Connection;
+import java.util.List;
 
+import br.com.fiap.am.ltp.beans.Quarto;
 import br.com.fiap.am.ltp.beans.TipoQuarto;
+import br.com.fiap.am.ltp.dao.QuartoDAO;
 import br.com.fiap.am.ltp.dao.TipoQuartoDAO;
 import br.com.fiap.am.ltp.excecoes.Excecao;
 
@@ -34,6 +37,21 @@ public class TipoQuartoBO {
 		}
 
 		new TipoQuartoDAO().gravar(tipoQuarto, conexao);
+	}
+	
+	/**
+	 * Busca todos os tipos de quartos cadastrados no banco de dados.
+	 * 
+	 * @author Estevão 74803
+	 * @since 1.0
+	 * @param conexao
+	 *            As credenciais da conexão.
+	 * @return lstTipoQuarto
+	 * @throws Exception
+	 * @see TipoQuarto, TipoQuartoDAO
+	 */
+	public static List<TipoQuarto> buscarTodos(Connection conexao) throws Exception {
+		return new TipoQuartoDAO().buscarTodos(conexao);
 	}
 	
 	/**
