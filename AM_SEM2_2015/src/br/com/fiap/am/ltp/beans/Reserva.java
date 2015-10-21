@@ -1,6 +1,7 @@
 package br.com.fiap.am.ltp.beans;
 
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Descrição da classe/método
@@ -12,31 +13,36 @@ import java.util.Calendar;
 public class Reserva {
 	private int codigo;
 	private Cliente cliente;
+	private Funcionario funcionario;
 	private Status status;
 	private Calendar dtEntrada;
 	private Calendar dtSaida;
-	private int qtHospedes;
-	private int qtQuartos;
+	private short qtAdulto;
+	private short qtCrianca;
 	private double vlReserva;
-	private Quarto quarto;
+	private List<Quarto> quarto;
+	private String observacao;
 	
 	public Reserva() {
 		super();
 	}
 
-	public Reserva(int codigo, Cliente cliente, Status status,
-			Calendar dtEntrada, Calendar dtSaida, int qtHospedes,
-			int qtQuartos, double vlReserva, Quarto quarto) {
+	public Reserva(int codigo, Cliente cliente, Funcionario funcionario,
+			Status status, Calendar dtEntrada, Calendar dtSaida,
+			short qtAdulto, short qtCrianca, double vlReserva,
+			List<Quarto> quarto, String observacao) {
 		super();
 		this.codigo = codigo;
 		this.cliente = cliente;
+		this.funcionario = funcionario;
 		this.status = status;
 		this.dtEntrada = dtEntrada;
 		this.dtSaida = dtSaida;
-		this.qtHospedes = qtHospedes;
-		this.qtQuartos = qtQuartos;
+		this.qtAdulto = qtAdulto;
+		this.qtCrianca = qtCrianca;
 		this.vlReserva = vlReserva;
 		this.quarto = quarto;
+		this.observacao = observacao;
 	}
 
 	public int getCodigo() {
@@ -53,6 +59,14 @@ public class Reserva {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	public Funcionario getFuncionario() {
+		return funcionario;
+	}
+
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
 	}
 
 	public Status getStatus() {
@@ -79,20 +93,20 @@ public class Reserva {
 		this.dtSaida = dtSaida;
 	}
 
-	public int getQtHospedes() {
-		return qtHospedes;
+	public short getQtAdulto() {
+		return qtAdulto;
 	}
 
-	public void setQtHospedes(int qtHospedes) {
-		this.qtHospedes = qtHospedes;
+	public void setQtAdulto(short qtAdulto) {
+		this.qtAdulto = qtAdulto;
 	}
 
-	public int getQtQuartos() {
-		return qtQuartos;
+	public short getQtCrianca() {
+		return qtCrianca;
 	}
 
-	public void setQtQuartos(int qtQuartos) {
-		this.qtQuartos = qtQuartos;
+	public void setQtCrianca(short qtCrianca) {
+		this.qtCrianca = qtCrianca;
 	}
 
 	public double getVlReserva() {
@@ -103,11 +117,21 @@ public class Reserva {
 		this.vlReserva = vlReserva;
 	}
 
-	public Quarto getQuarto() {
+	public List<Quarto> getQuarto() {
 		return quarto;
 	}
 
-	public void setQuarto(Quarto quarto) {
+	public void setQuarto(List<Quarto> quarto) {
 		this.quarto = quarto;
 	}
+
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
+	}
+	
+	
 }

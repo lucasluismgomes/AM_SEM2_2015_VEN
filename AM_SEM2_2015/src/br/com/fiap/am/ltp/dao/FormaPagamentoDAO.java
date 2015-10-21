@@ -10,7 +10,7 @@ import br.com.fiap.am.ltp.beans.FormaPagamento;
 import br.com.fiap.am.ltp.excecoes.Excecao;
 
 /**
- * Métodos de acesso ao banco de Forma de Pagamentp. Operações do CRUD 
+ * Métodos de acesso ao banco de Forma de Pagamento. Operações do CRUD 
  * 
  * @author Victor 74820
  * @version 1.0
@@ -67,8 +67,7 @@ public class FormaPagamentoDAO {
 		
 		try{
 			
-			sql = "SELECT CD_TIPO_FORMAPAG," + "DS_FORMAPAG" + " FROM T_AM_HBV_TIPO_FORMAPAG" 
-			+ "ORDER BY CD_TIPO_FORMAPAG";
+			sql = "SELECT CD_TIPO_FORMAPAG," + "DS_FORMAPAG" + " FROM T_AM_HBV_TIPO_FORMAPAG ORDER BY CD_TIPO_FORMAPAG";
 			estrutura = conexao.prepareStatement(sql);
 			
 			rs = estrutura.executeQuery();

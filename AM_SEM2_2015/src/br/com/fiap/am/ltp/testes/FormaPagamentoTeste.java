@@ -1,6 +1,7 @@
 package br.com.fiap.am.ltp.testes;
 
 import java.sql.Connection;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -54,7 +55,11 @@ public class FormaPagamentoTeste {
 			else if(funcionalidade == 3){
 				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74820", "160196");
 								
-				FormaPagamentoBO.buscarTodos(conexao);
+				List<FormaPagamento> lstFormaPag = FormaPagamentoBO.buscarTodos(conexao);
+				
+				for (FormaPagamento formaPag: lstFormaPag) {
+					System.out.println("Código: " + formaPag.getCodigo() + "\nDescrição: " + formaPag.getDescricao());
+				}
 			}
 			
 			else if(funcionalidade == 4){
@@ -79,7 +84,9 @@ public class FormaPagamentoTeste {
 				int codigo = Integer.parseInt(JOptionPane.showInputDialog("Informe o código da Forma de Pagamento "
 						+ "a ser pesquisada"));
 				
-				FormaPagamentoBO.buscarPorCodigo(codigo, conexao);
+				FormaPagamento formaPag = FormaPagamentoBO.buscarPorCodigo(codigo, conexao);
+				
+				System.out.println("Código: " + formaPag.getCodigo() + "\nDescrição: " + formaPag.getDescricao());
 
 				
 			}else {
