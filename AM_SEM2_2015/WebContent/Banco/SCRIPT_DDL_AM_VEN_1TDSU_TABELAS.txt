@@ -155,8 +155,8 @@ PRIMARY KEY     (cd_tipo_quarto, cd_hist_valor);
 
 CREATE TABLE T_AM_HBV_HOSPEDAGEM (
   cd_hospedagem    NUMBER(8) NOT NULL,
-  cd_reserva       NUMBER(8) NOT NULL,
-  nr_quarto        NUMBER(4) NOT NULL,
+  --cd_reserva       NUMBER(8) NOT NULL,
+  --nr_quarto        NUMBER(4) NOT NULL,
   cd_cliente       NUMBER(8) NOT NULL,
   cd_funcionario   NUMBER(8) NOT NULL,
   dt_entrada       DATE NOT NULL,
@@ -463,9 +463,9 @@ REFERENCES T_AM_HBV_FUNCIONARIO ( cd_funcionario )
 ON DELETE CASCADE;
 
 ALTER TABLE T_AM_HBV_HOSPEDAGEM 
-ADD CONSTRAINT FK_AM_HBV_HOSP_RESERVAQTO 
-FOREIGN KEY ( cd_reserva, nr_quarto ) 
-REFERENCES T_AM_HBV_RESERVA_QUARTO ( cd_reserva, nr_quarto )
+ADD CONSTRAINT FK_AM_HBV_HOSP_RESERVA 
+FOREIGN KEY ( cd_hospedagem) 
+REFERENCES T_AM_HBV_RESERVA ( cd_reserva)
 ON DELETE CASCADE;
 
 ALTER TABLE T_AM_HBV_LOGRADOURO 
