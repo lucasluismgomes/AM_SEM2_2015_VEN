@@ -99,5 +99,51 @@ public class QuartoDAO {
 			throw new Excecao(e);
 		}
 	}
+	
+	/**
+	 * Faz a busca de um quarto no banco de dados pelo número do quarto.
+	 * 
+	 * @author Estevão 74803
+	 * @since 1.0
+	 * @param codigo
+	 *            O código do tipo de quarto que está sendo buscado no banco de dados.
+	 * @param conexao
+	 *            As credenciais da conexão.
+	 * @return <code>quarto</code> Dados do quarto com o número especificado.
+	 * @throws Exception
+	 * @see Quarto, QuartoBO
+	 */
+	public Quarto buscarPorCodigo(int codigo, Connection conexao) throws Exception {
+		Quarto quarto = new Quarto();
+
+		try {
+			sql = "SELECT 	NR_QUARTO, " + "CD_TIPO_QUARTO, " + "NR_ANDAR, " + "NR_CAPACIDADE, " + "STATUS "
+					+ "FROM T_AM_HBV_QUARTO"
+					+ "WHERE NR_QUARTO = ?";
+			estrutura = conexao.prepareStatement(sql);
+			estrutura.setInt(1, codigo);
+
+			rs = estrutura.executeQuery();
+
+			if (rs.next()) {
+
+				quarto.setCodigo(Integer.parseInt(rs.getString("NR_QUARTO")));
+				TipoQuarto tq = new TipoQuarto();
+				tq = TipoQuartoBO.buscarPorCodigo(rs.getInt("CD_TIPO_QUARTO"), conexao);
+				quarto.setTipo(tq);
+				quarto.setNrAndar(rs.getInt("NR_ANDAR"));
+				quarto.setNrCapacidade(rs.getShort("NR_CAPACIDADE"));
+				quarto.setStatus(rs.getBoolean("STATUS"));
+			}
+
+			rs.close();
+			estrutura.close();
+
+			return quarto;
+
+		} catch (Exception e) {
+			throw new Excecao(e);
+		}
+	}
 
 }

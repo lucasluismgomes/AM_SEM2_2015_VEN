@@ -3,6 +3,8 @@ package br.com.fiap.am.ltp.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import br.com.fiap.am.ltp.beans.TipoQuarto;
 import br.com.fiap.am.ltp.excecoes.Excecao;
@@ -43,6 +45,47 @@ public class TipoQuartoDAO {
 			estrutura.executeQuery();
 			estrutura.close();
 
+		} catch (Exception e) {
+			throw new Excecao(e);
+		}
+	}
+	
+	/**
+	 * Busca todos os Tipos de quartos que estão no banco de dados.
+	 * 
+	 * @author Estevão 74803
+	 * @since 1.0
+	 * @param conexao
+	 * @return <code>lstTipoQuarto</code> Lista com todos os tipos de quartos no banco de
+	 *         dados.
+	 * @throws Exception
+	 * @see TipoQuarto, TipoQuartoBO
+	 */
+	public List<TipoQuarto> buscarTodos(Connection conexao) throws Exception {
+		List<TipoQuarto> lstTipoQuarto = new ArrayList<TipoQuarto>();
+
+		try {
+			sql = "SELECT CD_TIPO_QUARTO, " + "DS_TIPO_QUARTO, " + "VL_QUARTO "
+					+ "FROM T_AM_HBV_TIPO_QUARTO ";
+			estrutura = conexao.prepareStatement(sql);
+
+			rs = estrutura.executeQuery();
+
+			while (rs.next()) {
+				TipoQuarto tipoQuarto = new TipoQuarto();
+
+				tipoQuarto.setCodigo(Integer.parseInt(rs.getString("CD_TIPO_QUARTO")));
+				tipoQuarto.setNomeTipo(rs.getString("DS_TIPO_QUARTO"));
+				tipoQuarto.setValor(rs.getDouble("VL_QUARTO"));
+
+				lstTipoQuarto.add(tipoQuarto);
+			}
+
+			rs.close();
+			estrutura.close();
+
+			return lstTipoQuarto;
+			
 		} catch (Exception e) {
 			throw new Excecao(e);
 		}
