@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import br.com.fiap.am.ltp.beans.Cidade;
 import br.com.fiap.am.ltp.beans.Estado;
 import br.com.fiap.am.ltp.bo.CidadeBO;
+import br.com.fiap.am.ltp.bo.EstadoBO;
 import br.com.fiap.am.ltp.conexao.ConexaoFactory;
 import br.com.fiap.am.ltp.excecoes.Excecao;
 
@@ -37,6 +38,11 @@ public class CidadeTeste
 					Cidade cidade = new Cidade();
 					CidadeBO cidadeBO = new CidadeBO();
 					Estado estado = new Estado();
+					EstadoBO estadoBO = new EstadoBO();
+					List<Estado> lstEstado = estadoBO.buscarTodos(conexao);
+					for (Estado e : lstEstado) {
+						System.out.println("Código: "+e.getCodigo()+" Nome: "+e.getNome()+" Sigla: "+e.getSigla());
+					}
 					cidade.setNome(JOptionPane
 							.showInputDialog("Nome da Cidade"));
 					estado.setCodigo(Integer.parseInt(JOptionPane
