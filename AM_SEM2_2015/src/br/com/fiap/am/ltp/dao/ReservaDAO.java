@@ -10,7 +10,8 @@ import br.com.fiap.am.ltp.beans.Reserva;
 import br.com.fiap.am.ltp.excecoes.Excecao;
 
 /**
- * Métodos de acesso ao banco de Reserva. Operações do CRUD e demais funcionalidades
+ * Métodos de acesso ao banco de Reserva. Operações do CRUD e demais
+ * funcionalidades
  * 
  * @author Victor 74820
  * @version 1.0
@@ -35,103 +36,205 @@ public class ReservaDAO {
 	 * @throws Exception
 	 * @see FormaPagamento, FormaPagamentoBO
 	 */
-	public void gravar(Reserva reserva, Connection conexao) throws Exception{
+	public void gravar(Reserva reserva, Connection conexao) throws Exception {
 		try {
 			sql = "INSERT INTO T_AM_HBV_RESERVA "
-					+ "(CD_CLIENTE, CD_FUNCIONARIO, DT_SOLICITACAO, DE_INICIO_RESERVA,DT_FINAL_RESERVA, QT_ADULTO, QT_CRIANCA, ST_RESERVA, VL_RESERVA)" 
+					+ "(CD_CLIENTE, CD_FUNCIONARIO, DT_SOLICITACAO, DE_INICIO_RESERVA,DT_FINAL_RESERVA, QT_ADULTO, QT_CRIANCA, ST_RESERVA, VL_RESERVA)"
 					+ "VALUES (?,?,(SELECT SYSDATE FROM DUAL),?,?,?,?,?,?)";
 			estrutura = conexao.prepareStatement(sql);
 			estrutura.setInt(1, reserva.getCliente().getCodigo());
 			estrutura.setInt(2, reserva.getFuncionario().getCodigo());
-			estrutura.setDate(3, new Date(reserva.getDtEntrada().getTimeInMillis()));
-			estrutura.setDate(4, new Date(reserva.getDtSaida().getTimeInMillis()));
+			estrutura.setDate(3, new Date(reserva.getDtEntrada()
+					.getTimeInMillis()));
+			estrutura.setDate(4, new Date(reserva.getDtSaida()
+					.getTimeInMillis()));
 			estrutura.setShort(5, reserva.getQtAdulto());
 			estrutura.setShort(6, reserva.getQtCrianca());
 			estrutura.setInt(7, reserva.getStatus().getCodigo());
 			estrutura.setDouble(8, reserva.getVlReserva());
-			
+
 			estrutura.execute();
 			estrutura.close();
 			
-		} catch(Exception e) {
+			for (Quarto quarto : reserva.getQuarto()) {
+				sql = "INSERT INTO T_AM_HBV_RESERVA_QUARTO VALUES( "
+						+ "?     , -- CÓDGIO RESERVA "
+						+ "( SELECT Q.NR_QUARTO "
+						+ "FROM T_AM_HBV_QUARTO Q "
+						+ "WHERE Q.CD_TIPO_QUARTO = ? AND (  SELECT COUNT(*) "
+						+ "FROM T_AM_HBV_RESERVA_QUARTO RQ INNER JOIN T_AM_HBV_RESERVA R "
+						+ "ON RQ.CD_RESERVA = R.CD_RESERVA "
+						+ "INNER JOIN T_AM_HBV_QUARTO Q "
+						+ "ON Q.NR_QUARTO = RQ.NR_QUARTO "
+						+ "WHERE R.DT_INICIO_RESERVA >= ? AND R.DT_FINAL_RESERVA <= ? "
+						+ "AND Q.CD_TIPO_QUARTO = ? "
+						+ ") < ( SELECT COUNT(*) "
+						+ "FROM T_AM_HBV_QUARTO Q "
+						+ "WHERE Q.CD_TIPO_QUARTO = ? "
+						+ ") "
+						+ "AND Q.NR_QUARTO NOT IN ( "
+						+ "SELECT Q.NR_QUARTO "
+						+ "FROM T_AM_HBV_RESERVA_QUARTO RQ INNER JOIN T_AM_HBV_RESERVA R "
+						+ "ON RQ.CD_RESERVA = R.CD_RESERVA "
+						+ "INNER JOIN T_AM_HBV_QUARTO Q "
+						+ "ON Q.NR_QUARTO = RQ.NR_QUARTO "
+						+ "WHERE R.DT_INICIO_RESERVA >= ? AND R.DT_FINAL_RESERVA <= ? "
+						+ "AND Q.CD_TIPO_QUARTO = ? ) AND ROWNUM = 1 "
+						+ "), "
+						+ "?, "
+						+ "? )";
+				// 11 ESTRUTURAS
+				estrutura = conexao.prepareStatement(sql);
+				estrutura.setInt(1, reserva.getCodigo());
+				estrutura.setInt(2, quarto.getTipo().getCodigo());
+				estrutura.setDate(3, new Date(reserva.getDtEntrada().getTimeInMillis()));
+				estrutura.setDate(4, new Date(reserva.getDtSaida().getTimeInMillis()));
+				estrutura.setInt(5, quarto.getTipo().getCodigo());
+				estrutura.setInt(6, quarto.getTipo().getCodigo());
+				estrutura.setDate(7, new Date(reserva.getDtEntrada().getTimeInMillis()));
+				estrutura.setDate(8, new Date(reserva.getDtSaida().getTimeInMillis()));
+				estrutura.setInt(9, quarto.getTipo().getCodigo());
+				estrutura.setInt(10, (quarto.getQtAdulto() + quarto.getQtCrianca()));
+				//estrutura.setInt(10, quarto.get);
+			}
+			
+
+		} catch (Exception e) {
 			throw new Excecao(e);
 		}
 	}
-	
+
 	/**
 	 * Faz o cálculo do valor total da reserva.
 	 * 
 	 * @param reserva
+	 *            Os dados da reserva que está sendo cálculada.
 	 * @param conexao
-	 * @return
+	 *            As credenciais da conexão.
+	 * @return <code>valorReserva</code> O valor total da reserva.
 	 * @throws Exception
+	 * @see Reserva, ReservaBO
 	 */
-	public double calcularReserva(Reserva reserva, Connection conexao) throws Exception {
+	public double calcularReserva(Reserva reserva, Connection conexao)
+			throws Exception {
 		double valorReserva = 0;
 		final long diaEmMilisegundos = 1000 * 60 * 60 * 24;
 		boolean naoTemCriancaSemCusto = true;
 		try {
-			for (Quarto quarto : reserva.getQuarto()) {				
+			for (Quarto quarto : reserva.getQuarto()) {
 				for (int idadeCrianca : quarto.getIdadeCriancas()) {
-					if(idadeCrianca >= 0 && idadeCrianca <= 2 && naoTemCriancaSemCusto){
+					if (idadeCrianca >= 0 && idadeCrianca <= 2
+							&& naoTemCriancaSemCusto) {
 						naoTemCriancaSemCusto = false;
 						quarto.setQtCrianca((short) (quarto.getQtCrianca() - 1));
 					}
-					
-					if(idadeCrianca >= 6){
+
+					if (idadeCrianca >= 6) {
 						quarto.setQtCrianca((short) (quarto.getQtCrianca() - 1));
 						quarto.setQtAdulto((short) (quarto.getQtAdulto() + 1));
 					}
 				}
-				
+
 				naoTemCriancaSemCusto = true;
-				
+
 				sql = "SELECT SUM(TQ.VL_QUARTO * ? * ?) \"VL_QUARTO\""
 						+ "FROM T_AM_HBV_TIPO_QUARTO TQ "
 						+ "WHERE TQ.CD_TIPO_QUARTO = ? ";
 				estrutura = conexao.prepareStatement(sql);
 				estrutura.setInt(1, quarto.getQtAdulto());
-				estrutura.setInt(2, (int) ((new Date(reserva.getDtSaida().getTimeInMillis()).getTime() - new Date(reserva.getDtEntrada().getTimeInMillis()).getTime())/diaEmMilisegundos));
+				estrutura
+						.setInt(2, (int) ((new Date(reserva.getDtSaida()
+								.getTimeInMillis()).getTime() - new Date(
+								reserva.getDtEntrada().getTimeInMillis())
+								.getTime()) / diaEmMilisegundos));
 				estrutura.setInt(3, quarto.getTipo().getCodigo());
-				
+
 				rs = estrutura.executeQuery();
-				
-				if(rs.next()){
+
+				if (rs.next()) {
 					valorReserva += rs.getDouble("VL_QUARTO");
 				}
-				
+
 				rs.close();
 				estrutura.close();
-				
+
 				sql = "SELECT SUM(TQ.VL_QUARTO * ? * ? * 0.25) \"VL_QUARTO\""
 						+ "FROM T_AM_HBV_TIPO_QUARTO TQ "
 						+ "WHERE TQ.CD_TIPO_QUARTO = ? ";
 				estrutura = conexao.prepareStatement(sql);
 				estrutura.setInt(1, quarto.getQtCrianca());
-				estrutura.setInt(2, (int) ((new Date(reserva.getDtSaida().getTimeInMillis()).getTime() - new Date(reserva.getDtEntrada().getTimeInMillis()).getTime())/diaEmMilisegundos));
+				estrutura
+						.setInt(2, (int) ((new Date(reserva.getDtSaida()
+								.getTimeInMillis()).getTime() - new Date(
+								reserva.getDtEntrada().getTimeInMillis())
+								.getTime()) / diaEmMilisegundos));
 				estrutura.setInt(3, quarto.getTipo().getCodigo());
-				
-				System.out.println("ENTRADA: " + reserva.getDtEntrada().getTime());
-				System.out.println(new Date(reserva.getDtEntrada().getTimeInMillis()).getTime());
-				System.out.println("\nSAIDA: " + reserva.getDtSaida().getTime());
-				System.out.println(new Date(reserva.getDtSaida().getTimeInMillis()).getTime());
+
+				System.out.println("ENTRADA: "
+						+ reserva.getDtEntrada().getTime());
+				System.out.println(new Date(reserva.getDtEntrada()
+						.getTimeInMillis()).getTime());
+				System.out
+						.println("\nSAIDA: " + reserva.getDtSaida().getTime());
+				System.out.println(new Date(reserva.getDtSaida()
+						.getTimeInMillis()).getTime());
 				System.out.println("\nDIA EM MIL: " + diaEmMilisegundos);
-				System.out.println("CONTA FINAL: " + (int) ((new Date(reserva.getDtSaida().getTimeInMillis()).getTime() - new Date(reserva.getDtEntrada().getTimeInMillis()).getTime())/diaEmMilisegundos));
-				
+				System.out.println("CONTA FINAL: "
+						+ (int) ((new Date(reserva.getDtSaida()
+								.getTimeInMillis()).getTime() - new Date(
+								reserva.getDtEntrada().getTimeInMillis())
+								.getTime()) / diaEmMilisegundos));
+
 				rs = estrutura.executeQuery();
-				
-				if(rs.next()){
+
+				if (rs.next()) {
 					valorReserva += rs.getDouble("VL_QUARTO");
 				}
-				
+
 				rs.close();
 				estrutura.close();
-			}			
-			
+			}
+
 			return valorReserva;
-			
-		} catch(Exception e) {
+
+		} catch (Exception e) {
 			throw new Excecao(e);
 		}
 	}
+
+	/*
+	 * 
+	 * 
+	 * INSERT INTO T_AM_HBV_RESERVA_QUARTO VALUES( ? , -- CÓDGIO RESERVA (
+	 * SELECT Q.NR_QUARTO FROM T_AM_HBV_QUARTO Q WHERE Q.CD_TIPO_QUARTO = ? AND
+	 * ( SELECT COUNT(*) FROM T_AM_HBV_RESERVA_QUARTO RQ INNER JOIN
+	 * T_AM_HBV_RESERVA R ON RQ.CD_RESERVA = R.CD_RESERVA INNER JOIN
+	 * T_AM_HBV_QUARTO Q ON Q.NR_QUARTO = RQ.NR_QUARTO WHERE R.DT_INICIO_RESERVA
+	 * >= ? AND R.DT_FINAL_RESERVA <= ? AND Q.CD_TIPO_QUARTO = ? ) < ( SELECT
+	 * COUNT(*) FROM T_AM_HBV_QUARTO Q WHERE Q.CD_TIPO_QUARTO = ? ) AND
+	 * Q.NR_QUARTO NOT IN ( SELECT Q.NR_QUARTO FROM T_AM_HBV_RESERVA_QUARTO RQ
+	 * INNER JOIN T_AM_HBV_RESERVA R ON RQ.CD_RESERVA = R.CD_RESERVA INNER JOIN
+	 * T_AM_HBV_QUARTO Q ON Q.NR_QUARTO = RQ.NR_QUARTO WHERE R.DT_INICIO_RESERVA
+	 * >= ? AND R.DT_FINAL_RESERVA <= ? AND Q.CD_TIPO_QUARTO = ? ) AND ROWNUM =
+	 * 1 ) , -- NUMERO DO QUARTO ? , -- QUANTIDADE DE PESSOAS ? -- OBSERVAÇÃO );
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * 
+	 * INSERT INTO T_AM_HBV_RESERVA_QUARTO VALUES( 1 , -- CÓDGIO RESERVA (
+	 * SELECT Q.NR_QUARTO FROM T_AM_HBV_QUARTO Q WHERE Q.CD_TIPO_QUARTO = 1 AND
+	 * ( SELECT COUNT(*) FROM T_AM_HBV_RESERVA_QUARTO RQ INNER JOIN
+	 * T_AM_HBV_RESERVA R ON RQ.CD_RESERVA = R.CD_RESERVA INNER JOIN
+	 * T_AM_HBV_QUARTO Q ON Q.NR_QUARTO = RQ.NR_QUARTO WHERE R.DT_INICIO_RESERVA
+	 * >= '15/01/2015' AND R.DT_FINAL_RESERVA <= '20/01/2015' AND
+	 * Q.CD_TIPO_QUARTO = 1 ) < ( SELECT COUNT(*) FROM T_AM_HBV_QUARTO Q WHERE
+	 * Q.CD_TIPO_QUARTO = 1 ) AND Q.NR_QUARTO NOT IN ( SELECT Q.NR_QUARTO FROM
+	 * T_AM_HBV_RESERVA_QUARTO RQ INNER JOIN T_AM_HBV_RESERVA R ON RQ.CD_RESERVA
+	 * = R.CD_RESERVA INNER JOIN T_AM_HBV_QUARTO Q ON Q.NR_QUARTO = RQ.NR_QUARTO
+	 * WHERE R.DT_INICIO_RESERVA >= '15/01/2015' AND R.DT_FINAL_RESERVA <=
+	 * '20/01/2015' AND Q.CD_TIPO_QUARTO = 1 ) AND ROWNUM = 1 ) , -- NUMERO DO
+	 * QUARTO 4 , -- QUANTIDADE DE PESSOAS NULL -- OBSERVAÇÃO );
+	 */
 }
