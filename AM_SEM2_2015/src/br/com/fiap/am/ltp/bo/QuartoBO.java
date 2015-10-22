@@ -8,7 +8,7 @@ import br.com.fiap.am.ltp.dao.QuartoDAO;
 import br.com.fiap.am.ltp.excecoes.Excecao;
 
 /**
- * Descrição da classe/método
+ * Métodos onde consta as regras de neócio para a classe Quarto.
  * 
  * @author Estevão 74803
  * @version 1.0
