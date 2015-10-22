@@ -77,7 +77,15 @@ public class ReservaTeste {
 				quarto1.setQtAdulto(Integer.parseInt(JOptionPane.showInputDialog("Quantos adultos?")));
 				quarto1.setQtCrianca(Integer.parseInt(JOptionPane.showInputDialog("Quantas crianças?")));
 				
-				// idade crianças
+				List<Integer> idades = new ArrayList<Integer>();
+				int idadeCrianca;
+				
+				for (int i = 0; i < quarto1.getQtCrianca(); i++) {
+					idadeCrianca = Integer.parseInt(JOptionPane.showInputDialog("Qual a idade da " + (i+1) + " criança?"));
+					idades.add(idadeCrianca);
+				}
+				
+				quarto1.setIdadeCriancas(idades);
 				
 				Quarto quarto2 = new Quarto();
 				TipoQuarto tipoQuarto2 = new TipoQuarto();
@@ -88,7 +96,15 @@ public class ReservaTeste {
 				quarto2.setQtAdulto(Integer.parseInt(JOptionPane.showInputDialog("Quantos adultos?")));
 				quarto2.setQtCrianca(Integer.parseInt(JOptionPane.showInputDialog("Quantas crianças?")));
 				
-				// idade crianças
+				List<Integer> idades2 = new ArrayList<Integer>();
+				int idadeCrianca2;
+				
+				for (int i = 0; i < quarto2.getQtCrianca(); i++) {
+					idadeCrianca2 = Integer.parseInt(JOptionPane.showInputDialog("Qual a idade da " + (i+1) + " criança?"));
+					idades2.add(idadeCrianca2);
+				}
+				
+				quarto2.setIdadeCriancas(idades2);
 				
 				lstQuarto.add(quarto1);
 				lstQuarto.add(quarto2);

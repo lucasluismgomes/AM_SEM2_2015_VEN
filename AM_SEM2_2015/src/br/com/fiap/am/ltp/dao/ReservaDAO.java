@@ -104,8 +104,8 @@ public class ReservaDAO {
 				estrutura.close();
 				
 				sql = "SELECT SUM(TQ.VL_QUARTO * ? * ? * 0.25) \"VL_QUARTO\""
-						+ "FROM T_AM_HBV_TIPO_QUARTO TQ"
-						+ "WHERE TQ.CD_TIPO_QUARTO = ?";
+						+ "FROM T_AM_HBV_TIPO_QUARTO TQ "
+						+ "WHERE TQ.CD_TIPO_QUARTO = ? ";
 				estrutura = conexao.prepareStatement(sql);
 				estrutura.setInt(1, quarto.getQtCrianca());
 				estrutura.setInt(2, (int) ((new Date(reserva.getDtSaida().getTimeInMillis()).getTime() - new Date(reserva.getDtEntrada().getTimeInMillis()).getTime())/diaEmMilisegundos));
