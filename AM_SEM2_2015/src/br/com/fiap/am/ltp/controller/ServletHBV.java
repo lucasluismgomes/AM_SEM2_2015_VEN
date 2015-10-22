@@ -2,7 +2,11 @@ package br.com.fiap.am.ltp.controller;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -12,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.fiap.am.ltp.beans.Quarto;
+import br.com.fiap.am.ltp.beans.Reserva;
 import br.com.fiap.am.ltp.beans.TipoQuarto;
 import br.com.fiap.am.ltp.bo.TipoQuartoBO;
 import br.com.fiap.am.ltp.conexao.ConexaoFactory;
@@ -63,7 +68,7 @@ public class ServletHBV extends HttpServlet {
 				short qtdCriancas = 0;
 				int[] idades = null;
 				TipoQuarto tpQuarto = TipoQuartoBO.buscarPorCodigo(Integer.parseInt(request.getParameter("tipoQuarto"+i)),conexao);
-				short qtdAdultos = Short.parseShort(request.getParameter("qtdPessoasQuarto"+i));
+				short qtdAdultos = Short.parseShort(request.getParameter("qtdAdultosQuarto"+i));
 				
 				if(qtdAdultos < 4){
 					qtdCriancas = Short.parseShort(request.getParameter("qtdcriancasQuarto"+i));
@@ -85,14 +90,27 @@ public class ServletHBV extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
 		}
 		
 		
+		Reserva reserva = new Reserva();
 		
+		DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
 		
+		Calendar dtEntrada = Calendar.getInstance();
+		Calendar dtSaida = Calendar.getInstance();
+
+		try {
 		
+		dtEntrada.setTime(df.parse(request.getParameter("dtEntrada")));
+		dtSaida.setTime(df.parse(request.getParameter("dtSaida")));
 		
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		reserva.setDtEntrada(dtEntrada);
+		reserva.setDtSaida(dtSaida);
 		
 		
 		
