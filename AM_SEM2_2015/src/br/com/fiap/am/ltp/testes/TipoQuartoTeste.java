@@ -6,9 +6,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import br.com.fiap.am.ltp.beans.Quarto;
 import br.com.fiap.am.ltp.beans.TipoQuarto;
-import br.com.fiap.am.ltp.bo.QuartoBO;
 import br.com.fiap.am.ltp.bo.TipoQuartoBO;
 import br.com.fiap.am.ltp.conexao.ConexaoFactory;
 import br.com.fiap.am.ltp.excecoes.Excecao;

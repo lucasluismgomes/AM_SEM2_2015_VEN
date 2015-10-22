@@ -3,9 +3,7 @@ package br.com.fiap.am.ltp.bo;
 import java.sql.Connection;
 import java.util.List;
 
-import br.com.fiap.am.ltp.beans.Quarto;
 import br.com.fiap.am.ltp.beans.TipoQuarto;
-import br.com.fiap.am.ltp.dao.QuartoDAO;
 import br.com.fiap.am.ltp.dao.TipoQuartoDAO;
 import br.com.fiap.am.ltp.excecoes.Excecao;
 
@@ -54,6 +52,17 @@ public class TipoQuartoBO {
 	public static void editar(TipoQuarto tipoQuarto, Connection conexao) throws Exception {
 		if (tipoQuarto.getNomeTipo().length() < 3) {
 			throw new Excecao("Caracteres insuficientes no nome do tipo de quarto.");
+		}
+		
+		TipoQuarto tipoQuartoAtual = new TipoQuarto();
+		
+		tipoQuartoAtual = buscarPorCodigo(tipoQuarto.getCodigo(), conexao);
+		
+		double valorAtual = tipoQuartoAtual.getValor();
+		double valorNovo = tipoQuarto.getValor();
+		
+		if(valorAtual != valorNovo){
+			new TipoQuartoDAO().gravarHistoricoValor(tipoQuarto, conexao);
 		}
 
 		new TipoQuartoDAO().editar(tipoQuarto, conexao);

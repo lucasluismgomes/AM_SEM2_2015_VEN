@@ -3,12 +3,8 @@ package br.com.fiap.am.ltp.bo;
 import java.sql.Connection;
 import java.util.List;
 
-import br.com.fiap.am.ltp.beans.Cliente;
 import br.com.fiap.am.ltp.beans.Quarto;
-import br.com.fiap.am.ltp.beans.TipoQuarto;
-import br.com.fiap.am.ltp.dao.ClienteDAO;
 import br.com.fiap.am.ltp.dao.QuartoDAO;
-import br.com.fiap.am.ltp.dao.TipoQuartoDAO;
 import br.com.fiap.am.ltp.excecoes.Excecao;
 
 /**

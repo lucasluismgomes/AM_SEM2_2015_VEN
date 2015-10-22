@@ -1,13 +1,11 @@
 package br.com.fiap.am.ltp.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.fiap.am.ltp.beans.Cliente;
 import br.com.fiap.am.ltp.beans.Quarto;
 import br.com.fiap.am.ltp.beans.TipoQuarto;
 import br.com.fiap.am.ltp.bo.TipoQuartoBO;
