@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
 
 import br.com.fiap.am.ltp.beans.Quarto;
 import br.com.fiap.am.ltp.beans.Reserva;
@@ -72,18 +71,27 @@ public class ReservaDAO {
 		final long diaEmMilisegundos = 1000 * 60 * 60 * 24;
 		try {
 			for (Quarto quarto : reserva.getQuarto()) {
-				sql = "SELECT SUM(TQ.VL_QUARTO * ? * ?) "
+				sql = "SELECT SUM(TQ.VL_QUARTO * ? * ?) \"VL_QUARTO\""
 						+ "FROM T_AM_HBV_TIPO_QUARTO TQ "
 						+ "WHERE TQ.CD_TIPO_QUARTO = ? ";
 				estrutura = conexao.prepareStatement(sql);
 				estrutura.setInt(1, (quarto.getQtAdulto() + quarto.getQtCrianca()));
-				estrutura.setInt(2, (int) ((new Date(reserva.getDtEntrada().getTimeInMillis()).getTime() - new Date(reserva.getDtSaida().getTimeInMillis()).getTime())/diaEmMilisegundos));
+				estrutura.setInt(2, (int) ((new Date(reserva.getDtSaida().getTimeInMillis()).getTime() - new Date(reserva.getDtEntrada().getTimeInMillis()).getTime())/diaEmMilisegundos));
 				estrutura.setInt(3, quarto.getTipo().getCodigo());
 
+				System.out.println("ENTRADA: " + reserva.getDtEntrada().getTime());
+				System.out.println(new Date(reserva.getDtEntrada().getTimeInMillis()).getTime());
+				System.out.println("\nSAIDA: " + reserva.getDtSaida().getTime());
+				System.out.println(new Date(reserva.getDtSaida().getTimeInMillis()).getTime());
+				System.out.println("\nDIA EM MIL: " + diaEmMilisegundos);
+				System.out.println("CONTA FINAL: " + (int) ((new Date(reserva.getDtSaida().getTimeInMillis()).getTime() - new Date(reserva.getDtEntrada().getTimeInMillis()).getTime())/diaEmMilisegundos));
+				
 				rs = estrutura.executeQuery();
 				
-				valorReserva += rs.getDouble("totalReserva");
-				
+				if(rs.next()){
+					valorReserva += rs.getDouble("VL_QUARTO");
+				}
+
 				estrutura.close();
 			}			
 			

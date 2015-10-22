@@ -7,17 +7,6 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-
-
-
-
-
-
-
-
-
-
-
 import br.com.fiap.am.ltp.beans.Cliente;
 import br.com.fiap.am.ltp.beans.Funcionario;
 import br.com.fiap.am.ltp.beans.Quarto;
@@ -36,7 +25,7 @@ public class ReservaTeste {
 					+ "1 - Calcular Valor da Reserva\n" + "2 - Editar\n" + "3 - Buscar Todos\n" + "4 - Apagar\n" + "5 - Buscar por ID\n"));
 
 			if (funcionalidade == 1) {
-				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$74795", "251295");
+				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74795", "251295");
 				
 				Reserva reserva = new Reserva();
 				Cliente cliente = new Cliente();
@@ -68,11 +57,11 @@ public class ReservaTeste {
 					data2 = JOptionPane.showInputDialog("DATA ERRADA! Use o Formato: DD/MM/AAAA ex: 25/12/1995)");
 				}
 
-				int dia2 = Integer.parseInt(data.substring(0, 2));
-				int mes2 = Integer.parseInt(data.substring(3, 5));
-				int ano2 = Integer.parseInt(data.substring(6, 10));
+				int dia2 = Integer.parseInt(data2.substring(0, 2));
+				int mes2 = Integer.parseInt(data2.substring(3, 5));
+				int ano2 = Integer.parseInt(data2.substring(6, 10));
 
-				c.set(ano2, (mes2 - 1), dia2);
+				c2.set(ano2, (mes2 - 1), dia2);
 				
 				reserva.setCliente(cliente);
 				reserva.setFuncionario(funcionario);
@@ -85,14 +74,20 @@ public class ReservaTeste {
 				tipoQuarto1.setCodigo(Integer.parseInt(JOptionPane.showInputDialog("Qual o código do tipo do quarto?")));
 				
 				quarto1.setTipo(tipoQuarto1);
-				
+				quarto1.setQtAdulto(Integer.parseInt(JOptionPane.showInputDialog("Quantos adultos?")));
+				quarto1.setQtCrianca(Integer.parseInt(JOptionPane.showInputDialog("Quantas crianças?")));
 				
 				Quarto quarto2 = new Quarto();
-					TipoQuarto tipoQuarto1 = new TipoQuarto();
+				TipoQuarto tipoQuarto2 = new TipoQuarto();
 				
-				tipoQuarto1.setCodigo(Integer.parseInt(JOptionPane.showInputDialog("Qual o código do tipo do quarto?")));
+				tipoQuarto2.setCodigo(Integer.parseInt(JOptionPane.showInputDialog("Qual o código do tipo do quarto?")));
 				
-				quarto1.setTipo(tipoQuarto1);
+				quarto2.setTipo(tipoQuarto2);
+				quarto2.setQtAdulto(Integer.parseInt(JOptionPane.showInputDialog("Quantos adultos?")));
+				quarto2.setQtCrianca(Integer.parseInt(JOptionPane.showInputDialog("Quantas crianças?")));
+				
+				lstQuarto.add(quarto1);
+				lstQuarto.add(quarto2);
 				
 				reserva.setQuarto(lstQuarto);					
 				
