@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -59,22 +60,22 @@ public class ServletHBV extends HttpServlet {
 		List<Quarto> lstQuartos = new ArrayList<Quarto>();
 		
 		short qtdQuartos = Short.parseShort(request.getParameter("qtdQuartos"));
-		
+		short qtdCriancas = 0;
+		short qtdAdultos = 0;
 		
 		for (int i = 1; i <= qtdQuartos; i++) {
 			try {
 				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74803", "071195");
 			 
-				short qtdCriancas = 0;
-				int[] idades = null;
+				
+				List<Integer> idades = new ArrayList<Integer>();
 				TipoQuarto tpQuarto = TipoQuartoBO.buscarPorCodigo(Integer.parseInt(request.getParameter("tipoQuarto"+i)),conexao);
-				short qtdAdultos = Short.parseShort(request.getParameter("qtdAdultosQuarto"+i));
+				qtdAdultos = Short.parseShort(request.getParameter("qtdAdultosQuarto"+i));
 				
 				if(qtdAdultos < 4){
-					qtdCriancas = Short.parseShort(request.getParameter("qtdcriancasQuarto"+i));
-					for(int j = 0; j < qtdCriancas; j++){
-						idades = new int[qtdCriancas];
-						idades[j] = Integer.parseInt(request.getParameter("idadeCrianca"+(j+1)+"Quarto"+i));
+					qtdCriancas = Short.parseShort(request.getParameter("qtdCriancasQuarto"+i));
+					for(int j = 1; j <= qtdCriancas; j++){
+						idades.add(Integer.parseInt(request.getParameter("idadeCrianca"+j+"Quarto"+i)));
 					}
 					
 				}
@@ -82,7 +83,7 @@ public class ServletHBV extends HttpServlet {
 				quarto.setQtAdulto(qtdAdultos);
 				quarto.setQtCrianca(qtdCriancas);
 				quarto.setTipo(tpQuarto);
-				//quarto.setIdadeCriancas(idades);
+				quarto.setIdadeCriancas(idades);
 				
 				lstQuartos.add(quarto);
 			}		
@@ -95,7 +96,7 @@ public class ServletHBV extends HttpServlet {
 		
 		Reserva reserva = new Reserva();
 		
-		DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		
 		Calendar dtEntrada = Calendar.getInstance();
 		Calendar dtSaida = Calendar.getInstance();
@@ -111,8 +112,27 @@ public class ServletHBV extends HttpServlet {
 		
 		reserva.setDtEntrada(dtEntrada);
 		reserva.setDtSaida(dtSaida);
+		reserva.setQtCrianca(qtdCriancas);
+		reserva.setQtAdulto(qtdAdultos);
+		reserva.setQuarto(lstQuartos);
 		
-		
+		System.out.println("Data de entrada: " + reserva.getDtEntrada().getTime());
+		System.out.println("Data de saida: " + reserva.getDtSaida().getTime());
+		System.out.println("Qtd Criancas: " + reserva.getQtCrianca());
+		System.out.println("Qtd Adultos: " + reserva.getQtAdulto());
+		int count =1;
+		for (Quarto quarto : reserva.getQuarto()) {
+			System.out.println("Quarto["+count+"]");
+			System.out.println("Tipo quarto: " + quarto.getTipo().getNomeTipo());
+			System.out.println("Quantidade Adultos quarto: " + quarto.getQtAdulto());
+			System.out.println("Quantidade criancas quarto: " + quarto.getQtCrianca());
+			System.out.println("Idade das criancas: ");
+			for (Integer idade : quarto.getIdadeCriancas()) {
+				System.out.print(idade + " ");
+			}
+			count++;
+		}
+
 		
 	}
 

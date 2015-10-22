@@ -12,7 +12,7 @@ import br.com.fiap.am.ltp.bo.TipoQuartoBO;
 import br.com.fiap.am.ltp.excecoes.Excecao;
 
 /**
- * Descrição da classe/método
+ * Métodos de acesso ao banco para a classe Quarto, incluindo seu CRUD.
  * 
  * @author Estevão 74803
  * @version 1.0

@@ -22,7 +22,7 @@
 		<section id="container-reservar-quarto">
 			<h2>RESERVAR QUARTO</h2>
 
-			<form class="form-horizontal">
+			<form class="form-horizontal" action="ServletHBV" method="post">
 
 				<!-- Prepended text-->
 				<div class="form-group">
@@ -54,7 +54,7 @@
 					<label class="col-md-4 control-label" for="qtdQuartos">Quantidade
 						de quartos</label>
 					<div class="col-md-4">
-						<select id="qtdQuartos" name="qtdQuartos" class="form-control">
+						<select id="qtdQuartos" name="qtdQuartos" class="form-control" required>
 							<option value="1">1</option>
 							<option value="2">2</option>
 							<option value="3">3</option>
@@ -93,7 +93,7 @@
 										<div class="input-group">
 											<span class="input-group-addon" id="basic-addon1"><i
 												class='fa fa-user'></i></span> <select
-												name="qtdAdultosQuarto1" class="form-control qtdPessoas">
+												name="qtdAdultosQuarto1" class="form-control qtdPessoas" required>
 												<option value="0">Quantidade de adultos</option>
 												<option value="1">1</option>
 												<option value="2">2</option>
@@ -116,9 +116,8 @@
 
 				<!-- Button -->
 				<div class="form-group row">
-					<button id="btnCalcularValor" name="btnReservarQuarto"
-						class="btn btn-info col-md-4 col-md-offset-2 ">Calcular
-						Valor</button>
+					<input id="btnCalcularValor" name="btnReservarQuarto"
+						class="btn btn-info col-md-4 col-md-offset-2 " type="submit" value="Calcular reserva"/>
 					<button id="btnReservarQuarto" name="btnReservarQuarto"
 						class="btn btn-success col-md-4 col-md-offset-right-2 ">Reservar
 						Quarto</button>
