@@ -93,7 +93,7 @@
 										<div class="input-group">
 											<span class="input-group-addon" id="basic-addon1"><i
 												class='fa fa-user'></i></span> <select
-												name="qtdPessoasQuarto1" class="form-control qtdPessoas">
+												name="qtdAdultosQuarto1" class="form-control qtdPessoas">
 												<option value="0">Quantidade de adultos</option>
 												<option value="1">1</option>
 												<option value="2">2</option>

@@ -46,7 +46,7 @@ function tagQuarto(qtdQuartos, numeroQuarto){
 					<div class='input-group'>\
 						<span class='input-group-addon'><i\
 							class='fa fa-user'></i></span> <select\
-							name='qtdPessoasQuarto"+numeroQuarto+"' class='form-control qtdPessoas'>\
+							name='qtdAdultosQuarto"+numeroQuarto+"' class='form-control qtdPessoas'>\
 							<option value='0'>Quantidade de adultos</option>\
 							<option value='1'>1</option>\
 							<option value='2'>2</option>\

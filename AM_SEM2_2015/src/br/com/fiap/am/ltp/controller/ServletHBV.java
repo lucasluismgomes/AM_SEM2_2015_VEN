@@ -53,24 +53,39 @@ public class ServletHBV extends HttpServlet {
 		
 		List<Quarto> lstQuartos = new ArrayList<Quarto>();
 		
-		int qtdQuartos = Integer.parseInt(request.getParameter("qtdQuartos"));
+		short qtdQuartos = Short.parseShort(request.getParameter("qtdQuartos"));
 		
 		
 		for (int i = 1; i <= qtdQuartos; i++) {
 			try {
 				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74803", "071195");
 			 
-			TipoQuarto tpQuarto = TipoQuartoBO.buscarPorCodigo(Integer.parseInt(request.getParameter("tipoQuarto"+i)),conexao);
-			int qtdCriancas = Integer.parseInt(request.getParameter("tipoQuarto"+i));
-			
+				short qtdCriancas = 0;
+				int[] idades = null;
+				TipoQuarto tpQuarto = TipoQuartoBO.buscarPorCodigo(Integer.parseInt(request.getParameter("tipoQuarto"+i)),conexao);
+				short qtdAdultos = Short.parseShort(request.getParameter("qtdPessoasQuarto"+i));
+				
+				if(qtdAdultos < 4){
+					qtdCriancas = Short.parseShort(request.getParameter("qtdcriancasQuarto"+i));
+					for(int j = 0; j < qtdCriancas; j++){
+						idades = new int[qtdCriancas];
+						idades[j] = Integer.parseInt(request.getParameter("idadeCrianca"+(j+1)+"Quarto"+i));
+					}
+					
+				}
+				Quarto quarto = new Quarto();
+				quarto.setQtAdulto(qtdAdultos);
+				quarto.setQtCrianca(qtdCriancas);
+				quarto.setTipo(tpQuarto);
+				quarto.setIdadeCriancas(idades);
+				
+				lstQuartos.add(quarto);
 			}		
 			catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
-			
-			Quarto quarto = new Quarto();
 		}
 		
 		

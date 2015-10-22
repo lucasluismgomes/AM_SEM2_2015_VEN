@@ -15,7 +15,8 @@ public class Quarto {
 	private boolean status;
 	private int qtCrianca = 0;
 	private int qtAdulto = 0;
-
+	private int[] idadeCriancas;
+	
 	public Quarto() {
 		super();
 	}
@@ -30,8 +31,24 @@ public class Quarto {
 		this.status = status;
 		this.qtCrianca = qtCrianca;
 		this.qtAdulto = qtAdulto;
+		this.idadeCriancas = new int[qtCrianca];
+	}
+	
+	public Quarto(int codigo, TipoQuarto tipo, short nrCapacidade, int nrAndar,
+			boolean status, int qtCrianca, int qtAdulto, int[] idadeCriancas ) {
+		super();
+		this.codigo = codigo;
+		this.tipo = tipo;
+		this.nrCapacidade = nrCapacidade;
+		this.nrAndar = nrAndar;
+		this.status = status;
+		this.qtCrianca = qtCrianca;
+		this.qtAdulto = qtAdulto;
+		this.idadeCriancas = new int[qtCrianca];
+		this.idadeCriancas = idadeCriancas;
 	}
 
+	
 	public int getCodigo() {
 		return codigo;
 	}
@@ -87,4 +104,13 @@ public class Quarto {
 	public void setQtAdulto(int qtAdulto) {
 		this.qtAdulto = qtAdulto;
 	}
+
+	public int[] getIdadeCriancas() {
+		return idadeCriancas;
+	}
+
+	public void setIdadeCriancas(int[] idadeCriancas) {
+		this.idadeCriancas = idadeCriancas;
+	}
+	
 }
