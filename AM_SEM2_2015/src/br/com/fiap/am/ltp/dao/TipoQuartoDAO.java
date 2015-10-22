@@ -3,10 +3,12 @@ package br.com.fiap.am.ltp.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-import br.com.fiap.am.ltp.beans.Quarto;
 import br.com.fiap.am.ltp.beans.TipoQuarto;
 import br.com.fiap.am.ltp.excecoes.Excecao;
 
@@ -29,7 +31,7 @@ public class TipoQuartoDAO {
 	 * 
 	 * @author Estevão 74803
 	 * @since 1.0
-	 * @param tipo quarto
+	 * @param tipoQuarto
 	 *            O Tipo Quarto que será gravado no banco de dados.
 	 * @param conexao
 	 *            As credenciais da conexão.
@@ -83,6 +85,38 @@ public class TipoQuartoDAO {
 			throw new Excecao(e);
 		}
 	}
+	
+	/**
+	 * Grava os dados do histórico de valor do tipo de quarto no banco de dados.
+	 * 
+	 * @author Estevão 74803
+	 * @since 1.0
+	 * @param tipo quarto
+	 *            O Tipo Quarto que será gravado no banco de dados.
+	 * @param conexao
+	 *            As credenciais da conexão.
+	 * @throws Exception
+	 * @see TipoQuarto, TipoQuartoBO
+	 */
+	public void gravarHistoricoValor(TipoQuarto tipoQuarto, Connection conexao) throws Exception {
+		try {
+			sql = "INSERT INTO T_AM_HBV_HIST_VALOR (CD_TIPO_QUARTO, DT_VALIDADE, VL_PRECO_QUARTO)"
+				  + " VALUES(?,?,?)";
+
+			estrutura = conexao.prepareStatement(sql);
+			estrutura.setInt(1, tipoQuarto.getCodigo());
+			DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy"); Date date = new Date(); 
+			estrutura.setString(2, dateFormat.format(date));
+			estrutura.setDouble(3, tipoQuarto.getValor());
+			
+			estrutura.executeQuery();
+			estrutura.close();
+
+		} catch (Exception e) {
+			throw new Excecao(e);
+		}
+	}
+	
 	
 	/**
 	 * Excluí um tipo de quarto do banco de dados. Isso irá apagar todos os seus dados.
