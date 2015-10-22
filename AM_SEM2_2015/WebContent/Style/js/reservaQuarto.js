@@ -101,8 +101,8 @@ function tagSelectCriancas(qtdPessoas,numeroQuarto){
 	var tag = "<div class='input-group'>\
 	<span class='input-group-addon' id='basic-addon1'><i\
 	class='fa fa-users'></i> </i></span> <select\
-	name='qtdcriancasQuarto"+numeroQuarto+"' class='form-control qtdCriancas'>\
-	<option value=''>Quantidade de crianças</option>";
+	name='qtdCriancasQuarto"+numeroQuarto+"' class='form-control qtdCriancas'>\
+	<option value='0'>Quantidade de crianças</option>";
 	
 	var qtdCriancas = 4 - qtdPessoas;
 	if(qtdCriancas == 0){
