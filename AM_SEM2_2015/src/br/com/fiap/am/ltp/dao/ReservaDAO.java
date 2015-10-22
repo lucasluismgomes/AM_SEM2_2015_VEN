@@ -69,16 +69,48 @@ public class ReservaDAO {
 	public double calcularReserva(Reserva reserva, Connection conexao) throws Exception {
 		double valorReserva = 0;
 		final long diaEmMilisegundos = 1000 * 60 * 60 * 24;
+		boolean naoTemCriancaSemCusto = true;
 		try {
-			for (Quarto quarto : reserva.getQuarto()) {
+			for (Quarto quarto : reserva.getQuarto()) {				
+				for (int idadeCrianca : quarto.getIdadeCriancas()) {
+					if(idadeCrianca >= 0 && idadeCrianca <= 2 && naoTemCriancaSemCusto){
+						naoTemCriancaSemCusto = false;
+						quarto.setQtCrianca((short) (quarto.getQtCrianca() - 1));
+					}
+					
+					if(idadeCrianca >= 6){
+						quarto.setQtCrianca((short) (quarto.getQtCrianca() - 1));
+						quarto.setQtAdulto((short) (quarto.getQtAdulto() + 1));
+					}
+				}
+				
+				naoTemCriancaSemCusto = true;
+				
 				sql = "SELECT SUM(TQ.VL_QUARTO * ? * ?) \"VL_QUARTO\""
 						+ "FROM T_AM_HBV_TIPO_QUARTO TQ "
 						+ "WHERE TQ.CD_TIPO_QUARTO = ? ";
 				estrutura = conexao.prepareStatement(sql);
-				estrutura.setInt(1, (quarto.getQtAdulto() + quarto.getQtCrianca()));
+				estrutura.setInt(1, quarto.getQtAdulto());
 				estrutura.setInt(2, (int) ((new Date(reserva.getDtSaida().getTimeInMillis()).getTime() - new Date(reserva.getDtEntrada().getTimeInMillis()).getTime())/diaEmMilisegundos));
 				estrutura.setInt(3, quarto.getTipo().getCodigo());
-
+				
+				rs = estrutura.executeQuery();
+				
+				if(rs.next()){
+					valorReserva += rs.getDouble("VL_QUARTO");
+				}
+				
+				rs.close();
+				estrutura.close();
+				
+				sql = "SELECT SUM(TQ.VL_QUARTO * ? * ? * 0.25) \"VL_QUARTO\""
+						+ "FROM T_AM_HBV_TIPO_QUARTO TQ"
+						+ "WHERE TQ.CD_TIPO_QUARTO = ?";
+				estrutura = conexao.prepareStatement(sql);
+				estrutura.setInt(1, quarto.getQtCrianca());
+				estrutura.setInt(2, (int) ((new Date(reserva.getDtSaida().getTimeInMillis()).getTime() - new Date(reserva.getDtEntrada().getTimeInMillis()).getTime())/diaEmMilisegundos));
+				estrutura.setInt(3, quarto.getTipo().getCodigo());
+				
 				System.out.println("ENTRADA: " + reserva.getDtEntrada().getTime());
 				System.out.println(new Date(reserva.getDtEntrada().getTimeInMillis()).getTime());
 				System.out.println("\nSAIDA: " + reserva.getDtSaida().getTime());
@@ -91,7 +123,8 @@ public class ReservaDAO {
 				if(rs.next()){
 					valorReserva += rs.getDouble("VL_QUARTO");
 				}
-
+				
+				rs.close();
 				estrutura.close();
 			}			
 			

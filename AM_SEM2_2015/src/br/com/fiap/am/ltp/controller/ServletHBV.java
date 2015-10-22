@@ -82,7 +82,7 @@ public class ServletHBV extends HttpServlet {
 				quarto.setQtAdulto(qtdAdultos);
 				quarto.setQtCrianca(qtdCriancas);
 				quarto.setTipo(tpQuarto);
-				quarto.setIdadeCriancas(idades);
+				//quarto.setIdadeCriancas(idades);
 				
 				lstQuartos.add(quarto);
 			}		

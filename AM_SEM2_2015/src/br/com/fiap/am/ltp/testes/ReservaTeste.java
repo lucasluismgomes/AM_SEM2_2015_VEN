@@ -77,6 +77,8 @@ public class ReservaTeste {
 				quarto1.setQtAdulto(Integer.parseInt(JOptionPane.showInputDialog("Quantos adultos?")));
 				quarto1.setQtCrianca(Integer.parseInt(JOptionPane.showInputDialog("Quantas crianças?")));
 				
+				// idade crianças
+				
 				Quarto quarto2 = new Quarto();
 				TipoQuarto tipoQuarto2 = new TipoQuarto();
 				
@@ -85,6 +87,8 @@ public class ReservaTeste {
 				quarto2.setTipo(tipoQuarto2);
 				quarto2.setQtAdulto(Integer.parseInt(JOptionPane.showInputDialog("Quantos adultos?")));
 				quarto2.setQtCrianca(Integer.parseInt(JOptionPane.showInputDialog("Quantas crianças?")));
+				
+				// idade crianças
 				
 				lstQuarto.add(quarto1);
 				lstQuarto.add(quarto2);

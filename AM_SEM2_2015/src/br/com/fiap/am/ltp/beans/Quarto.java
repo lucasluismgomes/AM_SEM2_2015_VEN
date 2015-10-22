@@ -1,10 +1,12 @@
 package br.com.fiap.am.ltp.beans;
 
+import java.util.List;
+
 /**
  * Descrição da classe/método
  * 
- * @author Lucas 74795, Estevão 74803
- * @version 1.0
+ * @author Lucas 74795, Estevão 74803, Gustavo
+ * @version 4.0
  * @since 1.0
  */
 public class Quarto {
@@ -15,14 +17,14 @@ public class Quarto {
 	private boolean status;
 	private int qtCrianca = 0;
 	private int qtAdulto = 0;
-	private int[] idadeCriancas;
-	
+	private List<Integer> idadeCriancas;
+
 	public Quarto() {
 		super();
 	}
 
-	public Quarto(int codigo, TipoQuarto tipo, short nrCapacidade, int nrAndar,
-			boolean status, int qtCrianca, int qtAdulto) {
+	public Quarto(int codigo, TipoQuarto tipo, short nrCapacidade, int nrAndar, boolean status, int qtCrianca,
+			int qtAdulto, List<Integer> idadeCriancas) {
 		super();
 		this.codigo = codigo;
 		this.tipo = tipo;
@@ -31,24 +33,9 @@ public class Quarto {
 		this.status = status;
 		this.qtCrianca = qtCrianca;
 		this.qtAdulto = qtAdulto;
-		this.idadeCriancas = new int[qtCrianca];
-	}
-	
-	public Quarto(int codigo, TipoQuarto tipo, short nrCapacidade, int nrAndar,
-			boolean status, int qtCrianca, int qtAdulto, int[] idadeCriancas ) {
-		super();
-		this.codigo = codigo;
-		this.tipo = tipo;
-		this.nrCapacidade = nrCapacidade;
-		this.nrAndar = nrAndar;
-		this.status = status;
-		this.qtCrianca = qtCrianca;
-		this.qtAdulto = qtAdulto;
-		this.idadeCriancas = new int[qtCrianca];
 		this.idadeCriancas = idadeCriancas;
 	}
 
-	
 	public int getCodigo() {
 		return codigo;
 	}
@@ -105,12 +92,11 @@ public class Quarto {
 		this.qtAdulto = qtAdulto;
 	}
 
-	public int[] getIdadeCriancas() {
+	public List<Integer> getIdadeCriancas() {
 		return idadeCriancas;
 	}
 
-	public void setIdadeCriancas(int[] idadeCriancas) {
+	public void setIdadeCriancas(List<Integer> idadeCriancas) {
 		this.idadeCriancas = idadeCriancas;
 	}
-	
 }
