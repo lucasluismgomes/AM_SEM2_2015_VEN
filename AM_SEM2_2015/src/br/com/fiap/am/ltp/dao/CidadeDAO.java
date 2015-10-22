@@ -18,7 +18,11 @@ import br.com.fiap.am.ltp.excecoes.Excecao;
  * @since 1.0
  * @see Cidade, CidadeBO
  */
-public class CidadeDAO {
+public class CidadeDAO 
+{
+	private String sql = "";
+	private PreparedStatement estrutura = null;
+	private ResultSet resultado = null;
 	/**
 	 * Faz a gravação de uma cidade no banco de dados. Caso a gravação ocorra,
 	 * retorna True.
@@ -36,8 +40,9 @@ public class CidadeDAO {
 	 */
 	public boolean gravar(Cidade cidade, Connection conexao) throws Excecao {
 		try {
-			PreparedStatement estrutura = conexao
-					.prepareStatement("Insert into T_AM_HBV_CIDADE(CD_ESTADO,NM_CIDADE) VALUES(?,?)");
+			sql = "Insert into T_AM_HBV_CIDADE(CD_ESTADO,NM_CIDADE) VALUES(?,?)";
+			estrutura = conexao
+					.prepareStatement(sql);
 			Estado estado = cidade.getEstado();
 			estrutura.setInt(1, estado.getCodigo());
 			estrutura.setString(2, cidade.getNome());
@@ -64,8 +69,9 @@ public class CidadeDAO {
 	 */
 	public boolean editar(Cidade cidade, Connection conexao) throws Excecao {
 		try {
-			PreparedStatement estrutura = conexao
-					.prepareStatement("Update T_AM_HBV_CIDADE set CD_ESTADO = ?,NM_CIDADE = ? WHERE CD_CIDADE = ?");
+			sql = "Update T_AM_HBV_CIDADE set CD_ESTADO = ?,NM_CIDADE = ? WHERE CD_CIDADE = ?";
+			estrutura = conexao
+					.prepareStatement(sql);
 			Estado estado = cidade.getEstado();
 			estrutura.setInt(1, estado.getCodigo());
 			estrutura.setString(2, cidade.getNome());
@@ -93,11 +99,12 @@ public class CidadeDAO {
 	public List<Cidade> buscarPorNome(Cidade cidade, Connection conexao) throws Excecao 
 	{		
 		try {
+			sql = "SELECT C.CD_CIDADE,E.SG_ESTADO,E.NM_ESTADO, C.NM_CIDADE FROM T_AM_HBV_CIDADE C INNER JOIN T_AM_HBV_ESTADO E ON C.CD_ESTADO = E.CD_ESTADO WHERE UPPER(C.NM_CIDADE) LIKE UPPER(?)";
 			List<Cidade> lstCidade = new ArrayList<Cidade>();
-			PreparedStatement estrutura = conexao.prepareStatement("SELECT C.CD_CIDADE,E.SG_ESTADO,E.NM_ESTADO, C.NM_CIDADE FROM T_AM_HBV_CIDADE C INNER JOIN T_AM_HBV_ESTADO E ON C.CD_ESTADO = E.CD_ESTADO WHERE UPPER(C.NM_CIDADE) LIKE UPPER(?)");
+			estrutura = conexao.prepareStatement(sql);
 			estrutura.setString(1,"%"+ cidade.getNome()+"%");
 			
-			ResultSet resultado = estrutura.executeQuery();
+			resultado = estrutura.executeQuery();
 			
 			while (resultado.next()) {
 				Cidade cid = new Cidade();
@@ -109,7 +116,6 @@ public class CidadeDAO {
 				cid.setEstado(est);
 				lstCidade.add(cid);
 			}
-			
 			return lstCidade;
 		} catch (Exception e) {
 			throw new Excecao(e);
@@ -129,10 +135,11 @@ public class CidadeDAO {
 	 */
 	public List<Cidade> buscarTodos(Connection conexao) throws Excecao {
 		try {
+			sql = "SELECT C.CD_CIDADE,E.SG_ESTADO,E.NM_ESTADO, C.NM_CIDADE FROM T_AM_HBV_CIDADE C INNER JOIN T_AM_HBV_ESTADO E ON C.CD_ESTADO = E.CD_ESTADO";
 			List<Cidade> lstCidade = new ArrayList<Cidade>();
-			PreparedStatement estrutura = conexao
-					.prepareStatement("SELECT C.CD_CIDADE,E.SG_ESTADO,E.NM_ESTADO, C.NM_CIDADE FROM T_AM_HBV_CIDADE C INNER JOIN T_AM_HBV_ESTADO E ON C.CD_ESTADO = E.CD_ESTADO");
-			ResultSet resultado = estrutura.executeQuery();
+			estrutura = conexao
+					.prepareStatement(sql);
+			resultado = estrutura.executeQuery();
 			while (resultado.next()) {
 				Cidade cid = new Cidade();
 				Estado est = new Estado();
@@ -165,8 +172,9 @@ public class CidadeDAO {
 	 */
 	public boolean excluir(Cidade cidade, Connection conexao) throws Excecao {
 		try {
-			PreparedStatement estrutura = conexao
-					.prepareStatement("DELETE FROM T_AM_HBV_CIDADE WHERE CD_CIDADE = ?");
+			sql = "DELETE FROM T_AM_HBV_CIDADE WHERE CD_CIDADE = ?";
+			estrutura = conexao
+					.prepareStatement(sql);
 			estrutura.setInt(1, cidade.getCodigo());
 			return estrutura.execute();
 		} catch (Exception e) {

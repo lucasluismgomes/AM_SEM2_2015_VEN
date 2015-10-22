@@ -17,11 +17,10 @@ public abstract class BairroBO {
 	/**
 	 * Cadastra um Bairro no banco de dados. Seu nome deve ter mais de dois caracteres.
 	 * 
-	 * @author Lucas 74795
-	 * @since 2.0
-	 * @param bairro
-	 * @param conexao
+	 * @param bairro Leva as informações do bairro para a gravação no banco de dados.
+	 * @param conexao Leva as crendencias
 	 * @throws Exception
+	 * @see Bairro, BairroBO
 	 */
 	public static void gravar(Bairro bairro, Connection conexao)
 			throws Exception {
