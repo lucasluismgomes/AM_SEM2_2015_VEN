@@ -1,6 +1,7 @@
 package br.com.fiap.am.ltp.bo;
 
 import java.sql.Connection;
+import java.util.List;
 
 import br.com.fiap.am.ltp.beans.Bairro;
 import br.com.fiap.am.ltp.dao.BairroDAO;
@@ -22,12 +23,28 @@ public abstract class BairroBO {
 	 * @throws Exception
 	 * @see Bairro, BairroBO
 	 */
-	public static void gravar(Bairro bairro, Connection conexao)
+	public static boolean gravar(Bairro bairro, Connection conexao)
 			throws Exception {
 		if (bairro.getNome().length() < 2) {
 			throw new Excecao("Caracteres insuficientes no nome do Bairro");
 		}
 
-		new BairroDAO().gravar(bairro, conexao);
+		return new BairroDAO().gravar(bairro, conexao);
+	}
+	public static boolean editar(Bairro bairro,Connection conexao) throws Exception
+	{
+		return new BairroDAO().editar(bairro, conexao);
+	}
+	public static boolean apagar(Bairro bairro,Connection conexao) throws Exception
+	{
+		return new BairroDAO().excluir(bairro, conexao);
+	}
+	public static List<Bairro> buscarTodos(Connection conexao) throws Exception
+	{
+		return new BairroDAO().buscarTodos(conexao);
+	}
+	public static List<Bairro> buscarPorNome(Bairro bairro,Connection conexao) throws Exception
+	{
+		return new BairroDAO().buscarPorNome(bairro, conexao);
 	}
 }

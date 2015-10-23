@@ -27,7 +27,7 @@ public class CidadeBO
 	 * @throws Excecao
 	 * @see Cidade,CidadeDAO
 	 */
-	public boolean gravar(Cidade cidade, Connection conexao) throws Excecao {
+	public static boolean gravar(Cidade cidade, Connection conexao) throws Excecao {
 		try {
 			return new CidadeDAO().gravar(cidade, conexao);
 		} catch (Exception e) {
@@ -44,7 +44,7 @@ public class CidadeBO
 	 * @throws Excecao
 	 * @see Cidade,CidadeDAO
 	 */
-	public boolean editar(Cidade cidade, Connection conexao) throws Excecao {
+	public static boolean editar(Cidade cidade, Connection conexao) throws Excecao {
 		try {
 			return new CidadeDAO().editar(cidade, conexao);
 		} catch (Exception e) {
@@ -68,7 +68,7 @@ public class CidadeBO
 	 * @throws Excecao
 	 * @see Cidade,CidadeDAO
 	 */
-	public List<Cidade> buscarPorNome(Cidade cidade, Connection conexao) throws Excecao
+	public static List<Cidade> buscarPorNome(Cidade cidade, Connection conexao) throws Excecao
 	{
 		try {
 			return new CidadeDAO().buscarPorNome(cidade, conexao);
@@ -86,7 +86,7 @@ public class CidadeBO
 	 * @throws Excecao
 	 * @see Cidade,CidadeDAO
 	 */
-	public boolean excluir(Cidade cidade, Connection conexao) throws Excecao {
+	public static boolean excluir(Cidade cidade, Connection conexao) throws Excecao {
 		try {
 			return new CidadeDAO().excluir(cidade, conexao);
 		} catch (Exception e) {

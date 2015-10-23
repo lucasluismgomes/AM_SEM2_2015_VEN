@@ -27,7 +27,7 @@ public class EstadoBO
 	 * @throws Excecao
 	 * @see Estado,EstadoDAO
 	 */
-	public boolean gravar(Estado estado, Connection conexao) throws Excecao {
+	public static boolean gravar(Estado estado, Connection conexao) throws Excecao {
 		try {
 			return new EstadoDAO().gravar(estado, conexao);
 		} catch (Exception e) {
@@ -44,14 +44,14 @@ public class EstadoBO
 	 * @throws Excecao
 	 * @see Estado,EstadoDAO
 	 */
-	public boolean editar(Estado estado, Connection conexao) throws Excecao {
+	public static boolean editar(Estado estado, Connection conexao) throws Excecao {
 		try {
 			return new EstadoDAO().editar(estado, conexao);
 		} catch (Exception e) {
 			throw new Excecao(e);
 		}
 	}
-	public List<Estado> buscarTodos(Connection conexao) throws Excecao {
+	public static List<Estado> buscarTodos(Connection conexao) throws Excecao {
 		try {
 			return new EstadoDAO().buscarTodos(conexao);
 		} catch (Exception e) {
@@ -68,7 +68,7 @@ public class EstadoBO
 	 * @throws Excecao
 	 * @see Estado,EstadoDAO
 	 */
-	public List<Estado> buscarPorNome(Estado estado, Connection conexao) throws Excecao
+	public static List<Estado> buscarPorNome(Estado estado, Connection conexao) throws Excecao
 	{
 		try {
 			return new EstadoDAO().buscarPorNome(estado, conexao);
@@ -86,7 +86,7 @@ public class EstadoBO
 	 * @throws Excecao
 	 * @see Estado,EstadoDAO
 	 */
-	public boolean excluir(Estado estado, Connection conexao) throws Excecao {
+	public static boolean excluir(Estado estado, Connection conexao) throws Excecao {
 		try {
 			return new EstadoDAO().excluir(estado, conexao);
 		} catch (Exception e) {

@@ -18,6 +18,9 @@ import br.com.fiap.am.ltp.excecoes.Excecao;
  */
 public class EstadoDAO 
 {
+	private String sql = "";
+	private PreparedStatement estrutura = null;
+	private ResultSet resultado = null;
 	/**
 	 * Método responsavel pela gravação de um estado no banco de dados.
 	 * @param estado
@@ -33,7 +36,8 @@ public class EstadoDAO
 	{
 		try
 		{
-			PreparedStatement estrutura = conexao.prepareStatement("INSERT INTO T_AM_HBV_ESTADO(NM_ESTADO,SG_ESTADO) VALUES(?,?)");
+			sql = "INSERT INTO T_AM_HBV_ESTADO(NM_ESTADO,SG_ESTADO) VALUES(?,?)";
+			estrutura = conexao.prepareStatement(sql);
 			estrutura.setString(1, estado.getNome());
 			estrutura.setString(2, estado.getSigla());
 			return estrutura.execute();
@@ -58,7 +62,8 @@ public class EstadoDAO
 	{
 		try 
 		{
-			PreparedStatement estrutura = conexao.prepareStatement("UPDATE T_AM_HBV_ESTADO SET NM_ESTADO = ?, SG_ESTADO = ? WHERE CD_ESTADO = ?");
+			sql = "UPDATE T_AM_HBV_ESTADO SET NM_ESTADO = ?, SG_ESTADO = ? WHERE CD_ESTADO = ?";
+			estrutura = conexao.prepareStatement(sql);
 			estrutura.setString(1, estado.getNome());
 			estrutura.setString(2, estado.getSigla());
 			estrutura.setInt(3, estado.getCodigo());
@@ -84,7 +89,8 @@ public class EstadoDAO
 	{
 		try 
 		{
-			PreparedStatement estrutura = conexao.prepareStatement("DELETE FROM T_AM_HBV_ESTADO WHERE CD_ESTADO = ?");
+			sql  = "DELETE FROM T_AM_HBV_ESTADO WHERE CD_ESTADO = ?";
+			estrutura = conexao.prepareStatement(sql);
 			estrutura.setInt(1, estado.getCodigo());
 			return estrutura.execute();
 		}
@@ -105,8 +111,9 @@ public class EstadoDAO
 	{
 		try 
 		{
-			PreparedStatement estrutura = conexao.prepareStatement("SELECT CD_ESTADO,NM_ESTADO,SG_ESTADO FROM T_AM_HBV_ESTADO");
-			ResultSet resultado = estrutura.executeQuery();
+			sql = "SELECT CD_ESTADO,NM_ESTADO,SG_ESTADO FROM T_AM_HBV_ESTADO";
+			estrutura = conexao.prepareStatement(sql);
+			resultado = estrutura.executeQuery();
 			List<Estado> lstEstado = new ArrayList<Estado>();
 			while(resultado.next())
 			{
@@ -137,9 +144,10 @@ public class EstadoDAO
 	{
 		try 
 		{
-			PreparedStatement estrutura = conexao.prepareStatement("SELECT CD_ESTADO,NM_ESTADO,SG_ESTADO FROM T_AM_HBV_ESTADO WHERE UPPER(NM_ESTADO) LIKE UPPER(?)");
+			sql = "SELECT CD_ESTADO,NM_ESTADO,SG_ESTADO FROM T_AM_HBV_ESTADO WHERE UPPER(NM_ESTADO) LIKE UPPER(?)";
+			estrutura = conexao.prepareStatement(sql);
 			estrutura.setString(1, "%"+estado.getNome()+"%");
-			ResultSet resultado = estrutura.executeQuery();
+			resultado = estrutura.executeQuery();
 			List<Estado> lstEstado = new ArrayList<Estado>();
 			while(resultado.next())
 			{
