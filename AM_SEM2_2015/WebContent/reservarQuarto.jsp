@@ -18,7 +18,6 @@
 
 	<div id="wrap">
 		<c:import url="Imports/menu.jsp"></c:import>
-
 		<section id="container-reservar-quarto">
 			<h2>RESERVAR QUARTO</h2>
 

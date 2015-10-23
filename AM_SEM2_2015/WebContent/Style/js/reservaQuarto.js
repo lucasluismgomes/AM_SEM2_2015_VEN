@@ -17,6 +17,11 @@ function arrumarCol(qtd){
 }
 
 function tagQuarto(qtdQuartos, numeroQuarto){
+
+	console.log("tipoQuarto"+numeroQuarto);
+	console.log("qtdAdultosQuarto"+numeroQuarto);
+	
+	
 	
 	return "<div class='col-sm-6 col-md-4 col-md-offset-"+arrumarCol(qtdQuartos)+"'>\
 			<div class='thumbnail'>\
@@ -126,11 +131,14 @@ function tagIdadeCriancas(qtdCriancas,numeroQuarto){
 	if(qtdCriancas == 0){
 		return "";		
 	}else{	
+		
 	var tag = "<label class='control-label'>Idade das crianças</label><br><div class='input-group idadeCrianca'>";
 	
-	for(i=1;i<=qtdCriancas;i++){
+	for(c=1;c<=qtdCriancas;c++){
+		console.log("idadeCrianca"+c+"Quarto"+numeroQuarto);
+		
 		tag = tag + "<select\
-		name='idadeCrianca"+i+"Quarto"+numeroQuarto+"' class='form-control '>\
+		name='idadeCrianca"+c+"Quarto"+numeroQuarto+"' class='form-control '>\
 				<option value='0'>0</option>\
 				<option value='1'>1</option>\
 				<option value='2'>2</option>\
@@ -143,11 +151,9 @@ function tagIdadeCriancas(qtdCriancas,numeroQuarto){
 	}
 }
 $(document).ready(function(){
-
 	$("#qtdQuartos").change(function(){
 		$("#secaoQuartos").html('');
 		var qtdQuartos = $("#qtdQuartos option:selected").val();
-
 		for(i = 1; i <= qtdQuartos; i++){
 			$("#secaoQuartos").append(tagQuarto(qtdQuartos,i));					
 		}

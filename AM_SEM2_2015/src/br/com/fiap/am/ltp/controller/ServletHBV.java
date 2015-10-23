@@ -10,6 +10,7 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -116,6 +117,7 @@ public class ServletHBV extends HttpServlet {
 		reserva.setQtAdulto(qtdAdultos);
 		reserva.setQuarto(lstQuartos);
 		
+		System.out.println("-----------------------------------------------------");
 		System.out.println("Data de entrada: " + reserva.getDtEntrada().getTime());
 		System.out.println("Data de saida: " + reserva.getDtSaida().getTime());
 		System.out.println("Qtd Criancas: " + reserva.getQtCrianca());
@@ -131,9 +133,11 @@ public class ServletHBV extends HttpServlet {
 				System.out.print(idade + " ");
 			}
 			count++;
+			System.out.println();
 		}
 
-		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("reservarQuarto.jsp");
+		dispatcher.forward(request, response);
 	}
 
 }
