@@ -15,7 +15,7 @@ import br.com.fiap.am.ltp.excecoes.Excecao;
 /**
  * Descrição da classe/método
  * 
- * @author Lucas 74795
+ * @author Estevão 74803
  * @version 1.0
  * @since 1.0
  * @see Meu Beans
@@ -40,13 +40,13 @@ public class TipoConsumoDAO {
 	 */
 	public void gravar(TipoConsumo tipoConsumo, Connection conexao) throws Exception {
 		try {
-			sql = "INSERT INTO T_AM_HBV_TIPO_CONSUMO (DS_TIPO_CONSUMO, NR_TIPO, VL_UNIT) VALUES"
+			sql = "INSERT INTO T_AM_HBV_TIPO_CONSUMO (DS_TIPO_CONSUMO, NR_TIPO, VL_UNIT)"
 				  + " VALUES(?,?,?)";
 			
 			estrutura = conexao.prepareStatement(sql);
 			estrutura.setString(1, tipoConsumo.getNome());
-			estrutura.setShort(1, tipoConsumo.getTipo());
-			estrutura.setDouble(1, tipoConsumo.getValor());
+			estrutura.setShort(2, tipoConsumo.getTipo());
+			estrutura.setDouble(3, tipoConsumo.getValor());
 			
 			estrutura.executeQuery();
 			estrutura.close();
@@ -71,10 +71,13 @@ public class TipoConsumoDAO {
 	public void editar(TipoConsumo tipoConsumo, Connection conexao) throws Exception {
 		try {
 
-			//sql = "UPDATE T_AM_HBV_TIPO_QUARTO SET DS_TIPO_QUARTO = ?, DS_OBSERVACAO = ?, VL_QUARTO = ? WHERE CD_TIPO_QUARTO = ?";
+			sql = "UPDATE T_AM_HBV_TIPO_CONSUMO SET DS_TIPO_CONSUMO = ?, NR_TIPO = ?, VL_UNIT = ? WHERE CD_TIPO_CONSUMO = ?";
 			estrutura = conexao.prepareStatement(sql);
 			
 			estrutura.setString(1, tipoConsumo.getNome());
+			estrutura.setShort(2, tipoConsumo.getTipo());
+			estrutura.setDouble(3, tipoConsumo.getValor());
+			estrutura.setInt(4, tipoConsumo.getCodigo());
 
 			estrutura.executeQuery();
 			estrutura.close();
@@ -98,8 +101,8 @@ public class TipoConsumoDAO {
 	 */
 	public void gravarHistoricoValor(TipoConsumo tipoConsumo, Connection conexao) throws Exception {
 		try {
-			//sql = "INSERT INTO T_AM_HBV_HIST_VALOR (CD_TIPO_QUARTO, DT_VALIDADE, VL_PRECO_QUARTO)"
-			//	  + " VALUES(?,?,?)";
+			sql = "INSERT INTO T_AM_HBV_HIST_PRECO (CD_TIPO_CONSUMO, DT_VALIDADE, VL_PRECO)"
+				  + " VALUES(?,?,?)";
 
 			estrutura = conexao.prepareStatement(sql);
 			estrutura.setInt(1, tipoConsumo.getCodigo());
@@ -130,7 +133,7 @@ public class TipoConsumoDAO {
 	 */
 	public void excluir(int codigo, Connection conexao) throws Exception {
 		try {
-			//sql = "DELETE FROM T_AM_HBV_TIPO_QUARTO WHERE CD_TIPO_QUARTO = ?";
+			sql = "DELETE FROM T_AM_HBV_TIPO_CONSUMO WHERE CD_TIPO_CONSUMO = ?";
 			estrutura = conexao.prepareStatement(sql);
 			estrutura.setInt(1, codigo);
 
@@ -157,8 +160,8 @@ public class TipoConsumoDAO {
 		List<TipoConsumo> lstTipoConsumo = new ArrayList<TipoConsumo>();
 
 		try {
-			//sql = "SELECT CD_TIPO_QUARTO, " + "DS_TIPO_QUARTO, " + "VL_QUARTO "
-			//		+ "FROM T_AM_HBV_TIPO_QUARTO ";
+			sql = "SELECT CD_TIPO_CONSUMO, DS_TIPO_CONSUMO, NR_TIPO, VL_UNIT"
+					+ " FROM T_AM_HBV_TIPO_CONSUMO";
 			estrutura = conexao.prepareStatement(sql);
 
 			rs = estrutura.executeQuery();
@@ -166,7 +169,10 @@ public class TipoConsumoDAO {
 			while (rs.next()) {
 				TipoConsumo tipoConsumo = new TipoConsumo();
 
-				tipoConsumo.setCodigo(Integer.parseInt(rs.getString("CD_TIPO_QUARTO")));
+				tipoConsumo.setCodigo(Integer.parseInt(rs.getString("CD_TIPO_CONSUMO")));
+				tipoConsumo.setNome(rs.getString("DS_TIPO_CONSUMO"));
+				tipoConsumo.setTipo(Short.parseShort(rs.getString("NR_TIPO")));
+				tipoConsumo.setValor(Double.parseDouble(rs.getString("VL_UNIT")));
 				
 
 				lstTipoConsumo.add(tipoConsumo);
@@ -199,9 +205,9 @@ public class TipoConsumoDAO {
 		TipoConsumo tipoConsumo = new TipoConsumo();
 
 		try {
-			//sql = "SELECT CD_TIPO_QUARTO, " + "DS_TIPO_QUARTO, " + "VL_QUARTO "
-			//		+ "FROM T_AM_HBV_TIPO_QUARTO "
-			//		+ "WHERE CD_TIPO_QUARTO = ?";
+			sql = "SELECT CD_TIPO_CONSUMO, DS_TIPO_CONSUMO, NR_TIPO, VL_UNIT"
+					+ " FROM T_AM_HBV_TIPO_CONSUMO"
+					+ " WHERE CD_TIPO_CONSUMO = ?";
 			estrutura = conexao.prepareStatement(sql);
 			estrutura.setInt(1, codigo);
 
@@ -209,8 +215,10 @@ public class TipoConsumoDAO {
 
 			if (rs.next()) {
 
-				tipoConsumo.setCodigo(Integer.parseInt(rs.getString("CD_TIPO_QUARTO")));
-				
+				tipoConsumo.setCodigo(Integer.parseInt(rs.getString("CD_TIPO_CONSUMO")));
+				tipoConsumo.setNome(rs.getString("DS_TIPO_CONSUMO"));
+				tipoConsumo.setTipo(Short.parseShort(rs.getString("NR_TIPO")));
+				tipoConsumo.setValor(Double.parseDouble(rs.getString("VL_UNIT")));
 				
 			}
 
