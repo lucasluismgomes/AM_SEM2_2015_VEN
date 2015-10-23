@@ -1,6 +1,7 @@
 package br.com.fiap.am.ltp.bo;
 
 import java.sql.Connection;
+import java.util.List;
 
 import br.com.fiap.am.ltp.beans.Reserva;
 import br.com.fiap.am.ltp.dao.ReservaDAO;
@@ -32,5 +33,19 @@ public class ReservaBO {
 		} catch (Exception e) {
 			throw new Exception(e);
 		}
+	}
+	
+	/**
+	 * Descrição
+	 * 
+	 * @author Lucas 74795
+	 * @since 1.0
+	 * @param reserva
+	 * @param conexao
+	 * @return
+	 * @throws Exception
+	 */
+	public static List<Boolean> verificarDisponibilidadeQuarto(Reserva reserva, Connection conexao) throws Exception {
+		return new  ReservaDAO().verificarDisponibilidadeQuarto(reserva, conexao);
 	}
 }

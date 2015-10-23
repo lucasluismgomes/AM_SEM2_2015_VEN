@@ -22,7 +22,7 @@ public class ReservaTeste {
 		Connection conexao = null;
 		try {
 			int funcionalidade = Integer.parseInt(JOptionPane.showInputDialog("Qual funcionalidade deseja testar?\n\n"
-					+ "1 - Calcular Valor da Reserva\n" + "2 - Editar\n" + "3 - Buscar Todos\n" + "4 - Apagar\n" + "5 - Buscar por ID\n"));
+					+ "1 - Calcular Valor da Reserva e verificar Disponibilidade dos quartos\n" + "2 - Editar\n" + "3 - Buscar Todos\n" + "4 - Apagar\n" + "5 - Buscar por ID\n"));
 
 			if (funcionalidade == 1) {
 				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74795", "251295");
@@ -112,6 +112,22 @@ public class ReservaTeste {
 				reserva.setQuarto(lstQuarto);					
 				
 				new ReservaBO();
+				List<Boolean> disponibilidade = ReservaBO.verificarDisponibilidadeQuarto(reserva, conexao);
+				
+				int index = 0;
+				for (Boolean tipDisponivel : disponibilidade) {
+					if(index == 0 && (quarto1.getTipo().getCodigo() == 1 || quarto2.getTipo().getCodigo() == 1)) {
+						System.out.println("O quarto Standart está disponivel? " + tipDisponivel);
+					} else if(index == 1 && (quarto1.getTipo().getCodigo() == 2 || quarto2.getTipo().getCodigo() == 2)) {
+						System.out.println("O quarto master está disponivel? " + tipDisponivel);
+					} else if(index == 2 && (quarto1.getTipo().getCodigo() == 3 || quarto2.getTipo().getCodigo() == 3)) {
+						System.out.println("O quarto luxo está disponivel? " + tipDisponivel);
+					} else if(index == 3 && (quarto1.getTipo().getCodigo() == 4 || quarto2.getTipo().getCodigo() == 4)){
+						System.out.println("O quarto master luxo está disponivel? " + tipDisponivel);
+					}
+					index++;
+				}
+				
 				valorReserva = ReservaBO.calcularReserva(reserva, conexao);
 				
 				System.out.println("O valor da reserva ficou: R$ " + valorReserva);
