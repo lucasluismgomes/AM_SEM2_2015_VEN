@@ -151,6 +151,7 @@ public class ConsumoDAO {
 				consumo.setHospedagem(hpd);
 				TipoConsumo tc = new TipoConsumo();
 				tc = TipoConsumoBO.buscarPorCodigo(rs.getInt("CD_TIPO_CONSUMO"), conexao);
+				consumo.setTipoConsumo(tc);
 				Funcionario f = new Funcionario();
 				f = FuncionarioBO.buscarPorCodigo(rs.getInt("CD_FUNCIONARIO"), conexao);
 				consumo.setFuncionario(f);
@@ -205,6 +206,7 @@ public class ConsumoDAO {
 				consumo.setHospedagem(hpd);
 				TipoConsumo tc = new TipoConsumo();
 				tc = TipoConsumoBO.buscarPorCodigo(rs.getInt("CD_TIPO_CONSUMO"), conexao);
+				consumo.setTipoConsumo(tc);
 				Funcionario f = new Funcionario();
 				f = FuncionarioBO.buscarPorCodigo(rs.getInt("CD_FUNCIONARIO"), conexao);
 				consumo.setFuncionario(f);
