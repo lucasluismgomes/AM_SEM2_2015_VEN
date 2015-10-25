@@ -98,7 +98,6 @@ public class EstadoTeste
 				{
 					System.out.println("Não Apagou");
 				}
-				System.out.println("la");
 			}
 			else if (funcionalidade == 5) 
 			{

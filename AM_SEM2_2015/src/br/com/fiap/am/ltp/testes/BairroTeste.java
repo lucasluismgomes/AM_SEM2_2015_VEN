@@ -28,7 +28,7 @@ public class BairroTeste
 		Connection conexao = null;	
 		try 
 		{
-			conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$74793", "150395");
+			conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74793", "150395");
 			int funcionalidade = Integer.parseInt(JOptionPane.showInputDialog("Qual funcionalidade deseja testar?\n\n"
 					+ "1 - Gravar\n" + "2 - Editar\n" + "3 - Buscar Todos\n" + "4 - Apagar\n" + "5 - Buscar por ID\n"));
 
@@ -67,12 +67,11 @@ public class BairroTeste
 					System.out.println("Cód. Bairro: "+b.getCodigo()+" Nome:"+b.getNome()+" Cód. Cidade:"+b.getCidade().getCodigo());
 				}
 				List<Cidade> lstCidade = new CidadeBO().buscarTodos(conexao);
-				System.out.println("/n/tCidades Cadastradas");
+				System.out.println("\n\tCidades Cadastradas");
 				for (Cidade c : lstCidade) 
 				{
 					System.out.println("Cód. Cidade:"+c.getCodigo()+" Nome:"+c.getNome()+" Estado:"+c.getEstado().getNome()+" Sigla:"+c.getEstado().getSigla());
 				}
-				JOptionPane.showMessageDialog(null, "Editar Informações do Bairro");
 				bairro.setCodigo(Integer.parseInt(JOptionPane.showInputDialog("Código do bairro a ser editado")));
 				bairro.setNome(JOptionPane.showInputDialog("Novo nome do Bairro"));
 				cidade.setCodigo(Integer.parseInt(JOptionPane.showInputDialog("Informe o novo codigo da cidade ")));
@@ -90,7 +89,7 @@ public class BairroTeste
 			else if (funcionalidade == 3) 
 			{
 				List<Bairro> lstBairro = BairroBO.buscarTodos(conexao);
-				System.out.println("/tLista de Bairros Cadastrados");
+				System.out.println("\tLista de Bairros Cadastrados");
 				for (Bairro b : lstBairro) 
 				{
 					System.out.println("Cód. Bairro: "+b.getCodigo()+" Nome:"+b.getNome()+" Cód. Cidade:"+b.getCidade().getCodigo());
