@@ -10,8 +10,10 @@ import java.util.List;
 
 import br.com.fiap.am.ltp.beans.Consumo;
 import br.com.fiap.am.ltp.beans.Funcionario;
+import br.com.fiap.am.ltp.beans.Hospedagem;
 import br.com.fiap.am.ltp.beans.TipoConsumo;
 import br.com.fiap.am.ltp.bo.FuncionarioBO;
+import br.com.fiap.am.ltp.bo.HospedagemBO;
 import br.com.fiap.am.ltp.bo.TipoConsumoBO;
 import br.com.fiap.am.ltp.excecoes.Excecao;
 
@@ -144,8 +146,10 @@ public class ConsumoDAO {
 				Consumo consumo = new Consumo();
 
 				consumo.setCodigo(Integer.parseInt(rs.getString("CD_CONSUMO")));
+				Hospedagem hpd = new Hospedagem();
+				hpd = HospedagemBO.buscarPorCodigo(rs.getInt("CD_HOSPEDAGEM"), conexao);
+				consumo.setHospedagem(hpd);
 				TipoConsumo tc = new TipoConsumo();
-				//consumo.setHospedagem(hospedagem);
 				tc = TipoConsumoBO.buscarPorCodigo(rs.getInt("CD_TIPO_CONSUMO"), conexao);
 				Funcionario f = new Funcionario();
 				f = FuncionarioBO.buscarPorCodigo(rs.getInt("CD_FUNCIONARIO"), conexao);
@@ -196,8 +200,10 @@ public class ConsumoDAO {
 			if (rs.next()) {
 
 				consumo.setCodigo(Integer.parseInt(rs.getString("CD_CONSUMO")));
+				Hospedagem hpd = new Hospedagem();
+				hpd = HospedagemBO.buscarPorCodigo(rs.getInt("CD_HOSPEDAGEM"), conexao);
+				consumo.setHospedagem(hpd);
 				TipoConsumo tc = new TipoConsumo();
-				//consumo.setHospedagem(hospedagem);
 				tc = TipoConsumoBO.buscarPorCodigo(rs.getInt("CD_TIPO_CONSUMO"), conexao);
 				Funcionario f = new Funcionario();
 				f = FuncionarioBO.buscarPorCodigo(rs.getInt("CD_FUNCIONARIO"), conexao);
@@ -206,6 +212,7 @@ public class ConsumoDAO {
 				c.setTime(rs.getDate("DT_CONSUMO"));
 				consumo.setDtSolicitacao(c);
 				consumo.setQuantidade(rs.getInt("QT_CONSUMO"));
+
 
 			}
 

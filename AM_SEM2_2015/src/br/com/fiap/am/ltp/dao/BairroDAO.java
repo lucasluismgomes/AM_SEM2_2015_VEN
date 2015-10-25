@@ -113,7 +113,7 @@ public class BairroDAO
 	public List<Bairro> buscarPorNome(Bairro bairro, Connection conexao) throws Exception {
 		try{
 			List<Bairro> lstBairro = new ArrayList<Bairro>();
-			sql = "SELECT CD_TIPO_LOGRADOURO,DS_TIPO_LOGRADOURO FROM T_AM_HBV_TIPO_LOGRADOURO WHERE UPPER(DS_TIPO_LOGRADOURO) LIKE UPPER(?)';
+			sql = "SELECT CD_TIPO_LOGRADOURO,DS_TIPO_LOGRADOURO FROM T_AM_HBV_TIPO_LOGRADOURO WHERE UPPER(DS_TIPO_LOGRADOURO) LIKE UPPER(?)";
 			estrutura = conexao.prepareStatement(sql);	
 			estrutura.setString(1, "%"+bairro.getNome()+"%");
 			resultadoDados = estrutura.executeQuery();
