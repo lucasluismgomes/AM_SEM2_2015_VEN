@@ -14,7 +14,8 @@
 				<li><a href="index.jsp">Home</a></li>
 				<li><a href="sobre.jsp">Sobre</a></li>
 				<li><a href="contato.jsp">Contato</a></li>
-				<li class="dropdown">
+				<li><a href="reservarQuarto.jsp">Reserva</a></li>
+				<%--<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hospedagem<span class="caret"></span></a>
 				<ul class="dropdown-menu">
 					<li><a href="reservarQuarto.jsp">Reserva</a></li>
@@ -24,7 +25,7 @@
 					<li><a href="#">Transporte</a></li>
 					<li><a href="#">Passagens</a></li>
 				</ul>
-				</li>
+				</li>--%>
 			</ul>
 			<div class="col-sm-6" hidden="true">
 		        <div class="pull-right  hidden-xs">
@@ -37,19 +38,19 @@
 	      	</div>
 			<ul class="nav navbar-nav navbar-right">
 				<li class="dropdown" id="loginCliente">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Cliente</b> <span class="caret"></span></a>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
 					<ul id="login-dp" class="dropdown-menu">
 						<li>
 							<div class="row">
 								<div class="col-md-12">
-									<form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
+									<form onsubmit="return validarLogin()" class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
 										<div class="form-group">
-											<label class="sr-only" for="exampleInputEmail2">E-mail</label>
-											<input type="email" class="form-control" id="exampleInputEmail2" placeholder="E-mail" required="required">
+											<label class="sr-only" for="exampleInputEmail2">Usuário</label>
+											<input type="text" class="form-control" id="usuario" name="usuario" placeholder="E-mail ou código" required="required">
 										</div>
 										<div class="form-group">
 											<label class="sr-only" for="exampleInputPassword2">Senha</label>
-											<input type="password" class="form-control" id="exampleInputPassword2" placeholder="Senha" required="required">
+											<input type="password" class="form-control" id="senha" name="senha" placeholder="Senha" required="required">
 											<div class="help-block text-right"><a href="">Esqueci minha senha</a></div>
 										</div>
 										<div class="form-group">
@@ -59,34 +60,6 @@
 								</div>
 								<div class="bottom text-center">
 									Primeiro acesso? <a href="#"><b>Cadastre-se</b></a>
-								</div>
-							</div>
-						</li>
-					</ul>
-				</li>
-				<li class="dropdown" id="loginFuncionario">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Funcionário</b> <span class="caret"></span></a>
-					<ul id="login-dp" class="dropdown-menu">
-						<li>
-							<div class="row">
-								<div class="col-md-12">
-									<form class="form" role="form" method="post" action="login" accept-charset="UTF-8" id="login-nav">
-										<div class="form-group">
-											<label class="sr-only" for="exampleInputEmail2">Código do funcionário</label>
-											<input type="number" class="form-control" id="exampleInputEmail2" placeholder="Código do funcionário" required="required">
-										</div>
-										<div class="form-group">
-											<label class="sr-only" for="exampleInputPassword2">Senha</label>
-											<input type="password" class="form-control" id="exampleInputPassword2" placeholder="Senha" required="required">
-											<div class="help-block text-right"><a href="">Esqueci minha senha</a></div>
-										</div>
-										<div class="form-group">
-											<button type="submit" class="btn btn-primary btn-block">Entrar</button>
-										</div>
-									</form>
-								</div>
-								<div class="bottom text-center">
-									<a href="#"><b>Cadastrar novo funcionário</b></a>
 								</div>
 							</div>
 						</li>
