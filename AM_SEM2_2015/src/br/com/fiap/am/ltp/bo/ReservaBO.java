@@ -14,6 +14,11 @@ import br.com.fiap.am.ltp.dao.ReservaDAO;
  * @since 1.0
  */
 public class ReservaBO {
+	
+	public static void gravar(Reserva reserva, Connection conexao) throws Exception {
+		new ReservaDAO().gravar(reserva, conexao);
+	}
+	
 	/**
 	 * Descrição.
 	 * 
@@ -47,5 +52,16 @@ public class ReservaBO {
 	 */
 	public static List<Boolean> verificarDisponibilidadeQuarto(Reserva reserva, Connection conexao) throws Exception {
 		return new  ReservaDAO().verificarDisponibilidadeQuarto(reserva, conexao);
+	}
+	
+	/**
+	 * 
+	 * @param reserva
+	 * @param conexao
+	 * @return
+	 * @throws Exception
+	 */
+	public static List<Integer> verificarQtQuartosDisponiveis(Reserva reserva, Connection conexao) throws Exception {
+		return new  ReservaDAO().verificarQtQuartosDisponiveis(reserva, conexao);
 	}
 }

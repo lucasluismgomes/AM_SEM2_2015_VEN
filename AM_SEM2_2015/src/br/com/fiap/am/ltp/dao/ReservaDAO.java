@@ -9,6 +9,9 @@ import java.util.List;
 
 import br.com.fiap.am.ltp.beans.Quarto;
 import br.com.fiap.am.ltp.beans.Reserva;
+import br.com.fiap.am.ltp.beans.TipoQuarto;
+import br.com.fiap.am.ltp.bo.QuartoBO;
+import br.com.fiap.am.ltp.bo.TipoQuartoBO;
 import br.com.fiap.am.ltp.excecoes.Excecao;
 
 /**
@@ -41,51 +44,49 @@ public class ReservaDAO {
 	public void gravar(Reserva reserva, Connection conexao) throws Exception {
 		try {
 			sql = "INSERT INTO T_AM_HBV_RESERVA "
-					+ "(CD_CLIENTE, CD_FUNCIONARIO, DT_SOLICITACAO, DE_INICIO_RESERVA,DT_FINAL_RESERVA, QT_ADULTO, QT_CRIANCA, ST_RESERVA, VL_RESERVA)"
-					+ "VALUES (?,?,(SELECT SYSDATE FROM DUAL),?,?,?,?,?,?)";
+					+ "(CD_CLIENTE, DT_SOLICITACAO, DT_INICIO_RESERVA,DT_FINAL_RESERVA, QT_ADULTO, QT_CRIANCA, ST_RESERVA, VL_RESERVA)"
+					+ "VALUES (?,(SELECT SYSDATE FROM DUAL),?,?,?,?,?,?)";
 			estrutura = conexao.prepareStatement(sql);
 			estrutura.setInt(1, reserva.getCliente().getCodigo());
-			estrutura.setInt(2, reserva.getFuncionario().getCodigo());
-			estrutura.setDate(3, new Date(reserva.getDtEntrada().getTimeInMillis()));
-			estrutura.setDate(4, new Date(reserva.getDtSaida().getTimeInMillis()));
-			estrutura.setShort(5, reserva.getQtAdulto());
-			estrutura.setShort(6, reserva.getQtCrianca());
-			estrutura.setInt(7, reserva.getStatus().getCodigo());
-			estrutura.setDouble(8, reserva.getVlReserva());
+			estrutura.setDate(2, new Date(reserva.getDtEntrada().getTimeInMillis()));
+			estrutura.setDate(3, new Date(reserva.getDtSaida().getTimeInMillis()));
+			estrutura.setShort(4, reserva.getQtAdulto());
+			estrutura.setShort(5, reserva.getQtCrianca());
+			estrutura.setInt(6, reserva.getStatus().getCodigo());
+			estrutura.setDouble(7, reserva.getVlReserva());
 
 			estrutura.execute();
 			estrutura.close();
 
 			for (Quarto quarto : reserva.getQuarto()) {
-				sql = "INSERT INTO T_AM_HBV_RESERVA_QUARTO VALUES( " + "?     , -- CÓDGIO RESERVA "
-						+ "( SELECT Q.NR_QUARTO " + "FROM T_AM_HBV_QUARTO Q "
+				sql = "INSERT INTO T_AM_HBV_RESERVA_QUARTO VALUES(SQ_AM_RESERVA.CURRVAL, "
+						+ "( SELECT Q.NR_QUARTO FROM T_AM_HBV_QUARTO Q "
 						+ "WHERE Q.CD_TIPO_QUARTO = ? AND (  SELECT COUNT(*) "
 						+ "FROM T_AM_HBV_RESERVA_QUARTO RQ INNER JOIN T_AM_HBV_RESERVA R "
-						+ "ON RQ.CD_RESERVA = R.CD_RESERVA " + "INNER JOIN T_AM_HBV_QUARTO Q "
+						+ "ON RQ.CD_RESERVA = R.CD_RESERVA INNER JOIN T_AM_HBV_QUARTO Q "
 						+ "ON Q.NR_QUARTO = RQ.NR_QUARTO "
-						+ "WHERE R.DT_INICIO_RESERVA >= ? AND R.DT_FINAL_RESERVA <= ? " + "AND Q.CD_TIPO_QUARTO = ? "
-						+ ") < ( SELECT COUNT(*) " + "FROM T_AM_HBV_QUARTO Q " + "WHERE Q.CD_TIPO_QUARTO = ? " + ") "
-						+ "AND Q.NR_QUARTO NOT IN ( " + "SELECT Q.NR_QUARTO "
+						+ "WHERE R.DT_INICIO_RESERVA >= ? AND R.DT_FINAL_RESERVA <= ? AND Q.CD_TIPO_QUARTO = ? "
+						+ ") < ( SELECT COUNT(*) FROM T_AM_HBV_QUARTO Q WHERE Q.CD_TIPO_QUARTO = ? ) "
+						+ "AND Q.NR_QUARTO NOT IN ( SELECT Q.NR_QUARTO "
 						+ "FROM T_AM_HBV_RESERVA_QUARTO RQ INNER JOIN T_AM_HBV_RESERVA R "
-						+ "ON RQ.CD_RESERVA = R.CD_RESERVA " + "INNER JOIN T_AM_HBV_QUARTO Q "
+						+ "ON RQ.CD_RESERVA = R.CD_RESERVA INNER JOIN T_AM_HBV_QUARTO Q "
 						+ "ON Q.NR_QUARTO = RQ.NR_QUARTO "
 						+ "WHERE R.DT_INICIO_RESERVA >= ? AND R.DT_FINAL_RESERVA <= ? "
-						+ "AND Q.CD_TIPO_QUARTO = ? ) AND ROWNUM = 1 " + "), " + "?, " + "? )";
+						+ "AND Q.CD_TIPO_QUARTO = ? ) AND ROWNUM = 1 ), ?, null )";
 				// 11 ESTRUTURAS
 				estrutura = conexao.prepareStatement(sql);
-				estrutura.setInt(1, reserva.getCodigo());
-				estrutura.setInt(2, quarto.getTipo().getCodigo());
-				estrutura.setDate(3, new Date(reserva.getDtEntrada().getTimeInMillis()));
-				estrutura.setDate(4, new Date(reserva.getDtSaida().getTimeInMillis()));
+				estrutura.setInt(1, quarto.getTipo().getCodigo());
+				estrutura.setDate(2, new Date(reserva.getDtEntrada().getTimeInMillis()));
+				estrutura.setDate(3, new Date(reserva.getDtSaida().getTimeInMillis()));
+				estrutura.setInt(4, quarto.getTipo().getCodigo());
 				estrutura.setInt(5, quarto.getTipo().getCodigo());
-				estrutura.setInt(6, quarto.getTipo().getCodigo());
-				estrutura.setDate(7, new Date(reserva.getDtEntrada().getTimeInMillis()));
-				estrutura.setDate(8, new Date(reserva.getDtSaida().getTimeInMillis()));
-				estrutura.setInt(9, quarto.getTipo().getCodigo());
-				estrutura.setInt(10, (quarto.getQtAdulto() + quarto.getQtCrianca()));
-				// estrutura.setInt(10, quarto.get);
+				estrutura.setDate(6, new Date(reserva.getDtEntrada().getTimeInMillis()));
+				estrutura.setDate(7, new Date(reserva.getDtSaida().getTimeInMillis()));
+				estrutura.setInt(8, quarto.getTipo().getCodigo());
+				estrutura.setInt(9, (quarto.getQtAdulto() + quarto.getQtCrianca()));
+				// estrutura.setString(10, quarto.get);
 				
-				estrutura.execute();
+				estrutura.executeQuery();
 				estrutura.close();
 			}
 
@@ -124,16 +125,21 @@ public class ReservaDAO {
 				}
 
 				naoTemCriancaSemCusto = true;
+				
+				int dias = (int) ((new Date(reserva.getDtSaida().getTimeInMillis()).getTime()
+						- new Date(reserva.getDtEntrada().getTimeInMillis()).getTime())
+						/ diaEmMilisegundos);
+				
+				if(dias < 1) {
+					dias = 1;
+				}
 
 				sql = "SELECT SUM(TQ.VL_QUARTO * ? * ?) \"VL_QUARTO\"" + "FROM T_AM_HBV_TIPO_QUARTO TQ "
 						+ "WHERE TQ.CD_TIPO_QUARTO = ? ";
 				estrutura = conexao.prepareStatement(sql);
 				estrutura.setInt(1, quarto.getQtAdulto());
 				estrutura
-						.setInt(2,
-								(int) ((new Date(reserva.getDtSaida().getTimeInMillis()).getTime()
-										- new Date(reserva.getDtEntrada().getTimeInMillis()).getTime())
-										/ diaEmMilisegundos));
+						.setInt(2, dias);
 				estrutura.setInt(3, quarto.getTipo().getCodigo());
 
 				rs = estrutura.executeQuery();
@@ -263,6 +269,65 @@ public class ReservaDAO {
 			disponibilidadeQuartos.add(masterLuxoDisponivel);
 			
 			return disponibilidadeQuartos;
+		} catch (Exception e) {
+			throw new Excecao(e);
+		}
+		
+	}
+	
+	/**
+	 * 
+	 * @author Lucas 74795
+	 * @since 1.0
+	 * @param reserva
+	 * @param conexao
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Integer> verificarQtQuartosDisponiveis(Reserva reserva, Connection conexao) throws Exception {
+		List<Integer> quartosDisponiveis = new ArrayList<Integer>();
+		
+		int quartosLivres = 0;
+
+		try {
+			List<TipoQuarto> lstTipoQuarto = new ArrayList<TipoQuarto>();
+			lstTipoQuarto = TipoQuartoBO.buscarTodos(conexao);
+			
+			for (TipoQuarto tipoQuarto : lstTipoQuarto) {
+				sql = "SELECT COUNT(Q.NR_QUARTO) \"QT_QUARTO_LIVRE\" FROM T_AM_HBV_QUARTO Q WHERE Q.CD_TIPO_QUARTO = ? AND ( "
+						+ " SELECT COUNT(*) FROM T_AM_HBV_RESERVA_QUARTO RQ INNER JOIN "
+						+ " T_AM_HBV_RESERVA R ON RQ.CD_RESERVA = R.CD_RESERVA INNER JOIN "
+						+ "  T_AM_HBV_QUARTO Q ON Q.NR_QUARTO = RQ.NR_QUARTO WHERE R.DT_INICIO_RESERVA >= ? AND R.DT_FINAL_RESERVA <= ? AND "
+						+ " Q.CD_TIPO_QUARTO = ?  ) < ( SELECT COUNT(*) FROM T_AM_HBV_QUARTO Q WHERE "
+						+ "    Q.CD_TIPO_QUARTO = ?  ) AND Q.NR_QUARTO NOT IN (  "
+						+ "                              SELECT Q.NR_QUARTO FROM "
+						+ "    T_AM_HBV_RESERVA_QUARTO RQ INNER JOIN T_AM_HBV_RESERVA R ON RQ.CD_RESERVA "
+						+ "  = R.CD_RESERVA INNER JOIN T_AM_HBV_QUARTO Q ON Q.NR_QUARTO = RQ.NR_QUARTO "
+						+ "    WHERE R.DT_INICIO_RESERVA >= ? AND R.DT_FINAL_RESERVA <= ? AND Q.CD_TIPO_QUARTO = ? "
+						+ "   )";
+				estrutura = conexao.prepareStatement(sql);
+				estrutura.setInt(1, tipoQuarto.getCodigo());
+				estrutura.setDate(2, new Date(reserva.getDtEntrada().getTimeInMillis()));
+				estrutura.setDate(3, new Date(reserva.getDtSaida().getTimeInMillis()));
+				estrutura.setInt(4, tipoQuarto.getCodigo());
+				estrutura.setInt(5, tipoQuarto.getCodigo());
+				estrutura.setDate(6, new Date(reserva.getDtEntrada().getTimeInMillis()));
+				estrutura.setDate(7, new Date(reserva.getDtSaida().getTimeInMillis()));
+				estrutura.setInt(8, tipoQuarto.getCodigo());
+				
+				rs = estrutura.executeQuery();
+				
+				if(rs.next()) {
+					quartosLivres = rs.getInt("QT_QUARTO_LIVRE");
+				}
+				
+				quartosDisponiveis.add(quartosLivres);
+				
+				rs.close();
+				estrutura.close();
+			}
+			
+			return quartosDisponiveis;
 		} catch (Exception e) {
 			throw new Excecao(e);
 		}
