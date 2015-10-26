@@ -30,7 +30,7 @@
 				</li>--%>
 			</ul>
 			<c:if test="${sessionScope.usuarioAtual != null}">
-			<div class="col-sm-6">
+			<%-- <div class="col-sm-6">
 		        <div class="pull-right  hidden-xs">
 		          <a class="dropdown-toggle" href="#" data-toggle="dropdown"><h4 style="padding-top: 6px;"><i class="glyphicon glyphicon-cog"></i></h4></a>
 		          <ul class="dropdown-menu">
@@ -38,7 +38,7 @@
 		              <li><a href="#"><i class="glyphicon glyphicon-calendar"></i> Minhas reservas</a></li>
 		          </ul>
 		        </div>
-	      	</div>
+	      	</div>--%>
 	      	</c:if>
 			<ul class="nav navbar-nav navbar-right">
 				<c:if test="${sessionScope.usuarioAtual == null}">

@@ -70,6 +70,9 @@ public class Consumo {
 		this.quantidade = quantidade;
 	}
 	public double getValorTotal() {
+		
+		valorTotal = quantidade * tipoConsumo.getValor();
+		
 		return valorTotal;
 	}
 	public void setValorTotal(double valorTotal) {

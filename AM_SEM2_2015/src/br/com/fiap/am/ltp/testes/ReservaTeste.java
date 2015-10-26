@@ -11,6 +11,7 @@ import br.com.fiap.am.ltp.beans.Cliente;
 import br.com.fiap.am.ltp.beans.Funcionario;
 import br.com.fiap.am.ltp.beans.Quarto;
 import br.com.fiap.am.ltp.beans.Reserva;
+import br.com.fiap.am.ltp.beans.Status;
 import br.com.fiap.am.ltp.beans.TipoQuarto;
 import br.com.fiap.am.ltp.bo.ReservaBO;
 import br.com.fiap.am.ltp.conexao.ConexaoFactory;
@@ -109,10 +110,21 @@ public class ReservaTeste {
 				lstQuarto.add(quarto1);
 				lstQuarto.add(quarto2);
 				
-				reserva.setQuarto(lstQuarto);					
+				reserva.setQuarto(lstQuarto);
+				
+				cliente.setCodigo(1);
+				
+				reserva.setCliente(cliente);
+				
+				Status status = new Status();
+				status.setCodigo(1);
+				
+				reserva.setStatus(status);
+				
 				
 				new ReservaBO();
 				List<Boolean> disponibilidade = ReservaBO.verificarDisponibilidadeQuarto(reserva, conexao);
+				List<Integer> quartosDisponiveis = ReservaBO.verificarQtQuartosDisponiveis(reserva, conexao);
 				
 				int index = 0;
 				for (Boolean tipDisponivel : disponibilidade) {
@@ -128,9 +140,27 @@ public class ReservaTeste {
 					index++;
 				}
 				
+				int index2 = 0;
+				for (Integer integer : quartosDisponiveis) {
+					if(index2 == 0) {
+						System.out.println("Quantidade de quartos Standart disponiveis: " + integer);
+					} else if(index2 == 1) {
+						System.out.println("Quantidade de quartos master disponiveis: " + integer);
+					} else if(index2 == 2) {
+						System.out.println("Quantidade de quartos luxo disponiveis: " + integer);
+					} else if(index2 == 3){
+						System.out.println("Quantidade de quartos master luxo disponiveis: " + integer);
+					}
+					index2++;
+				}
+				
 				valorReserva = ReservaBO.calcularReserva(reserva, conexao);
 				
+				reserva.setVlReserva(valorReserva);
+				
 				System.out.println("O valor da reserva ficou: R$ " + valorReserva);
+				
+				ReservaBO.gravar(reserva, conexao);
 				
 			} else if (funcionalidade == 2) {
 				// Código de edição
