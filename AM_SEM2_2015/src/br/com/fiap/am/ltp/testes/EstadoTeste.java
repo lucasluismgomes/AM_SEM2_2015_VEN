@@ -35,10 +35,9 @@ public class EstadoTeste
 			if (funcionalidade == 1) 
 			{
 				Estado estado = new Estado();
-				EstadoBO estadoBO = new EstadoBO();
 				estado.setNome(JOptionPane.showInputDialog("Informe o nome do estado"));
 				estado.setSigla(JOptionPane.showInputDialog("Informe a sigla do estado"));
-				boolean resultado = estadoBO.gravar(estado, conexao);
+				boolean resultado = EstadoBO.gravar(estado, conexao);
 				if(!resultado)
 				{
 					System.out.println("Gravou!");
@@ -51,8 +50,7 @@ public class EstadoTeste
 			else if (funcionalidade == 2) 
 			{
 				Estado estado = new Estado();
-				EstadoBO estadoBO = new EstadoBO();
-				List<Estado> lstEstado = estadoBO.buscarTodos(conexao);
+				List<Estado> lstEstado = EstadoBO.buscarTodos(conexao);
 				for (Estado estado2 : lstEstado) 
 				{
 					System.out.println("Código: "+estado2.getCodigo()+" Nome: "+estado2.getNome()+" Sigla: "+estado2.getSigla());
@@ -60,7 +58,7 @@ public class EstadoTeste
 				estado.setCodigo(Integer.parseInt(JOptionPane.showInputDialog("Informe o codigo a ser editado")));
 				estado.setNome(JOptionPane.showInputDialog("Informe o nome do estado"));
 				estado.setSigla(JOptionPane.showInputDialog("Informe a sigla do estado"));
-				boolean resultado = estadoBO.gravar(estado, conexao);
+				boolean resultado = EstadoBO.gravar(estado, conexao);
 				if(!resultado)
 				{
 					System.out.println("Atualizou!");
@@ -72,8 +70,7 @@ public class EstadoTeste
 			}
 			else if (funcionalidade == 3) 
 			{
-				EstadoBO estadoBO = new EstadoBO();
-				List<Estado> lstEstado = estadoBO.buscarTodos(conexao);
+				List<Estado> lstEstado = EstadoBO.buscarTodos(conexao);
 				for (Estado estado : lstEstado) 
 				{
 					System.out.println("Código: "+estado.getCodigo()+" Nome: "+estado.getNome()+" Sigla: "+estado.getSigla());
@@ -81,14 +78,13 @@ public class EstadoTeste
 			}
 			else if (funcionalidade == 4) 
 			{
-				EstadoBO estadoBO = new EstadoBO();
-				List<Estado> lstEstado = estadoBO.buscarTodos(conexao);
+				List<Estado> lstEstado = EstadoBO.buscarTodos(conexao);
 				for (Estado estado : lstEstado) 
 				{
 					System.out.println("Código: "+estado.getCodigo()+" Nome: "+estado.getNome()+" Sigla: "+estado.getSigla());
 				}
 				int codigo = Integer.parseInt("Cód. do Estado para exclusão no banco de dados");
-				boolean resultado = estadoBO.excluir(codigo, conexao);
+				boolean resultado = EstadoBO.excluir(codigo, conexao);
 				if(!resultado)
 				{
 					System.out.println("Apagou!");
@@ -100,9 +96,8 @@ public class EstadoTeste
 			}
 			else if (funcionalidade == 5) 
 			{
-				EstadoBO estadoBO = new EstadoBO();
 				String pesquisaEstado = JOptionPane.showInputDialog("Pesquisa de Estado");
-				List<Estado> lstEstado = estadoBO.buscarPorNome(pesquisaEstado, conexao);
+				List<Estado> lstEstado = EstadoBO.buscarPorNome(pesquisaEstado, conexao);
 				for (Estado estado2 : lstEstado) 
 				{
 					System.out.println("Código: "+estado2.getCodigo()+" Nome: "+estado2.getNome()+" Sigla: "+estado2.getSigla());

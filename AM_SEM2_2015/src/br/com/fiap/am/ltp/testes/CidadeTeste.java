@@ -21,7 +21,8 @@ public class CidadeTeste
 	 * @since 1.0
 	 * @see Cidade,CidadeBO,Estado
 	 */
-	public static void main(String[] args) throws Excecao {
+	public static void main(String[] args) throws Excecao 
+	{
 		Connection conexao = null;
 		try {
 			int funcionalidade = Integer.parseInt(JOptionPane
@@ -36,10 +37,8 @@ public class CidadeTeste
 
 				do {
 					Cidade cidade = new Cidade();
-					CidadeBO cidadeBO = new CidadeBO();
 					Estado estado = new Estado();
-					EstadoBO estadoBO = new EstadoBO();
-					List<Estado> lstEstado = estadoBO.buscarTodos(conexao);
+					List<Estado> lstEstado = EstadoBO.buscarTodos(conexao);
 					for (Estado e : lstEstado) {
 						System.out.println("Código: "+e.getCodigo()+" Nome: "+e.getNome()+" Sigla: "+e.getSigla());
 					}
@@ -48,7 +47,7 @@ public class CidadeTeste
 					estado.setCodigo(Integer.parseInt(JOptionPane
 							.showInputDialog("CODIGO do estado")));
 					cidade.setEstado(estado);
-					boolean retorno = cidadeBO.gravar(cidade, conexao);
+					boolean retorno = CidadeBO.gravar(cidade, conexao);
 					if (!retorno) {
 						System.out.println("Gravou!");
 					} else {
@@ -60,8 +59,7 @@ public class CidadeTeste
 			} else if (funcionalidade == 2) {
 				conexao = ConexaoFactory.controlarInstancia()
 						.getConnection("OPS$RM74793", "150395");
-				CidadeBO cidadeBO = new CidadeBO();
-				List<Cidade> lstCidade = cidadeBO.buscarTodos(conexao);
+				List<Cidade> lstCidade = CidadeBO.buscarTodos(conexao);
 				for (Cidade cidade : lstCidade) {
 					System.out.println("Codigo: " + cidade.getCodigo()
 							+ " Cidade: " + cidade.getNome() + " Estado: "
@@ -77,7 +75,7 @@ public class CidadeTeste
 				estado.setCodigo(Integer.parseInt(JOptionPane
 						.showInputDialog("Qual é o novo codigo do estado?")));
 				cidade.setEstado(estado);
-				boolean resultado = cidadeBO.editar(cidade, conexao);
+				boolean resultado = CidadeBO.editar(cidade, conexao);
 				if (!resultado) {
 					System.out.println("Atualizou!");
 				} else {
@@ -85,10 +83,9 @@ public class CidadeTeste
 				}
 
 			} else if (funcionalidade == 3) {
-				CidadeBO cidadeBO = new CidadeBO();
 				conexao = ConexaoFactory.controlarInstancia()
 						.getConnection("OPS$RM74793", "150395");
-				List<Cidade> lstCidade = cidadeBO.buscarTodos(conexao);
+				List<Cidade> lstCidade = CidadeBO.buscarTodos(conexao);
 				for (Cidade cidade : lstCidade) {
 					System.out.println("Cidade: " + cidade.getNome()
 							+ " Estado: " + cidade.getEstado().getNome()
@@ -96,8 +93,7 @@ public class CidadeTeste
 				}
 			} else if (funcionalidade == 4) {
 				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74793", "150395");
-				CidadeBO cidadeBO = new CidadeBO();
-				List<Cidade> lstCidade = cidadeBO.buscarTodos(conexao);
+				List<Cidade> lstCidade = CidadeBO.buscarTodos(conexao);
 				
 				for (Cidade cidade : lstCidade) {
 					System.out.println("Codigo: " + cidade.getCodigo()
@@ -106,7 +102,7 @@ public class CidadeTeste
 							+ cidade.getEstado().getSigla());
 				}
 				int codigoCidade = Integer.parseInt(JOptionPane.showInputDialog("Cód. da cidade a ser deletado"));
-				boolean resultado = cidadeBO.excluir(codigoCidade, conexao);
+				boolean resultado = CidadeBO.excluir(codigoCidade, conexao);
 				if (!resultado) {
 					System.out.println("Deletou!");
 				} else {
@@ -114,9 +110,8 @@ public class CidadeTeste
 				}
 			} else if (funcionalidade == 5) {
 				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74793", "150395");
-				CidadeBO cidadeBO = new CidadeBO();
 				String pesquisaCidade = JOptionPane.showInputDialog("Pesquisa de cidades");
-				List<Cidade> lstCidade = cidadeBO.buscarPorNome(pesquisaCidade, conexao);
+				List<Cidade> lstCidade = CidadeBO.buscarPorNome(pesquisaCidade, conexao);
 				
 				for (Cidade cidade : lstCidade) {
 					System.out.println("Codigo: " + cidade.getCodigo()

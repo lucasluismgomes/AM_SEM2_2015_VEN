@@ -67,10 +67,11 @@ public class TesteHospedagem {
 				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74820", "160196");
 								
 				List<Hospedagem> lstHospedagem = HospedagemBO.buscarTodos(conexao);
-				
+								
 				System.out.println("Hospedagens \n");
 				
 				for (Hospedagem hospedagem : lstHospedagem) {
+									
 					System.out.println("Código: " + hospedagem.getReserva().getCodigo() 
 							+ "\nCliente: " + hospedagem.getReserva().getCliente()
 							+ "\nFuncionário: " + hospedagem.getReserva().getFuncionario()

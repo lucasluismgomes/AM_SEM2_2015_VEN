@@ -70,7 +70,6 @@ public class TipoLogradouroTeste
 			}
 			else if (funcionalidade == 4) 
 			{
-				TipoLogradouro tipoLogradouro = new TipoLogradouro();
 				List<TipoLogradouro> lstTipoLogradouro = TipoLogradouroBO.buscarTodos(conexao);
 				for (TipoLogradouro tp : lstTipoLogradouro) 
 				{

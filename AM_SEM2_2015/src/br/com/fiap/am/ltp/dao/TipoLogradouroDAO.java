@@ -38,6 +38,7 @@ public class TipoLogradouroDAO
 		{
 			sql = "INSERT INTO T_AM_HBV_TIPO_LOGRADOURO(DS_TIPO_LOGRADOURO) VALUES(?)";
 			estrutura = conexao.prepareStatement(sql);
+			estrutura.setString(1, tipoLogradouro.getDescricao());
 			return estrutura.execute();
 		} 
 		catch (Exception e)

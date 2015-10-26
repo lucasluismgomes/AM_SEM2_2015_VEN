@@ -37,12 +37,13 @@ public class BairroTeste
 				Cidade cidade = new Cidade();
 				Bairro bairro = new Bairro();
 				List<Cidade> lstCidade = CidadeBO.buscarTodos(conexao);
-				System.out.println("/tCidades Cadastradas");
+				System.out.println("\tCidades Cadastradas");
 				for (Cidade c : lstCidade) 
 				{
 					System.out.println("Cód. Cidade:"+c.getCodigo()+" Nome:"+c.getNome()+" Estado:"+c.getEstado().getNome()+" Sigla:"+c.getEstado().getSigla());
 				}
 				bairro.setNome(JOptionPane.showInputDialog("Nome do Bairro"));
+				
 				cidade.setCodigo(Integer.parseInt(JOptionPane.showInputDialog("Código do estado:")));
 				bairro.setCidade(cidade);
 				boolean retorno = BairroBO.gravar(bairro, conexao);

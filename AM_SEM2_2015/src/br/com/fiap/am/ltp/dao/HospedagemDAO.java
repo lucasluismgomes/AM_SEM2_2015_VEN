@@ -9,14 +9,18 @@ import java.util.Calendar;
 import java.util.List;
 
 import br.com.fiap.am.ltp.beans.Cliente;
-import br.com.fiap.am.ltp.beans.Hospedagem;
 import br.com.fiap.am.ltp.beans.Funcionario;
+import br.com.fiap.am.ltp.beans.Hospedagem;
 import br.com.fiap.am.ltp.beans.Quarto;
 import br.com.fiap.am.ltp.beans.Reserva;
+import br.com.fiap.am.ltp.bo.ClienteBO;
+import br.com.fiap.am.ltp.bo.FuncionarioBO;
+import br.com.fiap.am.ltp.bo.HospedagemBO;
+import br.com.fiap.am.ltp.bo.ReservaBO;
 import br.com.fiap.am.ltp.excecoes.Excecao;
 
 /**
- * Descrição da classe/método
+ * Métodos de acesso ao banco de hospedagens. Operações do CRUD e outras funcionalidades. 
  * 
  * @author Lucas 74795
  * @version 1.0
@@ -78,8 +82,7 @@ public class HospedagemDAO {
 	 * @throws Exception
 	 * @see	Hospedagem, HospedagemBO
 	 * 
-	 */
-	
+	 */	
 	public List<Hospedagem> buscarTodos(Connection conexao) throws Exception {
 		List<Hospedagem> lstHospedagem= new ArrayList<Hospedagem>();
 		
@@ -101,14 +104,16 @@ public class HospedagemDAO {
 				Calendar checkIn = Calendar.getInstance();
 				checkIn.setTime(rs.getDate("DT_ENTRADA"));
 				
-				reserva.setCodigo(Integer.parseInt("CD_HOSPEDAGEM"));
-				cliente.setCodigo(Integer.parseInt("CD_CLIENTE"));
-				funcionario.setCodigo(Integer.parseInt("CD_CLIENTE"));
+				reserva.setCodigo(1);
+				
+				//reserva = ReservaBO.buscarPorCodigo(rs.getInt("CD_HOSPEDAGEM"), conexao);
+				hospedagem.setReserva(reserva);
+				cliente = ClienteBO.buscarPorCodigo(rs.getInt("CD_CLIENTE"), conexao);
 				reserva.setCliente(cliente);
+				funcionario = FuncionarioBO.buscarPorCodigo(rs.getInt("CD_FUNCIONARIO"), conexao);
 				reserva.setFuncionario(funcionario);
 				reserva.setDtSaida(c);
 				hospedagem.setDtCheckIn(checkIn);
-				
 				hospedagem.setReserva(reserva);
 				
 				lstHospedagem.add(hospedagem);
@@ -135,8 +140,7 @@ public class HospedagemDAO {
 	 * @throws Exception
 	 * @see	Hospedagem, HospedagemBO
 	 * 
-	 */
-	
+	 */	
 	public Hospedagem buscarPorCodigo(int codigo, Connection conexao) throws Exception {
 		Hospedagem hosp = new Hospedagem();
 		
@@ -159,13 +163,15 @@ public class HospedagemDAO {
 				Calendar checkIn = Calendar.getInstance();
 				checkIn.setTime(rs.getDate("DT_ENTRADA"));
 				
-				reserva.setCodigo(Integer.parseInt("CD_HOSPEDAGEM"));
-				cliente.setCodigo(Integer.parseInt("CD_CLIENTE"));
-				funcionario.setCodigo(Integer.parseInt("CD_CLIENTE"));
+				//reserva = ReservaBO.buscarPorCodigo(rs.getInt("CD_HOSPEDAGEM"), conexao);
+				hospedagem.setReserva(reserva);
+				cliente = ClienteBO.buscarPorCodigo(rs.getInt("CD_CLIENTE"), conexao);
 				reserva.setCliente(cliente);
+				funcionario = FuncionarioBO.buscarPorCodigo(rs.getInt("CD_FUNCIONARIO"), conexao);
 				reserva.setFuncionario(funcionario);
 				reserva.setDtSaida(c);
 				hospedagem.setDtCheckIn(checkIn);
+				hospedagem.setReserva(reserva);
 				
 				hospedagem.setReserva(reserva);
 			}
@@ -190,8 +196,7 @@ public class HospedagemDAO {
 	 *            As credenciais da conexão.
 	 * @throws Exception
 	 * @see Hospedagem, HospedagemBO
-	 */
-	
+	 */	
 	public void editar(Hospedagem hospedagem, Connection conexao) throws Exception{
 		try{
 			//O QUE SERÁ POSSÍVEL EDITAR EM HOSPEDAGEM?
@@ -214,7 +219,6 @@ public class HospedagemDAO {
 	 * @throws Exception
 	 * @see Hospedagem, HospedagemBO
 	 */
-	
 	public void excluir(int codigo, Connection conexao) throws Exception{
 		try{
 			
