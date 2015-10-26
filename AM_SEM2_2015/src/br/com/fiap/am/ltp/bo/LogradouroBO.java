@@ -47,9 +47,9 @@ public class LogradouroBO
 	 * @throws Exception
 	 * @see Logradouro, LogradouroBO
 	 */
-	public static boolean excluir(Logradouro logradouro,Connection conexao) throws Exception
+	public static boolean excluir(int codigo,Connection conexao) throws Exception
 	{
-		return new LogradouroDAO().excluir(logradouro, conexao);
+		return new LogradouroDAO().excluir(codigo, conexao);
 	}
 	/**
 	 * Retorna uma lista de Logradouros cadastrados.
@@ -70,8 +70,8 @@ public class LogradouroBO
 	 * @throws Exception
 	 * @see Logradouro, LogradouroBO
 	 */
-	public static List<Logradouro> buscaPorNome(Logradouro logradouro,Connection conexao) throws Exception
+	public static List<Logradouro> buscaPorNome(String pesquisaLogradouro,Connection conexao) throws Exception
 	{
-		return new LogradouroDAO().buscasPorNome(logradouro, conexao);
+		return new LogradouroDAO().buscasPorNome(pesquisaLogradouro, conexao);
 	}
 }

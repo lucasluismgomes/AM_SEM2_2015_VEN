@@ -103,9 +103,31 @@ public class LogradouroTeste {
 			}
 			else if (funcionalidade == 4) 
 			{
+				List<Logradouro> lstLogradouro = LogradouroBO.buscaTodos(conexao);
+				for (Logradouro l : lstLogradouro)
+				{
+					System.out.println("CEP: "+l.getCep()+" Logradouro: "+l.getDescricao()+" Tipo Logradouro: "+l.getTipo().getDescricao()+" Bairro:" + l.getBairro().getNome());
+				}
+				int codigo = Integer.parseInt(JOptionPane.showInputDialog("Cód. do logadouro par exclusão"));
+				boolean retorno = LogradouroBO.excluir(codigo, conexao);
+				if(!retorno)
+				{
+					System.out.println("Apagou");
+				}
+				else
+				{
+					System.out.println("Não apagou");
+				}
+				
 			}
 			else if (funcionalidade == 5) 
 			{
+				String pesquisaLogradouro = JOptionPane.showInputDialog("Pesquisa de logradouro");
+				List<Logradouro> lstLogradouro = LogradouroBO.buscaPorNome(pesquisaLogradouro, conexao);
+				for (Logradouro l : lstLogradouro)
+				{
+					System.out.println("CEP: "+l.getCep()+" Logradouro: "+l.getDescricao()+" Tipo Logradouro: "+l.getTipo().getDescricao()+" Bairro:" + l.getBairro().getNome());
+				}
 			}
 			else 
 			{

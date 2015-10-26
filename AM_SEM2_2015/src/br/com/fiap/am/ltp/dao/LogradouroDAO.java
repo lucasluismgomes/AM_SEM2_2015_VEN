@@ -64,11 +64,10 @@ public class LogradouroDAO
 		{
 			sql = "UPDATE T_AM_HBV_LOGRADOURO SET CD_TIPO_LOGRADOURO = ?,CD_BAIRRO = ?,DS_DESCRICAO = ? WHERE NR_CEP = ?";
 			estrutura = conexao.prepareStatement(sql);
-			estrutura.setInt(1,logradouro.getCep());
+			estrutura.setInt(1, logradouro.getTipo().getCodigo());
 			estrutura.setInt(2, logradouro.getTipo().getCodigo());
-			estrutura.setInt(3, logradouro.getTipo().getCodigo());
-			estrutura.setString(4, logradouro.getDescricao());
-			estrutura.setInt(5, logradouro.getCep());
+			estrutura.setString(3, logradouro.getDescricao());
+			estrutura.setInt(4, logradouro.getCep());
 			return estrutura.execute();
 		}
 		catch (Exception e) 
@@ -84,13 +83,13 @@ public class LogradouroDAO
 	 * @throws Exception
 	 * @see Logradouro, LogradouroBO
 	 */
-	public boolean excluir(Logradouro logradouro,Connection conexao) throws Exception
+	public boolean excluir(int codigo,Connection conexao) throws Exception
 	{
 		try 
 		{
 			sql = "DELETE T_AM_HBV_LOGRADOURO WHERE NR_CEP = ?";
 			estrutura = conexao.prepareStatement(sql);	
-			estrutura.setInt(1, logradouro.getCep());
+			estrutura.setInt(1, codigo);
 			return estrutura.execute();
 		}
 		catch (Exception e) 
@@ -121,7 +120,7 @@ public class LogradouroDAO
 				TipoLogradouro tipoLogradouro = new TipoLogradouro();
 				lgd.setCep(resultado.getInt("NR_CEP"));
 				lgd.setDescricao(resultado.getString("DS_DESCRICAO"));
-				tipoLogradouro.setDescricao("DS_TIPO_LOGRADOURO");
+				tipoLogradouro.setDescricao(resultado.getString("DS_TIPO_LOGRADOURO"));
 				bairro.setNome(resultado.getString("NM_BAIRRO"));
 				lgd.setBairro(bairro);
 				lgd.setTipo(tipoLogradouro);
@@ -142,14 +141,14 @@ public class LogradouroDAO
 	 * @throws Exception
 	 * @see Logradouro, LogradouroBO
 	 * */
-	public List<Logradouro> buscasPorNome(Logradouro logradouro,Connection conexao) throws Exception
+	public List<Logradouro> buscasPorNome(String pesquisaLogradouro,Connection conexao) throws Exception
 	{
 		try 
 		{
 			sql = "SELECT L.NR_CEP,TP.DS_TIPO_LOGRADOURO,L.DS_DESCRICAO,B.NM_BAIRRO FROM T_AM_HBV_LOGRADOURO L INNER JOIN T_AM_HBV_TIPO_LOGRADOURO TP ON L.CD_TIPO_LOGRADOURO = TP.CD_TIPO_LOGRADOURO INNER JOIN T_AM_HBV_BAIRRO B ON L.CD_BAIRRO = B.CD_BAIRRO WHERE UPPER(L.DS_DESCRICAO) LIKE UPPER(?)";
 			List<Logradouro> lstLogradouro = new ArrayList<Logradouro>();
 			estrutura = conexao.prepareStatement(sql);
-			estrutura.setString(1, "%" + logradouro.getDescricao() + "%");
+			estrutura.setString(1, "%" + pesquisaLogradouro + "%");
 			resultado = estrutura.executeQuery();
 			while(resultado.next())
 			{
