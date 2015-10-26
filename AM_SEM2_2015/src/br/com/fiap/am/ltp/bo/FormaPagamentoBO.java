@@ -29,8 +29,8 @@ public class FormaPagamentoBO {
 		 * @throws Exception
 		 * @see FormaPagamento, FormaPagamentoDAO
 		 */
-		public static void gravar(FormaPagamento FormaPagamento, Connection conexao) throws Exception {
-			new FormaPagamentoDAO().gravar(FormaPagamento, conexao);
+		public static void gravar(FormaPagamento formaPagamento, Connection conexao) throws Exception {
+			new FormaPagamentoDAO().gravar(formaPagamento, conexao);
 		}
 
 		/**
@@ -77,8 +77,8 @@ public class FormaPagamentoBO {
 		 * @throws Exception
 		 * @see FormaPagamento, FormaPagamentoDAO
 		 */
-		public static void editar(FormaPagamento FormaPagamento, Connection conexao) throws Exception {
-			new FormaPagamentoDAO().editar(FormaPagamento, conexao);
+		public static void editar(FormaPagamento formaPagamento, Connection conexao) throws Exception {
+			new FormaPagamentoDAO().editar(formaPagamento, conexao);
 		}
 
 		/**

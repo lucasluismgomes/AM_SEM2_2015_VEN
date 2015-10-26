@@ -5,9 +5,10 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import br.com.fiap.am.ltp.beans.FormaPagamento;
+import br.com.fiap.am.ltp.beans.Cliente;
+import br.com.fiap.am.ltp.beans.Funcionario;
 import br.com.fiap.am.ltp.beans.Hospedagem;
-import br.com.fiap.am.ltp.bo.FormaPagamentoBO;
+import br.com.fiap.am.ltp.beans.Reserva;
 import br.com.fiap.am.ltp.bo.HospedagemBO;
 import br.com.fiap.am.ltp.conexao.ConexaoFactory;
 import br.com.fiap.am.ltp.excecoes.Excecao;
@@ -23,13 +24,26 @@ public class TesteHospedagem {
 			if(funcionalidade ==1){
 				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74820", "160196");
 				conexao.setAutoCommit(false);
-				FormaPagamento formaPag = new FormaPagamento();
+				Reserva reserva = new Reserva();
+				Cliente cliente = new Cliente();
+				Funcionario funcionario = new Funcionario();
+				
+				Hospedagem hospedagem = new Hospedagem();
 				
 				do{
 				
-				formaPag.setDescricao(JOptionPane.showInputDialog("Informe a Descrição da Forma de Pagamento: "));
+				reserva.setCodigo(Integer.parseInt(JOptionPane.showInputDialog("Informe o Código da Reserva:")));
+				cliente.setCodigo(Integer.parseInt(JOptionPane.showInputDialog("Informe o Código do Cliente:")));
+				funcionario.setCodigo(Integer.parseInt(JOptionPane.showInputDialog("Informe o Código do Funcionário:")));
 				
-				FormaPagamentoBO.gravar(formaPag, conexao);
+				
+				reserva.setCliente(cliente);
+				
+				hospedagem.setReserva(reserva);
+				hospedagem.setFuncionario(funcionario);
+				
+				
+				HospedagemBO.gravar(hospedagem, conexao);
 							
 				conexao.commit();
 				conexao.setAutoCommit(true);
@@ -40,7 +54,6 @@ public class TesteHospedagem {
 			else if(funcionalidade == 2){
 				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74820", "160196");
 				conexao.setAutoCommit(false);
-				Hospedagem hospedagem = new Hospedagem();
 				
 				do{
 					
@@ -55,6 +68,8 @@ public class TesteHospedagem {
 								
 				List<Hospedagem> lstHospedagem = HospedagemBO.buscarTodos(conexao);
 				
+				System.out.println("Hospedagens \n");
+				
 				for (Hospedagem hospedagem : lstHospedagem) {
 					System.out.println("Código: " + hospedagem.getReserva().getCodigo() 
 							+ "\nCliente: " + hospedagem.getReserva().getCliente()
@@ -67,14 +82,14 @@ public class TesteHospedagem {
 			else if(funcionalidade == 4){
 				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74820", "160196");
 				conexao.setAutoCommit(false);
-				FormaPagamento formaPag = new FormaPagamento();
+				Reserva reserva = new Reserva();
 				
-				formaPag.setCodigo(Integer.parseInt(JOptionPane.showInputDialog("Informe o código da Forma de Pagamento "
+				reserva.setCodigo(Integer.parseInt(JOptionPane.showInputDialog("Informe o código da Hospedagem "
 						+ "a ser excluída")));
 				
-				int codigo = formaPag.getCodigo();
+				int codigo = reserva.getCodigo();
 				
-				FormaPagamentoBO.excluir(codigo, conexao);
+				HospedagemBO.excluir(codigo, conexao);
 				
 				conexao.commit();
 				conexao.setAutoCommit(true);

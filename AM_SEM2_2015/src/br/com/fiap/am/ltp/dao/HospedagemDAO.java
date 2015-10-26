@@ -10,9 +10,7 @@ import java.util.List;
 
 import br.com.fiap.am.ltp.beans.Cliente;
 import br.com.fiap.am.ltp.beans.Hospedagem;
-import br.com.fiap.am.ltp.beans.Hospedagem;
 import br.com.fiap.am.ltp.beans.Funcionario;
-import br.com.fiap.am.ltp.beans.Hospedagem;
 import br.com.fiap.am.ltp.beans.Quarto;
 import br.com.fiap.am.ltp.beans.Reserva;
 import br.com.fiap.am.ltp.excecoes.Excecao;
@@ -88,7 +86,7 @@ public class HospedagemDAO {
 		try{
 			
 			sql = "SELECT CD_HOSPEDAGEM, CD_CLIENTE, CD_FUNCIONARIO, DT_ENTRADA, DT_SAIDA" +
-					" FROM T_AM_HBV_HOSPEDAGEM ORDER BY CD_HOSPEDAGEM";
+					" FROM T_AM_HBV_HOSPEDAGEM";
 			estrutura = conexao.prepareStatement(sql);
 			
 			rs = estrutura.executeQuery();
@@ -181,7 +179,55 @@ public class HospedagemDAO {
 		}
 	}
 	
+	/**
+	 * Edita as informações de uma Hospedagem no banco de dados.
+	 * 
+	 * @author Victor 74820
+	 * @since 1.0
+	 * @param Hospedagem
+	 *            Os dados da Hospedagem que será editada.
+	 * @param conexao
+	 *            As credenciais da conexão.
+	 * @throws Exception
+	 * @see Hospedagem, HospedagemBO
+	 */
 	
-	
-	
+	public void editar(Hospedagem hospedagem, Connection conexao) throws Exception{
+		try{
+			//O QUE SERÁ POSSÍVEL EDITAR EM HOSPEDAGEM?
+			
+		}catch (Exception e){
+			throw new Excecao(e);
+		}
 	}
+	
+	
+	/**
+	 * Excluí uma Hospedagem do banco de dados. 
+	 * 
+	 * @author Victor 74820
+	 * @since 1.0
+	 * @param codigo
+	 *            O código da Hospedagem que será excluída.
+	 * @param conexao
+	 *            As credenciais da conexão.
+	 * @throws Exception
+	 * @see Hospedagem, HospedagemBO
+	 */
+	
+	public void excluir(int codigo, Connection conexao) throws Exception{
+		try{
+			
+			sql = "DELETE FROM T_AM_HBV_TIPO_HOSPEDAGEM WHERE CD_HOSPEDAGEM = ?";
+			estrutura = conexao.prepareStatement(sql);
+			estrutura.setInt(1, codigo);
+			
+			estrutura.execute();
+			estrutura.close();
+						
+			
+		}catch (Exception e){
+			throw new Excecao(e);
+		}
+	}
+}
