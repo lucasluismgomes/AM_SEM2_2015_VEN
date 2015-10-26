@@ -161,6 +161,59 @@ public class FuncionarioDAO {
 			throw new Excecao(e);
 		}
 	}
+	
+	/**
+	 * Faz a busca de um funcionário pelo código no banco de dados.
+	 * 
+	 * @author Lucas 74795
+	 * @since 1.0
+	 * @param codigo
+	 *            O código do funcionário que está sendo buscado no banco de
+	 *            dados.
+	 * @param senha
+	 * 			A senha do funcionário.
+	 * @param conexao
+	 *            As credenciais da conexão.
+	 * @return <code>funcionario</code> O funcionário que foi buscado pelo
+	 *         código.
+	 * @throws Exception
+	 * @see Funcionario, FuncionarioBO
+	 */
+	public Funcionario login(int codigo, String senha, Connection conexao) throws Exception {
+		Funcionario funcionario = new Funcionario();
+		try {
+			sql = "SELECT  P.CD_PESSOA, " + "P.NM_PESSOA, " + "F.DT_ADMISSAO, " + "C.CD_CARGO, " + "C.DS_CARGO, "
+					+ "C.VL_SALARIO_BASE " + "FROM T_AM_HBV_FUNCIONARIO F INNER JOIN T_AM_HBV_PESSOA P "
+					+ "ON F.CD_FUNCIONARIO = P.CD_PESSOA " + "INNER JOIN T_AM_HBV_CARGO C "
+					+ "ON F.CD_CARGO = C.CD_CARGO WHERE F.CD_FUNCIONARIO = ? AND P.DS_SENHA = ?";
+			estrutura = conexao.prepareStatement(sql);
+			estrutura.setInt(1, codigo);
+			estrutura.setString(2, senha);
+
+			rs = estrutura.executeQuery();
+
+			if (rs.next()) {
+				Cargo cargo = new Cargo();
+				Calendar c = Calendar.getInstance();
+
+				cargo.setCodigo(rs.getInt("CD_CARGO"));
+				cargo.setNome(rs.getString("DS_CARGO"));
+				cargo.setSalarioBase(rs.getDouble("VL_SALARIO_BASE"));
+
+				c.setTime(rs.getDate("DT_ADMISSAO"));
+
+				funcionario.setCodigo(rs.getInt("CD_PESSOA"));
+				funcionario.setNome(rs.getString("NM_PESSOA"));
+				funcionario.setDtAdmissao(c);
+				funcionario.setCargo(cargo);
+			}
+
+			return funcionario;
+
+		} catch (Exception e) {
+			throw new Excecao(e);
+		}
+	}
 
 	/**
 	 * Edita as informações de um funcionário no banco de dados.

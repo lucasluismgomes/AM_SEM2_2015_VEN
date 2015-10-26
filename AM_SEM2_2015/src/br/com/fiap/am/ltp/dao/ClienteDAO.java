@@ -159,6 +159,54 @@ public class ClienteDAO {
 			throw new Excecao(e);
 		}
 	}
+	
+	/**
+	 * Faz a busca de um cliente no banco de dados que tenha o email especificado.
+	 * 
+	 * @author Lucas 74795
+	 * @since 1.0
+	 * @param email
+	 *            O email do cliente que está sendo buscado no banco de dados.
+	 * @param conexao
+	 *            As credenciais da conexão.
+	 * @return <code>cliente</code> Dados do cliente com o id especificado.
+	 * @throws Exception
+	 * @see Cliente, ClienteBO
+	 */
+	public Cliente login(String email, String senha, Connection conexao) throws Exception {
+		Cliente cliente = new Cliente();
+
+		try {
+			sql = "SELECT 	P.CD_PESSOA, " + "P.NM_PESSOA, " + "C.NR_CPF, " + "C.NR_RG, " + "C.DT_NASCIMENTO, "
+					+ "C.DS_EMAIL " + "FROM T_AM_HBV_PESSOA P INNER JOIN T_AM_HBV_CLIENTE C "
+					+ "ON P.CD_PESSOA = C.CD_CLIENTE " + "WHERE C.DS_EMAIL = ? AND P.DS_SENHA = ?";
+			estrutura = conexao.prepareStatement(sql);
+			estrutura.setString(1, email);
+			estrutura.setString(2, senha);
+
+			rs = estrutura.executeQuery();
+
+			if (rs.next()) {
+				Calendar c = Calendar.getInstance();
+				c.setTime(rs.getDate("DT_NASCIMENTO"));
+
+				cliente.setCodigo(Integer.parseInt(rs.getString("CD_PESSOA")));
+				cliente.setNome(rs.getString("NM_PESSOA"));
+				cliente.setCpf(rs.getLong("NR_CPF"));
+				cliente.setRg(rs.getLong("NR_RG"));
+				cliente.setDtNascimento(c);
+				cliente.setEmail(rs.getString("DS_EMAIL"));
+			}
+
+			rs.close();
+			estrutura.close();
+
+			return cliente;
+
+		} catch (Exception e) {
+			throw new Excecao(e);
+		}
+	}
 
 	/**
 	 * Edita as informações de um Cliente no banco de dados.

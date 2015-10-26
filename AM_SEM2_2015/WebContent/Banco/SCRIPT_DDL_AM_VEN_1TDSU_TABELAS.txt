@@ -74,8 +74,7 @@ CREATE TABLE T_AM_HBV_CLIENTE (
   nr_rg               NUMBER(10) NOT NULL,
   dt_nascimento       DATE NOT NULL,
   nr_quarto_preferido NUMBER(4),
-  ds_email            VARCHAR2(60) NOT NULL,
-  ds_senha            VARCHAR2(20) NOT NULL
+  ds_email            VARCHAR2(60) NOT NULL
 );
 
 ALTER TABLE     T_AM_HBV_CLIENTE 
@@ -211,8 +210,9 @@ ADD CONSTRAINT PK_AM_HBV_PAG_CHEQUE
 PRIMARY KEY (cd_hospedagem, cd_pagto_cheque);
 
 CREATE TABLE T_AM_HBV_PESSOA (
-  cd_pessoa NUMBER(8) NOT NULL,
-  nm_pessoa VARCHAR2(60) NOT NULL
+  cd_pessoa   NUMBER(8) NOT NULL,
+  nm_pessoa   VARCHAR2(60) NOT NULL,
+  ds_senha    VARCHAR2(20) NOT NULL
 );
   
 ALTER TABLE     T_AM_HBV_PESSOA 

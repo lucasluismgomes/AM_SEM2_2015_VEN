@@ -68,6 +68,23 @@ public class ClienteBO {
 	public static Cliente buscarPorCodigo(int codigo, Connection conexao) throws Exception {
 		return new ClienteDAO().buscarPorCodigo(codigo, conexao);
 	}
+	
+	/**
+	 * Busca um Cliente especifico no banco de dados.
+	 * 
+	 * @author Lucas 74795
+	 * @since 1.0
+	 * @param email
+	 *            O email do Cliente que está sendo buscado.
+	 * @param conexao
+	 *            As credenciais da conexão.
+	 * @return cliente
+	 * @throws Exception
+	 * @see Cliente, ClienteDAO
+	 */
+	public static Cliente login(String email, String senha, Connection conexao) throws Exception {
+		return new ClienteDAO().login(email, senha, conexao);
+	}
 
 	/**
 	 * Edita os dados do cliente no banco de dados.

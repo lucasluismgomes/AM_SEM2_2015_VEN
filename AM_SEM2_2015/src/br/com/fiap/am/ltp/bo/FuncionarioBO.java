@@ -70,6 +70,27 @@ public class FuncionarioBO {
 	}
 	
 	/**
+	 * Faz a busca de um funcionário no banco de dados que tenha um id
+	 * especifico.
+	 * 
+	 * @author Lucas 74795
+	 * @since 1.0
+	 * @param codigo
+	 * 			O código do funcionário que será buscado.
+	 * @param senha
+	 * 			A senha do funcionário.
+	 * @param conexao
+	 *            As credenciais da conexão.
+	 * @return <code>funcionario</code> O funcionario que foi buscado no banco
+	 *         de dados.
+	 * @throws Exception
+	 * @see Funcionario, FuncionarioDAO
+	 */
+	public static Funcionario login(int codigo, String senha, Connection conexao) throws Exception {
+		return new FuncionarioDAO().login(codigo, senha, conexao);
+	}
+	
+	/**
 	 * Edita as informações de um funcionário no banco de dados.
 	 * 
 	 * @author Lucas 74795
