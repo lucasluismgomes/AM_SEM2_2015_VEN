@@ -130,8 +130,8 @@ public class ServletHBV extends HttpServlet {
 		}
 
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher("reservarQuarto.jsp");
-		dispatcher.forward(request, response); 	
+		//RequestDispatcher dispatcher = request.getRequestDispatcher("reservarQuarto.jsp");
+		//dispatcher.forward(request, response); 	
     	
     }
     
