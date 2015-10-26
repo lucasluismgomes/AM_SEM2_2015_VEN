@@ -68,10 +68,10 @@ public class EstadoBO
 	 * @throws Excecao
 	 * @see Estado,EstadoDAO
 	 */
-	public static List<Estado> buscarPorNome(Estado estado, Connection conexao) throws Excecao
+	public static List<Estado> buscarPorNome(String pesquisaEstado, Connection conexao) throws Excecao
 	{
 		try {
-			return new EstadoDAO().buscarPorNome(estado, conexao);
+			return new EstadoDAO().buscarPorNome(pesquisaEstado, conexao);
 		} catch (Exception e) {
 			throw new Excecao(e);
 		}
@@ -86,9 +86,9 @@ public class EstadoBO
 	 * @throws Excecao
 	 * @see Estado,EstadoDAO
 	 */
-	public static boolean excluir(Estado estado, Connection conexao) throws Excecao {
+	public static boolean excluir(int codigo, Connection conexao) throws Excecao {
 		try {
-			return new EstadoDAO().excluir(estado, conexao);
+			return new EstadoDAO().excluir(codigo, conexao);
 		} catch (Exception e) {
 			throw new Excecao(e);
 		}

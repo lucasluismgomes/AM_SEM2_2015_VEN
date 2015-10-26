@@ -110,12 +110,12 @@ public class BairroDAO
 	 * @throws Exception
 	 * @see Bairro, BairroBO,Cidade
 	 */
-	public List<Bairro> buscarPorNome(Bairro bairro, Connection conexao) throws Exception {
+	public List<Bairro> buscarPorNome(String pesquisaBairro, Connection conexao) throws Exception {
 		try{
 			List<Bairro> lstBairro = new ArrayList<Bairro>();
 			sql = "SELECT CD_TIPO_LOGRADOURO,DS_TIPO_LOGRADOURO FROM T_AM_HBV_TIPO_LOGRADOURO WHERE UPPER(DS_TIPO_LOGRADOURO) LIKE UPPER(?)";
 			estrutura = conexao.prepareStatement(sql);	
-			estrutura.setString(1, "%"+bairro.getNome()+"%");
+			estrutura.setString(1, "%"+pesquisaBairro+"%");
 			resultadoDados = estrutura.executeQuery();
 			while(resultadoDados.next()) 
 			{
@@ -143,13 +143,13 @@ public class BairroDAO
 	 * @throws Exception
 	 * @see Bairro, BairroBO
 	 */
-	public boolean excluir(Bairro bairro, Connection conexao) throws Exception 
+	public boolean excluir(int codigo, Connection conexao) throws Exception 
 	{
 		try
 		{
 			sql = "DELETE FROM T_AM_HBV_BAIRRO WHERE CD_BAIRRO = ?";
 			estrutura = conexao.prepareStatement(sql);
-			estrutura.setInt(1, bairro.getCodigo());				
+			estrutura.setInt(1, codigo);				
 			return estrutura.execute();
 		}
 		catch (Exception e) 

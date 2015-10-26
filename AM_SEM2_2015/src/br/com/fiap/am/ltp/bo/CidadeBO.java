@@ -51,7 +51,7 @@ public class CidadeBO
 			throw new Excecao(e);
 		}
 	}
-	public List<Cidade> buscarTodos(Connection conexao) throws Excecao {
+	public static List<Cidade> buscarTodos(Connection conexao) throws Excecao {
 		try {
 			return new CidadeDAO().buscarTodos(conexao);
 		} catch (Exception e) {
@@ -68,10 +68,10 @@ public class CidadeBO
 	 * @throws Excecao
 	 * @see Cidade,CidadeDAO
 	 */
-	public static List<Cidade> buscarPorNome(Cidade cidade, Connection conexao) throws Excecao
+	public static List<Cidade> buscarPorNome(String pesquisaCidade, Connection conexao) throws Excecao
 	{
 		try {
-			return new CidadeDAO().buscarPorNome(cidade, conexao);
+			return new CidadeDAO().buscarPorNome(pesquisaCidade, conexao);
 		} catch (Exception e) {
 			throw new Excecao(e);
 		}
@@ -86,9 +86,9 @@ public class CidadeBO
 	 * @throws Excecao
 	 * @see Cidade,CidadeDAO
 	 */
-	public static boolean excluir(Cidade cidade, Connection conexao) throws Excecao {
+	public static boolean excluir(int codigo, Connection conexao) throws Excecao {
 		try {
-			return new CidadeDAO().excluir(cidade, conexao);
+			return new CidadeDAO().excluir(codigo, conexao);
 		} catch (Exception e) {
 			throw new Excecao(e);
 		}

@@ -35,16 +35,16 @@ public abstract class BairroBO {
 	{
 		return new BairroDAO().editar(bairro, conexao);
 	}
-	public static boolean apagar(Bairro bairro,Connection conexao) throws Exception
+	public static boolean apagar(int codigo,Connection conexao) throws Exception
 	{
-		return new BairroDAO().excluir(bairro, conexao);
+		return new BairroDAO().excluir(codigo, conexao);
+	}
+	public static List<Bairro> buscarPorNome(String pesquisaBairro,Connection conexao) throws Exception
+	{
+		return new BairroDAO().buscarPorNome(pesquisaBairro, conexao);
 	}
 	public static List<Bairro> buscarTodos(Connection conexao) throws Exception
 	{
 		return new BairroDAO().buscarTodos(conexao);
-	}
-	public static List<Bairro> buscarPorNome(Bairro bairro,Connection conexao) throws Exception
-	{
-		return new BairroDAO().buscarPorNome(bairro, conexao);
 	}
 }

@@ -96,13 +96,13 @@ public class CidadeDAO
 	 * @throws Excecao
 	 * @see Cidade, CidadeBO,Estado
 	 */
-	public List<Cidade> buscarPorNome(Cidade cidade, Connection conexao) throws Excecao 
+	public List<Cidade> buscarPorNome(String pesquisaCidade, Connection conexao) throws Excecao 
 	{		
 		try {
 			sql = "SELECT C.CD_CIDADE,E.SG_ESTADO,E.NM_ESTADO, C.NM_CIDADE FROM T_AM_HBV_CIDADE C INNER JOIN T_AM_HBV_ESTADO E ON C.CD_ESTADO = E.CD_ESTADO WHERE UPPER(C.NM_CIDADE) LIKE UPPER(?)";
 			List<Cidade> lstCidade = new ArrayList<Cidade>();
 			estrutura = conexao.prepareStatement(sql);
-			estrutura.setString(1,"%"+ cidade.getNome()+"%");
+			estrutura.setString(1,"%"+ pesquisaCidade +"%");
 			
 			resultado = estrutura.executeQuery();
 			
@@ -170,12 +170,12 @@ public class CidadeDAO
 	 * @throws Excecao
 	 * @see Cidade, CidadeBO
 	 */
-	public boolean excluir(Cidade cidade, Connection conexao) throws Excecao {
+	public boolean excluir(int codigo, Connection conexao) throws Excecao {
 		try {
 			sql = "DELETE FROM T_AM_HBV_CIDADE WHERE CD_CIDADE = ?";
 			estrutura = conexao
 					.prepareStatement(sql);
-			estrutura.setInt(1, cidade.getCodigo());
+			estrutura.setInt(1, codigo);
 			return estrutura.execute();
 		} catch (Exception e) {
 			throw new Excecao(e);

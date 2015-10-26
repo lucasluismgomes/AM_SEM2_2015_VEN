@@ -50,9 +50,9 @@ public class TipoLogradouroBO
 	 * @throws Exception
 	 * @see TipoLogradouro, TipoLogradouroDAO
 	 */
-	public static boolean excluir(TipoLogradouro tipoLogradouro,Connection conexao) throws Exception
+	public static boolean excluir(int codigo,Connection conexao) throws Exception
 	{	
-		return new TipoLogradouroDAO().excluir(tipoLogradouro, conexao);
+		return new TipoLogradouroDAO().excluir(codigo, conexao);
 	}
 	/**
 	 * Método que retorna todos os registros do banco de dados.
@@ -75,8 +75,8 @@ public class TipoLogradouroBO
 	 * @throws Exception
 	 * @see TipoLogradouro, TipoLogradouroDAO
 	 */
-	public static List<TipoLogradouro> buscarPorNome(TipoLogradouro tipoLogradouro,Connection conexao) throws Exception
+	public static List<TipoLogradouro> buscarPorNome(String pesquisaTipoLogradouro,Connection conexao) throws Exception
 	{
-		return new TipoLogradouroDAO().buscarPorNome(tipoLogradouro, conexao);
+		return new TipoLogradouroDAO().buscarPorNome(pesquisaTipoLogradouro, conexao);
 	}
 }

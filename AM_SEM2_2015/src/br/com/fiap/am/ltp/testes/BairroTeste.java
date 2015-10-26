@@ -36,7 +36,7 @@ public class BairroTeste
 			{
 				Cidade cidade = new Cidade();
 				Bairro bairro = new Bairro();
-				List<Cidade> lstCidade = new CidadeBO().buscarTodos(conexao);
+				List<Cidade> lstCidade = CidadeBO.buscarTodos(conexao);
 				System.out.println("/tCidades Cadastradas");
 				for (Cidade c : lstCidade) 
 				{
@@ -66,7 +66,7 @@ public class BairroTeste
 				{
 					System.out.println("Cód. Bairro: "+b.getCodigo()+" Nome:"+b.getNome()+" Cód. Cidade:"+b.getCidade().getCodigo());
 				}
-				List<Cidade> lstCidade = new CidadeBO().buscarTodos(conexao);
+				List<Cidade> lstCidade = CidadeBO.buscarTodos(conexao);
 				System.out.println("\n\tCidades Cadastradas");
 				for (Cidade c : lstCidade) 
 				{
@@ -97,15 +97,14 @@ public class BairroTeste
 			}
 			else if (funcionalidade == 4) 
 			{
-				Bairro bairro = new Bairro();
 				List<Bairro> lstBairro = BairroBO.buscarTodos(conexao);
 				System.out.println("/tLista de Bairros Cadastrados");
 				for (Bairro b : lstBairro) 
 				{
 					System.out.println("Cód. Bairro: "+b.getCodigo()+" Nome:"+b.getNome()+" Cód. Cidade:"+b.getCidade().getCodigo());
 				}
-				bairro.setCodigo(Integer.parseInt(JOptionPane.showInputDialog("Cód. do bairro a ser deletado")));
-				boolean retorno = BairroBO.apagar(bairro, conexao);
+				int codigo = Integer.parseInt(JOptionPane.showInputDialog("Cód. do bairro para exclusão"));
+				boolean retorno = BairroBO.apagar(codigo, conexao);
 				if(!retorno)
 				{
 					System.out.println("Deletou");
@@ -117,9 +116,8 @@ public class BairroTeste
 			}
 			else if (funcionalidade == 5) 
 			{
-				Bairro bairro = new Bairro();
-				bairro.setNome(JOptionPane.showInputDialog("Nome do bairro a ser pesquisado"));
-				List<Bairro> lstBairro = BairroBO.buscarPorNome(bairro, conexao);
+				String pesquisaBairro = JOptionPane.showInputDialog("Pesquisa de Bairro");
+				List<Bairro> lstBairro = BairroBO.buscarPorNome(pesquisaBairro, conexao);
 				System.out.println("/tLista de Bairros Cadastrados");
 				for (Bairro b : lstBairro) 
 				{

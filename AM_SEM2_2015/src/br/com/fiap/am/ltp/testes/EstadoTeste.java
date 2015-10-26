@@ -81,15 +81,14 @@ public class EstadoTeste
 			}
 			else if (funcionalidade == 4) 
 			{
-				Estado estado = new Estado();
 				EstadoBO estadoBO = new EstadoBO();
 				List<Estado> lstEstado = estadoBO.buscarTodos(conexao);
-				for (Estado estado2 : lstEstado) 
+				for (Estado estado : lstEstado) 
 				{
-					System.out.println("Código: "+estado2.getCodigo()+" Nome: "+estado2.getNome()+" Sigla: "+estado2.getSigla());
+					System.out.println("Código: "+estado.getCodigo()+" Nome: "+estado.getNome()+" Sigla: "+estado.getSigla());
 				}
-				estado.setCodigo(Integer.parseInt(JOptionPane.showInputDialog("Informe o codigo a ser deletado")));
-				boolean resultado = estadoBO.excluir(estado, conexao);
+				int codigo = Integer.parseInt("Cód. do Estado para exclusão no banco de dados");
+				boolean resultado = estadoBO.excluir(codigo, conexao);
 				if(!resultado)
 				{
 					System.out.println("Apagou!");
@@ -101,10 +100,9 @@ public class EstadoTeste
 			}
 			else if (funcionalidade == 5) 
 			{
-				Estado estado = new Estado();
 				EstadoBO estadoBO = new EstadoBO();
-				estado.setNome(JOptionPane.showInputDialog("Nome a ser pesquisado"));
-				List<Estado> lstEstado = estadoBO.buscarPorNome(estado, conexao);
+				String pesquisaEstado = JOptionPane.showInputDialog("Pesquisa de Estado");
+				List<Estado> lstEstado = estadoBO.buscarPorNome(pesquisaEstado, conexao);
 				for (Estado estado2 : lstEstado) 
 				{
 					System.out.println("Código: "+estado2.getCodigo()+" Nome: "+estado2.getNome()+" Sigla: "+estado2.getSigla());

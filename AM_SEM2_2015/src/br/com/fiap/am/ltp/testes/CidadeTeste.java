@@ -105,12 +105,8 @@ public class CidadeTeste
 							+ cidade.getEstado().getNome() + " SIGLA: "
 							+ cidade.getEstado().getSigla());
 				}
-				
-				Cidade cidade = new Cidade();
-				cidade.setCodigo(Integer.parseInt(JOptionPane.showInputDialog("Qual é o codigo da cidade?")));
-				
-				boolean resultado = cidadeBO.excluir(cidade, conexao);
-				
+				int codigoCidade = Integer.parseInt(JOptionPane.showInputDialog("Cód. da cidade a ser deletado"));
+				boolean resultado = cidadeBO.excluir(codigoCidade, conexao);
 				if (!resultado) {
 					System.out.println("Deletou!");
 				} else {
@@ -119,9 +115,8 @@ public class CidadeTeste
 			} else if (funcionalidade == 5) {
 				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74793", "150395");
 				CidadeBO cidadeBO = new CidadeBO();
-				Cidade c = new Cidade();
-				c.setNome(JOptionPane.showInputDialog("Pesquisa por nome de cidade"));
-				List<Cidade> lstCidade = cidadeBO.buscarPorNome(c, conexao);
+				String pesquisaCidade = JOptionPane.showInputDialog("Pesquisa de cidades");
+				List<Cidade> lstCidade = cidadeBO.buscarPorNome(pesquisaCidade, conexao);
 				
 				for (Cidade cidade : lstCidade) {
 					System.out.println("Codigo: " + cidade.getCodigo()

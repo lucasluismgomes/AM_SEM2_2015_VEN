@@ -85,13 +85,13 @@ public class EstadoDAO
 	 * @throws Excecao
 	 * @see Estado,EstadoBO
 	 */
-	public boolean excluir(Estado estado, Connection conexao) throws Excecao
+	public boolean excluir(int codigo, Connection conexao) throws Excecao
 	{
 		try 
 		{
 			sql  = "DELETE FROM T_AM_HBV_ESTADO WHERE CD_ESTADO = ?";
 			estrutura = conexao.prepareStatement(sql);
-			estrutura.setInt(1, estado.getCodigo());
+			estrutura.setInt(1, codigo);
 			return estrutura.execute();
 		}
 		catch (Exception e) 
@@ -140,13 +140,13 @@ public class EstadoDAO
 	 * @throws Excecao
 	 * @see Estado,EstadoBO
 	 */
-	public List<Estado> buscarPorNome(Estado estado,Connection conexao) throws Excecao
+	public List<Estado> buscarPorNome(String pesquisaEstado,Connection conexao) throws Excecao
 	{
 		try 
 		{
 			sql = "SELECT CD_ESTADO,NM_ESTADO,SG_ESTADO FROM T_AM_HBV_ESTADO WHERE UPPER(NM_ESTADO) LIKE UPPER(?)";
 			estrutura = conexao.prepareStatement(sql);
-			estrutura.setString(1, "%"+estado.getNome()+"%");
+			estrutura.setString(1, "%"+pesquisaEstado+"%");
 			resultado = estrutura.executeQuery();
 			List<Estado> lstEstado = new ArrayList<Estado>();
 			while(resultado.next())

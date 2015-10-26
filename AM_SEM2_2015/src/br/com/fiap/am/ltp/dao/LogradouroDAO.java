@@ -41,7 +41,7 @@ public class LogradouroDAO
 			estrutura = conexao.prepareStatement(sql);
 			estrutura.setInt(1,logradouro.getCep());
 			estrutura.setInt(2, logradouro.getTipo().getCodigo());
-			estrutura.setInt(3, logradouro.getTipo().getCodigo());
+			estrutura.setInt(3, logradouro.getBairro().getCodigo());
 			estrutura.setString(4, logradouro.getDescricao());
 			return estrutura.execute();
 		}
@@ -62,7 +62,7 @@ public class LogradouroDAO
 	{
 		try 
 		{
-			sql = "UPDATE T_AM_HBV_LOGRADOURO SET NR_CEP = ?,CD_TIPO_LOGRADOURO = ?,CD_BAIRRO = ?,DS_DESCRICAO = ? WHERE NR_CEP = ?";
+			sql = "UPDATE T_AM_HBV_LOGRADOURO SET CD_TIPO_LOGRADOURO = ?,CD_BAIRRO = ?,DS_DESCRICAO = ? WHERE NR_CEP = ?";
 			estrutura = conexao.prepareStatement(sql);
 			estrutura.setInt(1,logradouro.getCep());
 			estrutura.setInt(2, logradouro.getTipo().getCodigo());

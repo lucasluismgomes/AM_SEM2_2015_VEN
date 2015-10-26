@@ -78,13 +78,13 @@ public class TipoLogradouroDAO
 	 * @throws Exception
 	 * @see TipoLogradouro,TipoLogradouroBO
 	 */
-	public boolean excluir(TipoLogradouro tipoLogradouro,Connection conexao) throws Exception
+	public boolean excluir(int codigo,Connection conexao) throws Exception
 	{
 		try 
 		{
 			sql = "DELETE FROM T_AM_HBV_TIPO_LOGRADOURO WHERE CD_TIPO_LOGRADOURO = ?";
 			estrutura = conexao.prepareStatement(sql);
-			estrutura.setInt(1, tipoLogradouro.getCodigo());	
+			estrutura.setInt(1, codigo);	
 			return estrutura.execute();
 		}
 		catch (Exception e) 
@@ -129,13 +129,13 @@ public class TipoLogradouroDAO
 	 * @throws Exception
 	 * @see TipoLogradouro,TipoLogradouroBO
 	 */
-	public List<TipoLogradouro> buscarPorNome(TipoLogradouro tipoLogradouro,Connection conexao) throws Exception
+	public List<TipoLogradouro> buscarPorNome(String pesquisaTipoLogradouro,Connection conexao) throws Exception
 	{
 		try 
 		{
 			sql = "SELECT CD_TIPO_LOGRADOURO,DS_TIPO_LOGRADOURO FROM T_AM_HBV_TIPO_LOGRADOURO WHERE UPPER(DS_TIPO_LOGRADOURO) LIKE UPPER(?)";
 			estrutura = conexao.prepareStatement(sql);
-			estrutura.setString(1,"%" + tipoLogradouro.getDescricao() + "%");
+			estrutura.setString(1,"%" + pesquisaTipoLogradouro + "%");
 			resultado = estrutura.executeQuery();
 			List<TipoLogradouro> lstTipoLogradouro = new ArrayList<TipoLogradouro>();
 			while(resultado.next())
