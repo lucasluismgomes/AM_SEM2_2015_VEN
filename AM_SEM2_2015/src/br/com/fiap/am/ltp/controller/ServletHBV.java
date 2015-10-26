@@ -7,7 +7,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -20,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.fiap.am.ltp.beans.Quarto;
 import br.com.fiap.am.ltp.beans.Reserva;
 import br.com.fiap.am.ltp.beans.TipoQuarto;
+import br.com.fiap.am.ltp.bo.ReservaBO;
 import br.com.fiap.am.ltp.bo.TipoQuartoBO;
 import br.com.fiap.am.ltp.conexao.ConexaoFactory;
 
@@ -42,23 +42,8 @@ public class ServletHBV extends HttpServlet {
         super();
     }
 
-    
-    
-    
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
-		
-		List<Quarto> lstQuartos = new ArrayList<Quarto>();
+    private void calcularReserva(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+    	List<Quarto> lstQuartos = new ArrayList<Quarto>();
 		
 		short qtdQuartos = Short.parseShort(request.getParameter("qtdQuartos"));
 		short qtdCriancas = 0;
@@ -135,9 +120,39 @@ public class ServletHBV extends HttpServlet {
 			count++;
 			System.out.println();
 		}
+		
 
+		
+		try {
+			System.out.println("Valor reserva: " + ReservaBO.calcularReserva(reserva, conexao));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("reservarQuarto.jsp");
-		dispatcher.forward(request, response);
+		dispatcher.forward(request, response); 	
+    	
+    }
+    
+    
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//doGet(request, response);
+		try{
+		calcularReserva(request,response);
+		}catch(Exception e){
+			e.printStackTrace();			
+		}
 	}
 
 }

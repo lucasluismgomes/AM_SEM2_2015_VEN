@@ -18,8 +18,8 @@ function arrumarCol(qtd){
 
 function tagQuarto(qtdQuartos, numeroQuarto){
 
-	console.log("tipoQuarto"+numeroQuarto);
-	console.log("qtdAdultosQuarto"+numeroQuarto);
+	//console.log("tipoQuarto"+numeroQuarto);
+	//console.log("qtdAdultosQuarto"+numeroQuarto);
 	
 	
 	
@@ -51,8 +51,8 @@ function tagQuarto(qtdQuartos, numeroQuarto){
 					<div class='input-group'>\
 						<span class='input-group-addon'><i\
 							class='fa fa-user'></i></span> <select\
-							name='qtdAdultosQuarto"+numeroQuarto+"' class='form-control qtdPessoas'>\
-							<option value='0'>Quantidade de adultos</option>\
+							name='qtdAdultosQuarto"+numeroQuarto+"' class='form-control qtdPessoas' required>\
+							<option value=''>Quantidade de adultos</option>\
 							<option value='1'>1</option>\
 							<option value='2'>2</option>\
 							<option value='3'>3</option>\
@@ -106,8 +106,8 @@ function tagSelectCriancas(qtdPessoas,numeroQuarto){
 	var tag = "<div class='input-group'>\
 	<span class='input-group-addon' id='basic-addon1'><i\
 	class='fa fa-users'></i> </i></span> <select\
-	name='qtdCriancasQuarto"+numeroQuarto+"' class='form-control qtdCriancas'>\
-	<option value='0'>Quantidade de crianças</option>";
+	id='qtdCriancas"+numeroQuarto+"' name='qtdCriancasQuarto"+numeroQuarto+"' class='form-control qtdCriancas' required>\
+	<option value=''>Quantidade de crianças</option>";
 	
 	var qtdCriancas = 4 - qtdPessoas;
 	if(qtdCriancas == 0){
@@ -132,13 +132,13 @@ function tagIdadeCriancas(qtdCriancas,numeroQuarto){
 		return "";		
 	}else{	
 		
-	var tag = "<label class='control-label'>Idade das crianças</label><br><div class='input-group idadeCrianca'>";
+	var tag = "<label class='control-label'>Idade das crianças</label><br><div class='input-group'>";
 	
 	for(c=1;c<=qtdCriancas;c++){
-		console.log("idadeCrianca"+c+"Quarto"+numeroQuarto);
+		//console.log("idadeCrianca"+c+"Quarto"+numeroQuarto);
 		
 		tag = tag + "<select\
-		name='idadeCrianca"+c+"Quarto"+numeroQuarto+"' class='form-control '>\
+		name='idadeCrianca"+c+"Quarto"+numeroQuarto+"' class='form-control ' required>\
 				<option value='0'>0</option>\
 				<option value='1'>1</option>\
 				<option value='2'>2</option>\
@@ -151,6 +151,7 @@ function tagIdadeCriancas(qtdCriancas,numeroQuarto){
 	}
 }
 $(document).ready(function(){
+
 	$("#qtdQuartos").change(function(){
 		$("#secaoQuartos").html('');
 		var qtdQuartos = $("#qtdQuartos option:selected").val();
@@ -161,28 +162,52 @@ $(document).ready(function(){
 		$(".caption .btn").click(function(){
 			atualizaQuartos($(this));			
 		});
-		$(".qtdPessoas").change(function(){
-			var numeroQuarto  = $(this).parent().parent().parent().parent().find(".numeroQuarto").val();
+		
+		$(".qtdPessoas").change(function() {
+			console.log('add click event');
+			var numeroQuarto  = $(this).parent().parent().parent().parent().find("input:hidden.numeroQuarto").val();
 			
 			$(this).parent().siblings(".criancas-section").html(tagSelectCriancas($(this).val(),numeroQuarto));
-			$(".qtdCriancas").change(function(){
-				$(this).parent().siblings(".idadeCriancas").html(tagIdadeCriancas($(this).val(),numeroQuarto));
+			carregaChangeSelects(numeroQuarto);
 			});
 		});
 	});
-	$(".qtdPessoas").change(function(){
+	
+function carregaChangeSelects(){
+	$(".qtdCriancas").unbind().change(function() {
+		var numeroQuarto  = $(this).parent().parent().parent().parent().parent().find("input:hidden.numeroQuarto").val();
+		console.log('disparou! Quantidade Crianças:' + $(this).val() + " Quarto: " + numeroQuarto);
+		$(this).parent().siblings(".idadeCriancas").html(tagIdadeCriancas($(this).val(),numeroQuarto));
+	});
+}
+
+
+/*
+	$("#qtdCriancas2").unbind().change( function() {
+		var numeroQuarto  = $(this).parent().parent().parent().parent().parent().find("input:hidden.numeroQuarto").val();
+		console.log('disparou! Quantidade Crianças:' + $(this).val() + " Quarto: " + numeroQuarto);
+		$(this).parent().siblings(".idadeCriancas").html(tagIdadeCriancas($(this).val(),numeroQuarto));
+	});
+	$("#qtdCriancas3").unbind().change( function() {
+		var numeroQuarto  = $(this).parent().parent().parent().parent().parent().find("input:hidden.numeroQuarto").val();
+		console.log('disparou! Quantidade Crianças:' + $(this).val() + " Quarto: " + numeroQuarto);
+		$(this).parent().siblings(".idadeCriancas").html(tagIdadeCriancas($(this).val(),numeroQuarto));
+	});
+	$("#qtdCriancas4").unbind().change(function() {
+		var numeroQuarto  = $(this).parent().parent().parent().parent().parent().find("input:hidden.numeroQuarto").val();
+		console.log('disparou! Quantidade Crianças:' + $(this).val() + " Quarto: " + numeroQuarto);
+		$(this).parent().siblings(".idadeCriancas").html(tagIdadeCriancas($(this).val(),numeroQuarto));});
+}	
+	/*$(".qtdPessoas").change(function(){
 		var numeroQuarto  = $(this).parent().parent().parent().parent().find(".numeroQuarto").val();
 		$(this).parent().siblings(".criancas-section").html(tagSelectCriancas($(this).val(),numeroQuarto));
 		$(".qtdCriancas").change(function(){
-			$(this).parent().siblings(".idadeCriancas").html(tagIdadeCriancas($(this).val(),numeroQuarto));
+			if($(this).val() != 0){
+			$(this).parent().siblings(".idadeCriancas").html(tagIdadeCriancas($(this).val(),numeroQuarto));}
 		});
 	});
 	$(".caption .btn").click(function(){
 		atualizaQuartos($(this));			
-	});
+	});*/
 	
 	
-	
-	
-	
-});

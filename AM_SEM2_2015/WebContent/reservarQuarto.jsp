@@ -54,6 +54,7 @@
 						de quartos</label>
 					<div class="col-md-4">
 						<select id="qtdQuartos" name="qtdQuartos" class="form-control" required>
+							<option value="">Selecione a quantidade de quartos</option>
 							<option value="1">1</option>
 							<option value="2">2</option>
 							<option value="3">3</option>
