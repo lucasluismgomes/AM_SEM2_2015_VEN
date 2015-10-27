@@ -120,6 +120,11 @@ public class ServletHBV extends HttpServlet {
 			count++;
 			System.out.println();
 		}
+		try {
+			reserva.setVlReserva(ReservaBO.calcularReserva(reserva, conexao));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		request.setAttribute("reserva", reserva);
 		
