@@ -59,7 +59,7 @@ public class HospedagemDAO {
 				estrutura.setInt(2, hospedagem.getReserva().getCliente().getCodigo());
 				estrutura.setInt(3, hospedagem.getFuncionario().getCodigo());
 				estrutura.setDate(4, new Date(hospedagem.getDtCheckIn().getTimeInMillis()));
-				estrutura.setDate(5, new Date(hospedagem.getReserva().getDtSaida().getTimeInMillis()));
+				estrutura.setDate(5, new Date(hospedagem.getDtCheckOut().getTimeInMillis()));
 				estrutura.setInt(6, 0);
 				
 				estrutura.executeQuery();
@@ -99,22 +99,20 @@ public class HospedagemDAO {
 				Reserva reserva = new Reserva();
 				Cliente cliente = new Cliente();
 				Funcionario funcionario = new Funcionario();
-				Calendar c = Calendar.getInstance();
-				c.setTime(rs.getDate("DT_SAIDA"));
 				Calendar checkIn = Calendar.getInstance();
 				checkIn.setTime(rs.getDate("DT_ENTRADA"));
+				Calendar checkOut = Calendar.getInstance();
+				checkOut.setTime(rs.getDate("DT_SAIDA"));
 				
-				reserva.setCodigo(1);
 				
-				//reserva = ReservaBO.buscarPorCodigo(rs.getInt("CD_HOSPEDAGEM"), conexao);
+				reserva = ReservaBO.buscarPorCodigo(rs.getInt("CD_HOSPEDAGEM"), conexao);
 				hospedagem.setReserva(reserva);
 				cliente = ClienteBO.buscarPorCodigo(rs.getInt("CD_CLIENTE"), conexao);
 				reserva.setCliente(cliente);
 				funcionario = FuncionarioBO.buscarPorCodigo(rs.getInt("CD_FUNCIONARIO"), conexao);
 				reserva.setFuncionario(funcionario);
-				reserva.setDtSaida(c);
 				hospedagem.setDtCheckIn(checkIn);
-				hospedagem.setReserva(reserva);
+				hospedagem.setDtCheckOut(checkOut);
 				
 				lstHospedagem.add(hospedagem);
 			}
@@ -163,7 +161,7 @@ public class HospedagemDAO {
 				Calendar checkIn = Calendar.getInstance();
 				checkIn.setTime(rs.getDate("DT_ENTRADA"));
 				
-				//reserva = ReservaBO.buscarPorCodigo(rs.getInt("CD_HOSPEDAGEM"), conexao);
+				reserva = ReservaBO.buscarPorCodigo(rs.getInt("CD_HOSPEDAGEM"), conexao);
 				hospedagem.setReserva(reserva);
 				cliente = ClienteBO.buscarPorCodigo(rs.getInt("CD_CLIENTE"), conexao);
 				reserva.setCliente(cliente);
@@ -199,7 +197,13 @@ public class HospedagemDAO {
 	 */	
 	public void editar(Hospedagem hospedagem, Connection conexao) throws Exception{
 		try{
-			//O QUE SERÁ POSSÍVEL EDITAR EM HOSPEDAGEM?
+			sql = "UPDATE T_AM_HBV_HOSPEDAGEM SET DT_SAIDA = ? WHERE CD_HOSPEDAGEM = ?";
+			estrutura = conexao.prepareStatement(sql);
+			estrutura.setDate(3, new Date(hospedagem.getDtCheckOut().getTimeInMillis()));
+			estrutura.setInt(2, hospedagem.getReserva().getCodigo());
+
+			estrutura.executeQuery();
+			estrutura.close();
 			
 		}catch (Exception e){
 			throw new Excecao(e);

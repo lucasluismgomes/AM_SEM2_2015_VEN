@@ -13,17 +13,19 @@ public class Hospedagem {
 	private Reserva reserva;
 	private Funcionario funcionario;
 	private Calendar dtCheckIn;
+	private Calendar dtCheckOut;
 	
 	public Hospedagem() {
 		super();
 	}
 
 	public Hospedagem(Reserva reserva, Funcionario funcionario,
-			Calendar dtCheckIn) {
+			Calendar dtCheckIn, Calendar dtCheckOut) {
 		super();
 		this.reserva = reserva;
 		this.funcionario = funcionario;
 		this.dtCheckIn = dtCheckIn;
+		this.dtCheckOut = dtCheckOut;
 	}
 
 	public Reserva getReserva() {
@@ -48,5 +50,13 @@ public class Hospedagem {
 
 	public void setDtCheckIn(Calendar dtCheckIn) {
 		this.dtCheckIn = dtCheckIn;
+	}
+
+	public Calendar getDtCheckOut() {
+		return dtCheckOut;
+	}
+
+	public void setDtCheckOut(Calendar dtCheckOut) {
+		this.dtCheckOut = dtCheckOut;
 	}
 }

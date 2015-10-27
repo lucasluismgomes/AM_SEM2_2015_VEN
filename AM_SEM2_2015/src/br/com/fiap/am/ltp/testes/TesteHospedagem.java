@@ -1,6 +1,7 @@
 package br.com.fiap.am.ltp.testes;
 
 import java.sql.Connection;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -73,8 +74,8 @@ public class TesteHospedagem {
 				for (Hospedagem hospedagem : lstHospedagem) {
 									
 					System.out.println("Código: " + hospedagem.getReserva().getCodigo() 
-							+ "\nCliente: " + hospedagem.getReserva().getCliente()
-							+ "\nFuncionário: " + hospedagem.getReserva().getFuncionario()
+							+ "\nCliente: " + hospedagem.getReserva().getCliente().getNome()
+							+ "\nFuncionário: " + hospedagem.getReserva().getFuncionario().getNome()
 							+ "\nData Check In: " + hospedagem.getDtCheckIn()
 							+ "\nData Saída: " + hospedagem.getReserva().getDtSaida());
 				}
@@ -104,11 +105,11 @@ public class TesteHospedagem {
 				
 				Hospedagem hospedagem = HospedagemBO.buscarPorCodigo(codigo, conexao);
 				
-				System.out.println("Código: " + hospedagem.getReserva().getCodigo() 
+				System.out.println("\nCódigo: " + hospedagem.getReserva().getCodigo() 
 						+ "\nCliente: " + hospedagem.getReserva().getCliente()
 						+ "\nFuncionário: " + hospedagem.getReserva().getFuncionario()
-						+ "\nData Check In: " + hospedagem.getDtCheckIn()
-						+ "\nData Saída: " + hospedagem.getReserva().getDtSaida());
+						+ "\nData Check In: " + hospedagem.getDtCheckIn().getTime()
+						+ "\nData Check Out: " + hospedagem.getDtCheckOut().getTime());
 
 				
 			}else {

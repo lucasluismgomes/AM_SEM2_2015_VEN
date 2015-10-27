@@ -113,7 +113,8 @@ public class ReservaDAO {
 					+ "FROM T_AM_HBV_RESERVA "
 					+ "WHERE CD_RESERVA = ?";
 			estrutura = conexao.prepareStatement(sql);
-			
+			estrutura.setInt(1, codigo);
+
 			rs = estrutura.executeQuery();
 			
 			if(rs.next()) {
