@@ -26,7 +26,7 @@ public class CheckOutTeste {
 		
 		JOptionPane.showMessageDialog(null, "\nCódigo Hospedagem: " + hospedagem.getReserva().getCodigo()
 											+"\nCliente: " + hospedagem.getReserva().getCliente().getNome()
-											+"\nData de CheckIn: " + hospedagem.getDtCheckIn());
+											+"\nData de CheckIn: " + hospedagem.getDtEntradaFormatted());
 		for (Consumo consumo : lstConsumo) {
 			System.out.println("\n\nCódigo do Consumo: " + consumo.getCodigo() 
 					+ "\nCd. Hosp.: " + consumo.getHospedagem().getReserva().getCodigo() 

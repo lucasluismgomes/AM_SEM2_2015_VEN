@@ -48,15 +48,15 @@ public class ReservaDAO {
 		try {
 			sql = "INSERT INTO T_AM_HBV_RESERVA "
 					+ "(CD_CLIENTE, DT_SOLICITACAO, DT_INICIO_RESERVA,DT_FINAL_RESERVA, QT_ADULTO, QT_CRIANCA, ST_RESERVA, VL_RESERVA)"
-					+ "VALUES (?,(SELECT SYSDATE FROM DUAL),?,?,?,?,?,?)";
+					+ "VALUES (?,(SELECT SYSDATE FROM DUAL),?,?,?,?,1,?)";
 			estrutura = conexao.prepareStatement(sql);
 			estrutura.setInt(1, reserva.getCliente().getCodigo());
 			estrutura.setDate(2, new Date(reserva.getDtEntrada().getTimeInMillis()));
 			estrutura.setDate(3, new Date(reserva.getDtSaida().getTimeInMillis()));
 			estrutura.setShort(4, reserva.getQtAdulto());
 			estrutura.setShort(5, reserva.getQtCrianca());
-			estrutura.setInt(6, reserva.getStatus().getCodigo());
-			estrutura.setDouble(7, reserva.getVlReserva());
+			//estrutura.setInt(6, reserva.getStatus().getCodigo());
+			estrutura.setDouble(6, reserva.getVlReserva());
 
 			estrutura.execute();
 			estrutura.close();

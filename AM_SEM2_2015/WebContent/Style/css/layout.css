@@ -74,9 +74,12 @@ html,body {
 .list-estrutura{
 	width: 50%;
 	margin-left: 25%;
-	margin-top: 10%
+	margin-top: 10%;
+	display: block;
 }
 
 .confirmaReserva {
 	margin : 0 20%;
 }
+
+

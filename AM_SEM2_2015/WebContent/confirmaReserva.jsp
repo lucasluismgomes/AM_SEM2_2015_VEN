@@ -17,6 +17,7 @@
 		<h2>Confirmar reserva</h2>
 		<div class="list-group confirmaReserva">
 			<a href="#" class="list-group-item">
+				<h4 class="list-group-item-text">Data de Entrada: ${requestScope.reserva.cliente.nome}</h4>
 				<h4 class="list-group-item-text">Data de Entrada: ${requestScope.reserva.getDtEntradaFormatted()}</h4>
 				<h4 class="list-group-item-text">Data de Saida:  ${requestScope.reserva.getDtSaidaFormatted()}</h4>
 			</a>
@@ -49,13 +50,15 @@
 			</a>		
 		</c:forEach>
 		<a href="#" class="list-group-item">
-			<h4 class="list-group-item-text" >Total da Reserva  <span style="float: right;">R$ ${reserva.vlReserva}</span></h4>
+			<h4 class="list-group-item-text" >Total da Reserva  <span style="float: right;">R$ ${requestScope.reserva.vlReserva}</span></h4>
 		</a>
 			<p><small><span style="color: red; font-size: 9px;">* Crianças com 2 anos ou menos não pagam. Limite de 1 por quarto, após atingir o limite entra na faixa de crianças entre 3 e 5 anos.</span></small></p>
 			<p><small><span style="color: red; font-size: 9px;">** Crianças entre 3 e 5 anos pagam apenas 25% do valor do adulto (75% de desconto).</span></small></p>
 		</div>
-		<button id="btnCalcularValor" name=""
-						class="btn btn-info" ,value="Efetuar reserva"/>
+		<form action="ServletHBV" method=get>
+			<input type="submit" id="btnCalcularValor" name="" class="btn btn-info" value="Efetuar reserva"/>
+		</form>
+		
 		<div id="push"></div>
 	</div>
 	<c:import url="Imports/footer.jsp"></c:import>
