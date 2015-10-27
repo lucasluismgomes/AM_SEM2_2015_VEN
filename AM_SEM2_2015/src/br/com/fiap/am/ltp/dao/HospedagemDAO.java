@@ -22,7 +22,7 @@ import br.com.fiap.am.ltp.excecoes.Excecao;
  * Métodos de acesso ao banco de hospedagens. Operações do CRUD e outras
  * funcionalidades.
  * 
- * @author Lucas 74795
+ * @author Lucas 74795, Victor 74820
  * @version 1.0
  * @since 1.0
  * @see Meu Beans
@@ -194,7 +194,7 @@ public class HospedagemDAO {
 		try {
 			sql = "UPDATE T_AM_HBV_HOSPEDAGEM SET DT_SAIDA = ? WHERE CD_HOSPEDAGEM = ?";
 			estrutura = conexao.prepareStatement(sql);
-			estrutura.setDate(3, new Date(hospedagem.getDtCheckOut().getTimeInMillis()));
+			estrutura.setDate(1, new Date(hospedagem.getDtCheckOut().getTimeInMillis()));
 			estrutura.setInt(2, hospedagem.getReserva().getCodigo());
 
 			estrutura.executeQuery();
@@ -220,7 +220,7 @@ public class HospedagemDAO {
 	public void excluir(int codigo, Connection conexao) throws Exception {
 		try {
 
-			sql = "DELETE FROM T_AM_HBV_TIPO_HOSPEDAGEM WHERE CD_HOSPEDAGEM = ?";
+			sql = "DELETE FROM T_AM_HBV_HOSPEDAGEM WHERE CD_HOSPEDAGEM = ?";
 			estrutura = conexao.prepareStatement(sql);
 			estrutura.setInt(1, codigo);
 
