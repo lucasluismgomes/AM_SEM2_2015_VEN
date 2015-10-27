@@ -27,7 +27,7 @@ public class ConsumoTeste {
 					+ "3 - Buscar Todos\n" 
 					+ "4 - Apagar\n" 
 					+ "5 - Buscar por ID\n"
-					+ "6 - Valor Total\n"));
+					+ "6 - Busca por Hospedagem\n"));
 
 			if (funcionalidade == 1) {
 				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74803", "071195");
@@ -150,6 +150,22 @@ public class ConsumoTeste {
 					conexao.setAutoCommit(true);
 				} while (JOptionPane.showInputDialog("Deseja cadastrar mais? Digite 1").equals("1"));
 			} else if (funcionalidade == 5) {
+				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74803", "071195");
+
+				Consumo consumo = new Consumo();
+
+				int codigo = Integer.parseInt(JOptionPane.showInputDialog("Qual código deseja buscar?"));
+
+				consumo = ConsumoBO.buscarPorCodigo(codigo, conexao);
+
+				System.out.println("Código: " + consumo.getCodigo() 
+						+ "\nCd. Hosp.: " + consumo.getHospedagem().getReserva().getCodigo() 
+						+ "\nTipo Consumo: "	+ consumo.getTipoConsumo().getNome() 
+						+ "\n: " + consumo.getFuncionario().getNome() 
+						+ "\nData da solicitação: " + consumo.getDtSolicitacao().getTime() 
+						+ "\nQuantidade: " + consumo.getQuantidade() 
+						+ "\nValor Total: " + consumo.getValorTotal() + "\n");
+			}else if (funcionalidade == 6) {
 				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74803", "071195");
 
 				Consumo consumo = new Consumo();

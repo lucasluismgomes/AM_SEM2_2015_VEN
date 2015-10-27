@@ -104,4 +104,21 @@ public class ConsumoBO {
 	public static Consumo buscarPorCodigo(int codigo, Connection conexao) throws Exception {
 		return new ConsumoDAO().buscarPorCodigo(codigo, conexao);
 		}
+	
+	/**
+	 * Busca todos os consumos cadastrados no banco de dados para uma Hospedagem específica.
+	 * 
+	 * @author Estevão 74803
+	 * @since 1.0
+	 * @param codigo
+	 *            Código da Hospedagem em que serão buscados os Consumos
+	 * @param conexao
+	 *            As credenciais da conexão.
+	 * @return lstConsumo
+	 * @throws Exception
+	 * @see Consumo, ConsumoDAO
+	 */
+	public static List<Consumo> buscarPorHospedagem(int codigo, Connection conexao) throws Exception {
+		return new ConsumoDAO().buscarPorHospedagem(codigo, conexao);
+	}
 	}

@@ -228,4 +228,56 @@ public class ConsumoDAO {
 		}
 	}
 	
+	/**
+	 * Busca todos os consumos cadastrados no banco de dados para uma Hospedagem específica.
+	 * 
+	 * @author Estevão 74803
+	 * @since 1.0
+	 * @param codigo
+	 * @param conexao
+	 * @return <code>lstConsumo</code> Lista com todos os consumos da hospedagem
+	 * @throws Exception
+	 * @see Consumo, ConsumoBO
+	 */
+	public List<Consumo> buscarPorHospedagem(int codigo, Connection conexao) throws Exception {
+		List<Consumo> lstConsumo = new ArrayList<Consumo>();
+
+		try {
+			sql = "SELECT CD_CONSUMO, CD_HOSPEDAGEM, CD_TIPO_CONSUMO, CD_FUNCIONARIO, DT_CONSUMO, QT_CONSUMO "
+					+ "FROM T_AM_HBV_CONSUMO"
+					+ " WHERE CD_HOSPEDAGEM = ?";
+			estrutura = conexao.prepareStatement(sql);
+
+			rs = estrutura.executeQuery();
+
+			while (rs.next()) {
+				Consumo consumo = new Consumo();
+
+				consumo.setCodigo(Integer.parseInt(rs.getString("CD_CONSUMO")));
+				Hospedagem hpd = new Hospedagem();
+				hpd = HospedagemBO.buscarPorCodigo(rs.getInt("CD_HOSPEDAGEM"), conexao);
+				consumo.setHospedagem(hpd);
+				TipoConsumo tc = new TipoConsumo();
+				tc = TipoConsumoBO.buscarPorCodigo(rs.getInt("CD_TIPO_CONSUMO"), conexao);
+				consumo.setTipoConsumo(tc);
+				Funcionario f = new Funcionario();
+				f = FuncionarioBO.buscarPorCodigo(rs.getInt("CD_FUNCIONARIO"), conexao);
+				consumo.setFuncionario(f);
+				Calendar c = Calendar.getInstance();
+				c.setTime(rs.getDate("DT_CONSUMO"));
+				consumo.setDtSolicitacao(c);
+				consumo.setQuantidade(rs.getInt("QT_CONSUMO"));
+
+				lstConsumo.add(consumo);
+			}
+
+			rs.close();
+			estrutura.close();
+
+			return lstConsumo;
+			
+		} catch (Exception e) {
+			throw new Excecao(e);
+		}
+	}
 }
