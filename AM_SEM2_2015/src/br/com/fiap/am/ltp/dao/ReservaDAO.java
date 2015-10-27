@@ -262,6 +262,7 @@ public class ReservaDAO {
 	}
 
 	/**
+	 * Descrição
 	 * 
 	 * @author Lucas 74795
 	 * @since 1.0

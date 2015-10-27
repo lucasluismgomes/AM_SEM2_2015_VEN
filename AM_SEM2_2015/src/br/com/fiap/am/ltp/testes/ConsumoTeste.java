@@ -168,19 +168,23 @@ public class ConsumoTeste {
 			}else if (funcionalidade == 6) {
 				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74803", "071195");
 
-				Consumo consumo = new Consumo();
+				List<Consumo> lstConsumo = new ArrayList<Consumo>();
 
-				int codigo = Integer.parseInt(JOptionPane.showInputDialog("Qual código deseja buscar?"));
+				int codigo = Integer.parseInt(JOptionPane.showInputDialog("Qual código da Hospedagem deseja buscar os consumos?"));
 
-				consumo = ConsumoBO.buscarPorCodigo(codigo, conexao);
+				lstConsumo = ConsumoBO.buscarPorHospedagem(codigo, conexao);
 
-				System.out.println("Código: " + consumo.getCodigo() 
-						+ "\nCd. Hosp.: " + consumo.getHospedagem().getReserva().getCodigo() 
-						+ "\nTipo Consumo: "	+ consumo.getTipoConsumo().getNome() 
-						+ "\n: " + consumo.getFuncionario().getNome() 
-						+ "\nData da solicitação: " + consumo.getDtSolicitacao().getTime() 
-						+ "\nQuantidade: " + consumo.getQuantidade() 
-						+ "\nValor Total: " + consumo.getValorTotal() + "\n");
+				for (Consumo consumo : lstConsumo) {
+					System.out.println("Código: " + consumo.getCodigo() 
+					//+ "\nCd. Hosp.: " + consumo.getHospedagem().getReserva().getCodigo() 
+					+ "\nTipo Consumo: "	+ consumo.getTipoConsumo().getNome() 
+					+ "\n: " + consumo.getFuncionario().getNome() 
+					+ "\nData da solicitação: " + consumo.getDtSolicitacao().getTime() 
+					+ "\nQuantidade: " + consumo.getQuantidade() 
+					+ "\nValor Total: " + consumo.getValorTotal() + "\n");
+				}
+				
+				System.out.println("Essa hospedagem consumiu um total de : R$ " + ConsumoBO.valorTotalConsumo(codigo, conexao));
 			} else {
 				JOptionPane.showMessageDialog(null, "Essa funcionalidade não existe! Tente novamente");
 			}

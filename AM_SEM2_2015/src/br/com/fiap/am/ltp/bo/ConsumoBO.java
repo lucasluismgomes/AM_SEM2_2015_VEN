@@ -8,16 +8,18 @@ import br.com.fiap.am.ltp.dao.ConsumoDAO;
 import br.com.fiap.am.ltp.excecoes.Excecao;
 
 /**
- * Descrição da classe/método
+ * Métodos com as regras de negócio da aplicação referente a Consumo.
  * 
- * @author Estevão 74803
+ * @author Estevão 74803, Lucas 74795
  * @version 1.0
  * @since 1.0
+ * @see Consumo, ConsumoDAO
  */
 public class ConsumoBO {
 
 	/**
-	 * Faz a gravação de um Consumo no banco de dados. A quantidade deve ser maior que zero.
+	 * Faz a gravação de um Consumo no banco de dados. A quantidade deve ser
+	 * maior que zero.
 	 * 
 	 * @author Estevão 74803
 	 * @since 1.0
@@ -35,9 +37,10 @@ public class ConsumoBO {
 
 		new ConsumoDAO().gravar(consumo, conexao);
 	}
-	
+
 	/**
-	 * Edita os dados do consumo no banco de dados. A quantidade deve ser maior que zero.
+	 * Edita os dados do consumo no banco de dados. A quantidade deve ser maior
+	 * que zero.
 	 * 
 	 * @author Estevão 74803
 	 * @since 1.0
@@ -57,14 +60,15 @@ public class ConsumoBO {
 	}
 
 	/**
-	 * Excluí um Consumo do banco de dados. isso irá excluir o histórico do consumo.
+	 * Excluí um Consumo do banco de dados. isso irá excluir o histórico do
+	 * consumo.
 	 * 
 	 * @author Estevão 74803
 	 * @since 1.0
 	 * @param codigo
 	 *            O código do Consumo que será excluído do banco de dados.
 	 * @param conexao
-	 * 			As credenciais da conexão.
+	 *            As credenciais da conexão.
 	 * @throws Exception
 	 * @see Consumo, ConsumoDAO
 	 */
@@ -72,7 +76,6 @@ public class ConsumoBO {
 		new ConsumoDAO().excluir(codigo, conexao);
 	}
 
-	
 	/**
 	 * Busca todos os consumos cadastrados no banco de dados.
 	 * 
@@ -103,10 +106,11 @@ public class ConsumoBO {
 	 */
 	public static Consumo buscarPorCodigo(int codigo, Connection conexao) throws Exception {
 		return new ConsumoDAO().buscarPorCodigo(codigo, conexao);
-		}
-	
+	}
+
 	/**
-	 * Busca todos os consumos cadastrados no banco de dados para uma Hospedagem específica.
+	 * Busca todos os consumos cadastrados no banco de dados para uma Hospedagem
+	 * específica.
 	 * 
 	 * @author Estevão 74803
 	 * @since 1.0
@@ -121,4 +125,20 @@ public class ConsumoBO {
 	public static List<Consumo> buscarPorHospedagem(int codigo, Connection conexao) throws Exception {
 		return new ConsumoDAO().buscarPorHospedagem(codigo, conexao);
 	}
+	
+	/**
+	 * Descrição
+	 * 
+	 * @author Lucas 74795
+	 * @since 1.0
+	 * @param codigo
+	 * 			Código da Hospedagem em que serão calculados os Consumos.
+	 * @param conexao
+	 * 			As credenciais da conexão.
+	 * @return
+	 * @throws Exception
+	 */
+	public static double valorTotalConsumo(int codigo, Connection conexao) throws Exception {
+		return new ConsumoDAO().valorTotalConsumo(codigo, conexao);
 	}
+}

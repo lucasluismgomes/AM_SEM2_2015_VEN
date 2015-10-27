@@ -10,7 +10,6 @@ import java.util.Calendar;
  * @since 1.0
  */
 public class Consumo {
-	
 	private int codigo;
 	private Hospedagem hospedagem;
 	private TipoConsumo tipoConsumo;
@@ -18,12 +17,13 @@ public class Consumo {
 	private Calendar dtSolicitacao;
 	private int quantidade;
 	private double valorTotal;
+
 	public Consumo() {
 		super();
 	}
-	public Consumo(int codigo, Hospedagem hospedagem, TipoConsumo tipoConsumo,
-			Funcionario funcionario, Calendar dtSolicitacao, int quantidade,
-			double valorTotal) {
+
+	public Consumo(int codigo, Hospedagem hospedagem, TipoConsumo tipoConsumo, Funcionario funcionario,
+			Calendar dtSolicitacao, int quantidade, double valorTotal) {
 		super();
 		this.codigo = codigo;
 		this.hospedagem = hospedagem;
@@ -33,48 +33,62 @@ public class Consumo {
 		this.quantidade = quantidade;
 		this.valorTotal = valorTotal;
 	}
+
 	public int getCodigo() {
 		return codigo;
 	}
+
 	public void setCodigo(int codigo) {
 		this.codigo = codigo;
 	}
+
 	public Hospedagem getHospedagem() {
 		return hospedagem;
 	}
+
 	public void setHospedagem(Hospedagem hospedagem) {
 		this.hospedagem = hospedagem;
 	}
+
 	public TipoConsumo getTipoConsumo() {
 		return tipoConsumo;
 	}
+
 	public void setTipoConsumo(TipoConsumo tipoConsumo) {
 		this.tipoConsumo = tipoConsumo;
 	}
+
 	public Funcionario getFuncionario() {
 		return funcionario;
 	}
+
 	public void setFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
 	}
+
 	public Calendar getDtSolicitacao() {
 		return dtSolicitacao;
 	}
+
 	public void setDtSolicitacao(Calendar dtSolicitacao) {
 		this.dtSolicitacao = dtSolicitacao;
 	}
+
 	public int getQuantidade() {
 		return quantidade;
 	}
+
 	public void setQuantidade(int quantidade) {
 		this.quantidade = quantidade;
 	}
+
 	public double getValorTotal() {
-		
+
 		valorTotal = quantidade * tipoConsumo.getValor();
-		
+
 		return valorTotal;
 	}
+
 	public void setValorTotal(double valorTotal) {
 		this.valorTotal = valorTotal;
 	}

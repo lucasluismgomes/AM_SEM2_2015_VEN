@@ -20,13 +20,12 @@ import br.com.fiap.am.ltp.excecoes.Excecao;
 /**
  * Descrição da classe/método
  * 
- * @author Estevão 74803
- * @version 1.0
+ * @author Estevão 74803, Lucas 74795
+ * @version 3.0
  * @since 1.0
- * @see Meu Beans
+ * @see Consumo, ConsumoBO
  */
 public class ConsumoDAO {
-
 	private String sql = "";
 	private PreparedStatement estrutura = null;
 	private ResultSet rs = null;
@@ -247,6 +246,7 @@ public class ConsumoDAO {
 					+ "FROM T_AM_HBV_CONSUMO"
 					+ " WHERE CD_HOSPEDAGEM = ?";
 			estrutura = conexao.prepareStatement(sql);
+			estrutura.setInt(1, codigo);
 
 			rs = estrutura.executeQuery();
 
@@ -257,15 +257,21 @@ public class ConsumoDAO {
 				Hospedagem hpd = new Hospedagem();
 				hpd = HospedagemBO.buscarPorCodigo(rs.getInt("CD_HOSPEDAGEM"), conexao);
 				consumo.setHospedagem(hpd);
+				
 				TipoConsumo tc = new TipoConsumo();
 				tc = TipoConsumoBO.buscarPorCodigo(rs.getInt("CD_TIPO_CONSUMO"), conexao);
 				consumo.setTipoConsumo(tc);
+				
 				Funcionario f = new Funcionario();
 				f = FuncionarioBO.buscarPorCodigo(rs.getInt("CD_FUNCIONARIO"), conexao);
+				
 				consumo.setFuncionario(f);
+				
 				Calendar c = Calendar.getInstance();
 				c.setTime(rs.getDate("DT_CONSUMO"));
+				
 				consumo.setDtSolicitacao(c);
+				
 				consumo.setQuantidade(rs.getInt("QT_CONSUMO"));
 
 				lstConsumo.add(consumo);
@@ -276,6 +282,43 @@ public class ConsumoDAO {
 
 			return lstConsumo;
 			
+		} catch (Exception e) {
+			throw new Excecao(e);
+		}
+	}
+	
+	/**
+	 * 
+	 * @author Lucas 74795
+	 * @since 1.0
+	 * @param codigo
+	 * 			O código da hospedagem que será cálculado o valor.
+	 * @param conexao
+	 * 			As credenciais da conexão.
+	 * @return <code>valorTotal</code> O valor total dos consumos de uma hospedagem.
+	 * @throws Exception
+	 * @see Consumo, ConsumoBO
+	 */
+	public double valorTotalConsumo(int codigo, Connection conexao) throws Exception {
+		double valorTotal = 0;
+		
+		try {
+			sql = "SELECT  SUM(C.QT_CONSUMO * TC.VL_UNIT) \"VL_TOTAL\" "
+				+ "FROM T_AM_HBV_CONSUMO C NATURAL JOIN T_AM_HBV_TIPO_CONSUMO TC "
+				+ "WHERE C.CD_HOSPEDAGEM = ?";
+			estrutura = conexao.prepareStatement(sql);
+			estrutura.setInt(1, codigo);
+			
+			rs = estrutura.executeQuery();
+			
+			if(rs.next()) {
+				valorTotal = rs.getDouble("VL_TOTAL");
+			}
+			
+			rs.close();
+			estrutura.close();
+			
+			return valorTotal;
 		} catch (Exception e) {
 			throw new Excecao(e);
 		}

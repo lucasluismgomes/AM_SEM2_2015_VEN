@@ -1,10 +1,12 @@
 package br.com.fiap.am.ltp.bo;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.fiap.am.ltp.beans.Reserva;
 import br.com.fiap.am.ltp.dao.ReservaDAO;
+import br.com.fiap.am.ltp.excecoes.Excecao;
 
 /**
  * Descrição da classe/método
@@ -21,7 +23,29 @@ public class ReservaBO {
 	 * @throws Exception
 	 */
 	public static void gravar(Reserva reserva, Connection conexao) throws Exception {
-		new ReservaDAO().gravar(reserva, conexao);
+		try {
+			List<Boolean> disponibilidadeQuarto = new ArrayList<Boolean>();
+			
+			disponibilidadeQuarto = ReservaBO.verificarDisponibilidadeQuarto(reserva, conexao);
+			
+			int index = 0;
+			for (Boolean boolean1 : disponibilidadeQuarto) {
+				if (!boolean1 && index == 0) {
+					throw new Excecao("Não tem quartos STANDART suficientes para a quantidade solicitada.");
+				} else if ((!boolean1 && index == 1)) {
+					throw new Excecao("Não tem quartos MASTER suficientes para a quantidade solicitada.");
+				} else if ((!boolean1 && index == 2)) {
+					throw new Excecao("Não tem quartos LUXO suficientes para a quantidade solicitada.");
+				} else if ((!boolean1 && index == 3)) {
+					throw new Excecao("Não tem quartos MASTER LUXO suficientes para a quantidade solicitada.");
+				}
+				index++;
+			}
+			
+			new ReservaDAO().gravar(reserva, conexao);
+		} catch(Exception e) {
+			throw new Exception(e);
+		}
 	}
 	
 	/**
