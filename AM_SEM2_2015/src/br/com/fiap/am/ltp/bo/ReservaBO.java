@@ -14,9 +14,25 @@ import br.com.fiap.am.ltp.dao.ReservaDAO;
  * @since 1.0
  */
 public class ReservaBO {
-	
+	/**
+	 * 
+	 * @param reserva
+	 * @param conexao
+	 * @throws Exception
+	 */
 	public static void gravar(Reserva reserva, Connection conexao) throws Exception {
 		new ReservaDAO().gravar(reserva, conexao);
+	}
+	
+	/**
+	 * 
+	 * @param codigo
+	 * @param conexao
+	 * @return
+	 * @throws Exception
+	 */
+	public static Reserva buscarPorCodigo(int codigo, Connection conexao) throws Exception {
+		return new ReservaDAO().buscarPorCodigo(codigo, conexao);
 	}
 	
 	/**

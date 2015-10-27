@@ -5,10 +5,14 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
+import br.com.fiap.am.ltp.beans.Cliente;
+import br.com.fiap.am.ltp.beans.Funcionario;
 import br.com.fiap.am.ltp.beans.Quarto;
 import br.com.fiap.am.ltp.beans.Reserva;
+import br.com.fiap.am.ltp.beans.Status;
 import br.com.fiap.am.ltp.beans.TipoQuarto;
 import br.com.fiap.am.ltp.bo.QuartoBO;
 import br.com.fiap.am.ltp.bo.TipoQuartoBO;
@@ -90,6 +94,69 @@ public class ReservaDAO {
 				estrutura.close();
 			}
 
+		} catch (Exception e) {
+			throw new Excecao(e);
+		}
+	}
+	
+	/**
+	 * 
+	 * @param codigo
+	 * @param conexao
+	 * @return
+	 * @throws Exception
+	 */
+	public Reserva buscarPorCodigo(int codigo, Connection conexao) throws Exception {
+		Reserva reserva = new Reserva();
+		try {
+			sql = "SELECT  CD_RESERVA, CD_CLIENTE, CD_FUNCIONARIO, DT_SOLICITACAO, DT_INICIO_RESERVA, DT_FINAL_RESERVA, QT_ADULTO, QT_CRIANCA, ST_RESERVA, VL_RESERVA " 
+					+ "FROM T_AM_HBV_RESERVA "
+					+ "WHERE CD_RESERVA = ?";
+			estrutura = conexao.prepareStatement(sql);
+			
+			rs = estrutura.executeQuery();
+			
+			if(rs.next()) {
+				reserva.setCodigo(rs.getInt("CD_RESERVA"));
+				
+				Cliente cliente = new Cliente();
+				cliente.setCodigo(rs.getInt("CD_CLIENTE"));
+				
+				reserva.setCliente(cliente);
+				
+				Funcionario funcionario = new Funcionario();
+				funcionario.setCodigo(rs.getInt("CD_FUNCIONARIO"));
+				
+				reserva.setFuncionario(funcionario);
+				
+				Calendar dtSolicitacao = Calendar.getInstance();
+				dtSolicitacao.setTime(rs.getDate("DT_SOLICITACAO"));
+				
+				reserva.setDtSolicitacao(dtSolicitacao);
+				
+				Calendar dtInicioReserva = Calendar.getInstance();
+				dtInicioReserva.setTime(rs.getDate("DT_INICIO_RESERVA"));
+				
+				reserva.setDtEntrada(dtInicioReserva);
+				
+				Calendar dtFinalReserva = Calendar.getInstance();
+				dtFinalReserva.setTime(rs.getDate("DT_FINAL_RESERVA"));
+				
+				reserva.setDtSolicitacao(dtFinalReserva);
+				reserva.setQtAdulto((short)rs.getInt("QT_ADULTO"));
+				reserva.setQtCrianca((short)rs.getInt("QT_CRIANCA"));
+				
+				Status status = new Status();
+				status.setCodigo(rs.getInt("ST_RESERVA"));
+				
+				reserva.setStatus(status);
+				reserva.setVlReserva(rs.getDouble("VL_RESERVA"));
+			}
+			
+			rs.close();
+			estrutura.close();
+			
+			return reserva;
 		} catch (Exception e) {
 			throw new Excecao(e);
 		}
@@ -334,39 +401,4 @@ public class ReservaDAO {
 		
 	}
 
-	/*
-	 * 
-	 * 
-	 * INSERT INTO T_AM_HBV_RESERVA_QUARTO VALUES( ? , -- CÓDGIO RESERVA (
-	 * SELECT Q.NR_QUARTO FROM T_AM_HBV_QUARTO Q WHERE Q.CD_TIPO_QUARTO = ? AND
-	 * ( SELECT COUNT(*) FROM T_AM_HBV_RESERVA_QUARTO RQ INNER JOIN
-	 * T_AM_HBV_RESERVA R ON RQ.CD_RESERVA = R.CD_RESERVA INNER JOIN
-	 * T_AM_HBV_QUARTO Q ON Q.NR_QUARTO = RQ.NR_QUARTO WHERE R.DT_INICIO_RESERVA
-	 * >= ? AND R.DT_FINAL_RESERVA <= ? AND Q.CD_TIPO_QUARTO = ? ) < ( SELECT
-	 * COUNT(*) FROM T_AM_HBV_QUARTO Q WHERE Q.CD_TIPO_QUARTO = ? ) AND
-	 * Q.NR_QUARTO NOT IN ( SELECT Q.NR_QUARTO FROM T_AM_HBV_RESERVA_QUARTO RQ
-	 * INNER JOIN T_AM_HBV_RESERVA R ON RQ.CD_RESERVA = R.CD_RESERVA INNER JOIN
-	 * T_AM_HBV_QUARTO Q ON Q.NR_QUARTO = RQ.NR_QUARTO WHERE R.DT_INICIO_RESERVA
-	 * >= ? AND R.DT_FINAL_RESERVA <= ? AND Q.CD_TIPO_QUARTO = ? ) AND ROWNUM =
-	 * 1 ) , -- NUMERO DO QUARTO ? , -- QUANTIDADE DE PESSOAS ? -- OBSERVAÇÃO );
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * INSERT INTO T_AM_HBV_RESERVA_QUARTO VALUES( 1 , -- CÓDGIO RESERVA (
-	 * SELECT Q.NR_QUARTO FROM T_AM_HBV_QUARTO Q WHERE Q.CD_TIPO_QUARTO = 1 AND
-	 * ( SELECT COUNT(*) FROM T_AM_HBV_RESERVA_QUARTO RQ INNER JOIN
-	 * T_AM_HBV_RESERVA R ON RQ.CD_RESERVA = R.CD_RESERVA INNER JOIN
-	 * T_AM_HBV_QUARTO Q ON Q.NR_QUARTO = RQ.NR_QUARTO WHERE R.DT_INICIO_RESERVA
-	 * >= '15/01/2015' AND R.DT_FINAL_RESERVA <= '20/01/2015' AND
-	 * Q.CD_TIPO_QUARTO = 1 ) < ( SELECT COUNT(*) FROM T_AM_HBV_QUARTO Q WHERE
-	 * Q.CD_TIPO_QUARTO = 1 ) AND Q.NR_QUARTO NOT IN ( SELECT Q.NR_QUARTO FROM
-	 * T_AM_HBV_RESERVA_QUARTO RQ INNER JOIN T_AM_HBV_RESERVA R ON RQ.CD_RESERVA
-	 * = R.CD_RESERVA INNER JOIN T_AM_HBV_QUARTO Q ON Q.NR_QUARTO = RQ.NR_QUARTO
-	 * WHERE R.DT_INICIO_RESERVA >= '15/01/2015' AND R.DT_FINAL_RESERVA <=
-	 * '20/01/2015' AND Q.CD_TIPO_QUARTO = 1 ) AND ROWNUM = 1 ) , -- NUMERO DO
-	 * QUARTO 4 , -- QUANTIDADE DE PESSOAS NULL -- OBSERVAÇÃO );
-	 */
 }

@@ -17,20 +17,20 @@ public class Reserva {
 	private Status status;
 	private Calendar dtEntrada;
 	private Calendar dtSaida;
+	private Calendar dtSolicitacao;
 	private short qtAdulto;
 	private short qtCrianca;
 	private List<Quarto> quarto;
 	private String observacao;
 	private double vlReserva;
-	
+
 	public Reserva() {
 		super();
 	}
 
-	public Reserva(int codigo, Cliente cliente, Funcionario funcionario,
-			Status status, Calendar dtEntrada, Calendar dtSaida,
-			short qtAdulto, short qtCrianca, double vlReserva,
-			List<Quarto> quarto, String observacao) {
+	public Reserva(int codigo, Cliente cliente, Funcionario funcionario, Status status, Calendar dtEntrada,
+			Calendar dtSaida, Calendar dtSolicitacao, short qtAdulto, short qtCrianca, List<Quarto> quarto,
+			String observacao, double vlReserva) {
 		super();
 		this.codigo = codigo;
 		this.cliente = cliente;
@@ -38,11 +38,12 @@ public class Reserva {
 		this.status = status;
 		this.dtEntrada = dtEntrada;
 		this.dtSaida = dtSaida;
+		this.dtSolicitacao = dtSolicitacao;
 		this.qtAdulto = qtAdulto;
 		this.qtCrianca = qtCrianca;
-		this.vlReserva = vlReserva;
 		this.quarto = quarto;
 		this.observacao = observacao;
+		this.vlReserva = vlReserva;
 	}
 
 	public int getCodigo() {
@@ -93,6 +94,14 @@ public class Reserva {
 		this.dtSaida = dtSaida;
 	}
 
+	public Calendar getDtSolicitacao() {
+		return dtSolicitacao;
+	}
+
+	public void setDtSolicitacao(Calendar dtSolicitacao) {
+		this.dtSolicitacao = dtSolicitacao;
+	}
+
 	public short getQtAdulto() {
 		return qtAdulto;
 	}
@@ -132,6 +141,5 @@ public class Reserva {
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
 	}
-	
-	
+
 }
