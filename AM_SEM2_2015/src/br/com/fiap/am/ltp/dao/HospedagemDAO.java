@@ -137,19 +137,19 @@ public class HospedagemDAO {
 	 * 
 	 */
 	public Hospedagem buscarPorCodigo(int codigo, Connection conexao) throws Exception {
-		Hospedagem hosp = new Hospedagem();
 
 		try {
-
 			sql = "SELECT CD_HOSPEDAGEM, CD_CLIENTE, CD_FUNCIONARIO, DT_ENTRADA, DT_SAIDA"
 					+ " FROM T_AM_HBV_HOSPEDAGEM WHERE CD_HOSPEDAGEM = ?";
 			estrutura = conexao.prepareStatement(sql);
 			estrutura.setInt(1, codigo);
 
 			rs = estrutura.executeQuery();
+			Hospedagem hospedagem = new Hospedagem();
+			
 
 			if (rs.next()) {
-				Hospedagem hospedagem = new Hospedagem();
+				hospedagem = new Hospedagem();
 				Reserva reserva = new Reserva();
 				Cliente cliente = new Cliente();
 				Funcionario funcionario = new Funcionario();
@@ -173,7 +173,7 @@ public class HospedagemDAO {
 			rs.close();
 			estrutura.close();
 
-			return hosp;
+			return hospedagem;
 
 		} catch (Exception e) {
 			throw new Excecao(e);

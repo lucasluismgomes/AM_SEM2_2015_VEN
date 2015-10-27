@@ -21,7 +21,6 @@ public class CheckOutTeste {
 	
 		Hospedagem hospedagem = new Hospedagem();
 		hospedagem = HospedagemBO.buscarPorCodigo(codHosp, conexao);
-		
 		List<Consumo> lstConsumo = new ArrayList<Consumo>();
 		lstConsumo = ConsumoBO.buscarPorHospedagem(codHosp, conexao);
 		
@@ -29,10 +28,10 @@ public class CheckOutTeste {
 											+"\nCliente: " + hospedagem.getReserva().getCliente().getNome()
 											+"\nData de CheckIn: " + hospedagem.getDtCheckIn());
 		for (Consumo consumo : lstConsumo) {
-			System.out.println("Código: " + consumo.getCodigo() 
+			System.out.println("\n\nCódigo do Consumo: " + consumo.getCodigo() 
 					+ "\nCd. Hosp.: " + consumo.getHospedagem().getReserva().getCodigo() 
-					+ "\nTipo Consumo: "	+ consumo.getTipoConsumo().getNome() 
-					+ "\n: " + consumo.getFuncionario().getNome() 
+					+ "\nTipo de Consumo: "	+ consumo.getTipoConsumo().getNome() 
+					+ "\nFuncionário: " + consumo.getFuncionario().getNome() 
 					+ "\nData da solicitação: " + consumo.getDtSolicitacao().getTime() 
 					+ "\nQuantidade: " + consumo.getQuantidade() 
 					+ "\nValor Total: " + consumo.getValorTotal() + "\n");
