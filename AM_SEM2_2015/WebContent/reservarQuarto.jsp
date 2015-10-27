@@ -19,7 +19,7 @@
 	<div id="wrap">
 		<c:import url="Imports/menu.jsp"></c:import>
 		<section id="container-reservar-quarto">
-			<h2>RESERVAR QUARTO</h2>
+			<h2>RESERVAR QUARTO</h2> 
 
 			<form class="form-horizontal" action="ServletHBV" method="post">
 
@@ -118,7 +118,7 @@
 				<div id="mydiv"></div>
 				<div class="form-group row">
 					<input id="btnCalcularValor" name=""
-						class="btn btn-info col-md-4 col-md-offset-2 " type="button" value="Calcular reserva"/>
+						class="btn btn-info col-md-4 col-md-offset-2 " type="submit" value="Calcular reserva"/>
 					<button id="btnReservarQuarto" name="btnReservarQuarto"
 						class="btn btn-success col-md-4 col-md-offset-right-2 ">Reservar
 						Quarto</button>

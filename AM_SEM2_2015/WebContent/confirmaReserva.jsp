@@ -4,8 +4,12 @@
 <html lang="pt-br">
 <head>
 <%@ include file="Imports/bibliotecas.jsp"%>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta charset="UTF-8">
+	<meta name="author" content="Lucas 74795">
+	<meta name="description" content="Melhores ofertas de hospedagm no Hotel Boa Viagem. Mais de 50 anos oferecendo serviços de qualidade">
+	<meta name="keywords" content="Hotel, Hotel Boa Viagem, Hospedagem, Reserva, Quartos, Hotel 5 Estrelas, HBV">
+	<title>HBV</title>
 </head>
 <body>
 	<div id="wrap">
@@ -13,13 +17,17 @@
 		<h2>Confirmar reserva</h2>
 		<div class="list-group">
 			<a href="#" class="list-group-item">
-				<h4 class="list-group-item-text">Quarto Luxo</h4>
-				<p class="list-group-item-text"><small>3 Adultos e 1 criança</small></p>
+				<h4 class="list-group-item-text">Data de Entrada: ${requestScope.reserva.dtEntrada.getTime()}</h4>
+				<h4 class="list-group-item-text">Data de Saida:  ${requestScope.reserva.dtSaida}</h4>
 			</a>
+		<c:forEach items="${requestScope.reserva.quarto}" var="Quarto">
 			<a href="#" class="list-group-item">
-				<h4 class="list-group-item-text">Quarto Luxo</h4>
-				<p class="list-group-item-text"><small>3 Adultos e 1 criança</small></p>
-			</a>
+				<h4 class="list-group-item-text">${Quarto.tipo.nomeTipo}</h4>
+				<p class="list-group-item-text"><small>${Quarto.qtAdulto} Adultos e ${Quarto.qtCrianca} crianças</small></p>
+			</a>		
+		</c:forEach>
+
+		
 		</div>
 		<div id="push"></div>
 	</div>

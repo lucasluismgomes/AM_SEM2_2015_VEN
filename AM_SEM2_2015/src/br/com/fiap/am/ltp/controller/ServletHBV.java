@@ -121,7 +121,7 @@ public class ServletHBV extends HttpServlet {
 			System.out.println();
 		}
 		
-
+		request.setAttribute("reserva", reserva);
 		
 		try {
 			System.out.println("Valor reserva: " + ReservaBO.calcularReserva(reserva, conexao));
@@ -130,8 +130,8 @@ public class ServletHBV extends HttpServlet {
 		}
 
 		
-		//RequestDispatcher dispatcher = request.getRequestDispatcher("reservarQuarto.jsp");
-		//dispatcher.forward(request, response); 	
+		RequestDispatcher dispatcher = request.getRequestDispatcher("confirmaReserva.jsp");
+		dispatcher.forward(request, response); 	
     	
     }
     

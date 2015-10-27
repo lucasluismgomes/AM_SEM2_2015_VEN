@@ -180,6 +180,8 @@ public class ReservaDAO {
 		boolean naoTemCriancaSemCusto = true;
 		try {
 			for (Quarto quarto : reserva.getQuarto()) {
+				int qtCriancaTotal = quarto.getQtCrianca();
+				
 				for (int idadeCrianca : quarto.getIdadeCriancas()) {
 					if (idadeCrianca >= 0 && idadeCrianca <= 2 && naoTemCriancaSemCusto) {
 						naoTemCriancaSemCusto = false;
@@ -246,6 +248,8 @@ public class ReservaDAO {
 
 				rs.close();
 				estrutura.close();
+				
+				quarto.setQtCrianca(qtCriancaTotal);
 			}
 
 			return valorReserva;
