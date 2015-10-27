@@ -19,9 +19,14 @@
 	<div id="wrap">
 		<c:import url="Imports/menu.jsp"></c:import>
 		<section id="container-checkout">
-			<h2>CHECKOUT - HOSPEDAGEM</h2> 
+			<h2>CHECKOUT - HOSPEDAGEM</h2>
+			<br/><br/><br/>
+			<form action="CheckoutServletHBV" method="get" id="buscaCodigoForm">
+				<h4>Insira o Código da Hospedagem</h4><input type="text" name="codigoHospedagem">
+				<input type="submit" value="BUSCAR">
+			</form>
 			
-			<form action="checkout" method="get">
+			<form action="CheckoutServletHBV" method="get">
 			<div class="list-group list-estrutura">
 				<a href="#" class="list-group-item">
 					<h4 class="list-group-item-text">Código Hospedagem: ${requestScope.reserva.dtEntrada.getTime()}</h4>
