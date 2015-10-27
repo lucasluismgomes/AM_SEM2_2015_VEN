@@ -15,10 +15,10 @@
 	<div id="wrap">
 		<c:import url="Imports/menu.jsp"></c:import>
 		<h2>Confirmar reserva</h2>
-		<div class="list-group">
+		<div class="list-group confirmaReserva">
 			<a href="#" class="list-group-item">
-				<h4 class="list-group-item-text">Data de Entrada: ${requestScope.reserva.dtEntrada.getTime()}</h4>
-				<h4 class="list-group-item-text">Data de Saida:  ${requestScope.reserva.dtSaida.getTime()}</h4>
+				<h4 class="list-group-item-text">Data de Entrada: ${requestScope.reserva.getDtEntradaFormatted()}</h4>
+				<h4 class="list-group-item-text">Data de Saida:  ${requestScope.reserva.getDtSaidaFormatted()}</h4>
 			</a>
 		<c:forEach items="${requestScope.reserva.quarto}" var="Quarto">
 		<c:set var="qtCriancasCortesia" value="0" scope="page"></c:set>
@@ -28,7 +28,7 @@
 				<p class="list-group-item-text"><small>Valor da diária do quarto: R$ ${Quarto.tipo.valor} por dia e por pessoa</small></p>
 				<p class="list-group-item-text">
 					<small>
-						Somatória do valor da hospedagem neste quarto: R$ ${Quarto.tipo.valor * (Quarto.qtAdulto + Quarto.qtCrianca) * reserva.qtDias}
+						Somatória do valor da hospedagem neste quarto: <span style="float: right;"> R$ ${Quarto.tipo.valor * (Quarto.qtAdulto + Quarto.qtCrianca) * reserva.qtDias} 
 						<c:set var="totalQuarto" value="${totalQuarto + (Quarto.tipo.valor * (Quarto.qtAdulto + Quarto.qtCrianca) * reserva.qtDias)}" scope="page"></c:set>
 						<c:forEach items="${Quarto.idadeCriancas}" var="Integer">
 							<c:if test="${(Integer >= 3 && Integer <= 5) || (qtCriancasCortesia > 0 && Integer >= 0 && Integer <= 2)}">
@@ -41,20 +41,21 @@
 								<c:set var="totalQuarto" value="${totalQuarto - Quarto.tipo.valor * reserva.qtDias}" scope="page"></c:set>
 							</c:if>
 						</c:forEach>
+						</span>
 					</small>
 				</p>
 				<p class="list-group-item-text"><small>${Quarto.qtAdulto} Adulto(s) e ${Quarto.qtCrianca} criança(s)</small></p>
-				<p class="list-group-item-text"><small>Total deste quarto: R$ ${totalQuarto}</small></p>				
-				<p class="list-group-item-text"><small><span style="color: red; font-size: 9px;">* Crianças com 2 anos ou menos não pagam. Limite de 1 por quarto, após atingir o limite entra na faixa de crianças entre 3 e 5 anos.</span></small></p>
-				<p class="list-group-item-text"><small><span style="color: red; font-size: 9px;">** Crianças entre 3 e 5 anos pagam apenas 25% do valor do adulto (75% de desconto).</span></small></p>
+				<p class="list-group-item-text"><small>Total deste quarto: <span style="float: right;">R$ ${totalQuarto}</span></small></p>				
 			</a>		
 		</c:forEach>
 		<a href="#" class="list-group-item">
-			<h4 class="list-group-item-text">Total da Reserva</h4>
-			<p class="list-group-item-text">R$ ${reserva.vlReserva}</p>
+			<h4 class="list-group-item-text" >Total da Reserva  <span style="float: right;">R$ ${reserva.vlReserva}</span></h4>
 		</a>
-		
+			<p><small><span style="color: red; font-size: 9px;">* Crianças com 2 anos ou menos não pagam. Limite de 1 por quarto, após atingir o limite entra na faixa de crianças entre 3 e 5 anos.</span></small></p>
+			<p><small><span style="color: red; font-size: 9px;">** Crianças entre 3 e 5 anos pagam apenas 25% do valor do adulto (75% de desconto).</span></small></p>
 		</div>
+		<button id="btnCalcularValor" name=""
+						class="btn btn-info" ,value="Efetuar reserva"/>
 		<div id="push"></div>
 	</div>
 	<c:import url="Imports/footer.jsp"></c:import>

@@ -13,7 +13,7 @@ import java.util.Calendar;
  */
 public class Utils {
 	/**
-	 * Faz a conersão de um Date para Calendar.
+	 * Faz a conversão de um Date para Calendar.
 	 * 
 	 * @author Lucas 74795
 	 * @param date

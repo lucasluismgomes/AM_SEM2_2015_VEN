@@ -1,5 +1,6 @@
 package br.com.fiap.am.ltp.beans;
 
+import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -150,6 +151,15 @@ public class Reserva {
 
 	public void setQtDias(int qtDias) {
 		this.qtDias = qtDias;
+	}	
+	
+	public String getDtEntradaFormatted(){
+		DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
+		return df.format(this.dtEntrada.getTime());
+	}
+	public String getDtSaidaFormatted(){
+		DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
+		return df.format(this.dtSaida.getTime());
 	}
 
 }
