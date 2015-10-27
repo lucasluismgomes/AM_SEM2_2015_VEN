@@ -15,12 +15,12 @@ import br.com.fiap.am.ltp.beans.Quarto;
 import br.com.fiap.am.ltp.beans.Reserva;
 import br.com.fiap.am.ltp.bo.ClienteBO;
 import br.com.fiap.am.ltp.bo.FuncionarioBO;
-import br.com.fiap.am.ltp.bo.HospedagemBO;
 import br.com.fiap.am.ltp.bo.ReservaBO;
 import br.com.fiap.am.ltp.excecoes.Excecao;
 
 /**
- * Métodos de acesso ao banco de hospedagens. Operações do CRUD e outras funcionalidades. 
+ * Métodos de acesso ao banco de hospedagens. Operações do CRUD e outras
+ * funcionalidades.
  * 
  * @author Lucas 74795
  * @version 1.0
@@ -47,25 +47,21 @@ public class HospedagemDAO {
 	 */
 	public void gravar(Hospedagem hospedagem, Connection conexao) throws Exception {
 		try {
-			
-			List<Quarto> lstQuarto = hospedagem.getReserva().getQuarto();
-			
-			for (Quarto quarto : lstQuarto) {
-				sql = "INSERT INTO T_AM_HBV_HOSPEDAGEM (CD_HOSPEDAGEM, CD_CLIENTE, CD_FUNCIONARIO, DT_ENTRADA, DT_SAIDA, VL_PERC_DESCONTO)"  
-						+ " VALUES(?,?,?,?,?,?)";
-				estrutura = conexao.prepareStatement(sql);
-				
-				estrutura.setInt(1, hospedagem.getReserva().getCodigo());
-				estrutura.setInt(2, hospedagem.getReserva().getCliente().getCodigo());
-				estrutura.setInt(3, hospedagem.getFuncionario().getCodigo());
-				estrutura.setDate(4, new Date(hospedagem.getDtCheckIn().getTimeInMillis()));
-				estrutura.setDate(5, new Date(hospedagem.getDtCheckOut().getTimeInMillis()));
-				estrutura.setInt(6, 0);
-				
-				estrutura.executeQuery();
-				estrutura.close();
-			}
-			
+
+			sql = "INSERT INTO T_AM_HBV_HOSPEDAGEM (CD_HOSPEDAGEM, CD_CLIENTE, CD_FUNCIONARIO, DT_ENTRADA, DT_SAIDA, VL_PERC_DESCONTO)"
+					+ " VALUES(?,?,?,?,?,?)";
+			estrutura = conexao.prepareStatement(sql);
+
+			estrutura.setInt(1, hospedagem.getReserva().getCodigo());
+			estrutura.setInt(2, hospedagem.getReserva().getCliente().getCodigo());
+			estrutura.setInt(3, hospedagem.getFuncionario().getCodigo());
+			estrutura.setDate(4, new Date(hospedagem.getDtCheckIn().getTimeInMillis()));
+			estrutura.setDate(5, new Date(hospedagem.getDtCheckOut().getTimeInMillis()));
+			estrutura.setInt(6, 0);
+
+			estrutura.executeQuery();
+			estrutura.close();
+
 		} catch (Exception e) {
 			throw new Excecao(e);
 		}
@@ -77,82 +73,81 @@ public class HospedagemDAO {
 	 * @author Victor 74820
 	 * @since 1.0
 	 * @param conexao
-	 * 		As credenciais da conexão.
-	 * @return <code>lstHospedagem</code> Lista com todas as Hospedagem 
+	 *            As credenciais da conexão.
+	 * @return <code>lstHospedagem</code> Lista com todas as Hospedagem
 	 * @throws Exception
-	 * @see	Hospedagem, HospedagemBO
+	 * @see Hospedagem, HospedagemBO
 	 * 
-	 */	
+	 */
 	public List<Hospedagem> buscarTodos(Connection conexao) throws Exception {
-		List<Hospedagem> lstHospedagem= new ArrayList<Hospedagem>();
-		
-		try{
-			
-			sql = "SELECT CD_HOSPEDAGEM, CD_CLIENTE, CD_FUNCIONARIO, DT_ENTRADA, DT_SAIDA" +
-					" FROM T_AM_HBV_HOSPEDAGEM";
+		List<Hospedagem> lstHospedagem = new ArrayList<Hospedagem>();
+
+		try {
+
+			sql = "SELECT CD_HOSPEDAGEM, CD_CLIENTE, CD_FUNCIONARIO, DT_ENTRADA, DT_SAIDA"
+					+ " FROM T_AM_HBV_HOSPEDAGEM";
 			estrutura = conexao.prepareStatement(sql);
-			
+
 			rs = estrutura.executeQuery();
-			
-			while(rs.next()){
+
+			while (rs.next()) {
 				Hospedagem hospedagem = new Hospedagem();
 				Reserva reserva = new Reserva();
 				Cliente cliente = new Cliente();
 				Funcionario funcionario = new Funcionario();
-				
+
 				Calendar checkIn = Calendar.getInstance();
 				checkIn.setTime(rs.getDate("DT_ENTRADA"));
 				hospedagem.setDtCheckIn(checkIn);
-				
+
 				Calendar checkOut = Calendar.getInstance();
 				checkOut.setTime(rs.getDate("DT_SAIDA"));
 				hospedagem.setDtCheckOut(checkOut);
-				
+
 				reserva = ReservaBO.buscarPorCodigo(rs.getInt("CD_HOSPEDAGEM"), conexao);
 				hospedagem.setReserva(reserva);
 				cliente = ClienteBO.buscarPorCodigo(rs.getInt("CD_CLIENTE"), conexao);
 				reserva.setCliente(cliente);
 				funcionario = FuncionarioBO.buscarPorCodigo(rs.getInt("CD_FUNCIONARIO"), conexao);
 				reserva.setFuncionario(funcionario);
-				
-				
+
 				lstHospedagem.add(hospedagem);
 			}
-			
+
 			rs.close();
 			estrutura.close();
-			
+
 			return lstHospedagem;
-			
-		}catch (Exception e){
+
+		} catch (Exception e) {
 			throw new Excecao(e);
 		}
 	}
-	
+
 	/**
 	 * Busca uma Hospedagem específica do Banco de Dados
 	 * 
 	 * @author Victor 74820
 	 * @since 1.0
 	 * @param conexao
-	 * 		As credenciais da conexão.
-	 * @return Uma Hospedagem 
+	 *            As credenciais da conexão.
+	 * @return Uma Hospedagem
 	 * @throws Exception
-	 * @see	Hospedagem, HospedagemBO
+	 * @see Hospedagem, HospedagemBO
 	 * 
-	 */	
+	 */
 	public Hospedagem buscarPorCodigo(int codigo, Connection conexao) throws Exception {
 		Hospedagem hosp = new Hospedagem();
-		
-		try{
-			
-			sql = "SELECT CD_HOSPEDAGEM, CD_CLIENTE, CD_FUNCIONARIO, DT_ENTRADA, DT_SAIDA" +
-					" FROM T_AM_HBV_HOSPEDAGEM WHERE CD_HOSPEDAGEM = ?";
+
+		try {
+
+			sql = "SELECT CD_HOSPEDAGEM, CD_CLIENTE, CD_FUNCIONARIO, DT_ENTRADA, DT_SAIDA"
+					+ " FROM T_AM_HBV_HOSPEDAGEM WHERE CD_HOSPEDAGEM = ?";
 			estrutura = conexao.prepareStatement(sql);
 			estrutura.setInt(1, codigo);
-			
+
 			rs = estrutura.executeQuery();
-			
+
 			if (rs.next()) {
 				Hospedagem hospedagem = new Hospedagem();
 				Reserva reserva = new Reserva();
@@ -162,7 +157,7 @@ public class HospedagemDAO {
 				c.setTime(rs.getDate("DT_SAIDA"));
 				Calendar checkIn = Calendar.getInstance();
 				checkIn.setTime(rs.getDate("DT_ENTRADA"));
-				
+
 				reserva = ReservaBO.buscarPorCodigo(rs.getInt("CD_HOSPEDAGEM"), conexao);
 				hospedagem.setReserva(reserva);
 				cliente = ClienteBO.buscarPorCodigo(rs.getInt("CD_CLIENTE"), conexao);
@@ -172,19 +167,19 @@ public class HospedagemDAO {
 				reserva.setDtSaida(c);
 				hospedagem.setDtCheckIn(checkIn);
 				hospedagem.setReserva(reserva);
-				
+
 				hospedagem.setReserva(reserva);
 			}
 			rs.close();
 			estrutura.close();
-			
+
 			return hosp;
-			
-		}catch (Exception e){
+
+		} catch (Exception e) {
 			throw new Excecao(e);
 		}
 	}
-	
+
 	/**
 	 * Edita as informações de uma Hospedagem no banco de dados.
 	 * 
@@ -196,9 +191,9 @@ public class HospedagemDAO {
 	 *            As credenciais da conexão.
 	 * @throws Exception
 	 * @see Hospedagem, HospedagemBO
-	 */	
-	public void editar(Hospedagem hospedagem, Connection conexao) throws Exception{
-		try{
+	 */
+	public void editar(Hospedagem hospedagem, Connection conexao) throws Exception {
+		try {
 			sql = "UPDATE T_AM_HBV_HOSPEDAGEM SET DT_SAIDA = ? WHERE CD_HOSPEDAGEM = ?";
 			estrutura = conexao.prepareStatement(sql);
 			estrutura.setDate(3, new Date(hospedagem.getDtCheckOut().getTimeInMillis()));
@@ -206,15 +201,14 @@ public class HospedagemDAO {
 
 			estrutura.executeQuery();
 			estrutura.close();
-			
-		}catch (Exception e){
+
+		} catch (Exception e) {
 			throw new Excecao(e);
 		}
 	}
-	
-	
+
 	/**
-	 * Excluí uma Hospedagem do banco de dados. 
+	 * Excluí uma Hospedagem do banco de dados.
 	 * 
 	 * @author Victor 74820
 	 * @since 1.0
@@ -225,18 +219,17 @@ public class HospedagemDAO {
 	 * @throws Exception
 	 * @see Hospedagem, HospedagemBO
 	 */
-	public void excluir(int codigo, Connection conexao) throws Exception{
-		try{
-			
+	public void excluir(int codigo, Connection conexao) throws Exception {
+		try {
+
 			sql = "DELETE FROM T_AM_HBV_TIPO_HOSPEDAGEM WHERE CD_HOSPEDAGEM = ?";
 			estrutura = conexao.prepareStatement(sql);
 			estrutura.setInt(1, codigo);
-			
+
 			estrutura.execute();
 			estrutura.close();
-						
-			
-		}catch (Exception e){
+
+		} catch (Exception e) {
 			throw new Excecao(e);
 		}
 	}
