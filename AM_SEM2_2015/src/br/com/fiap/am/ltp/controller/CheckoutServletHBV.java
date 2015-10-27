@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +16,7 @@ import br.com.fiap.am.ltp.beans.Consumo;
 import br.com.fiap.am.ltp.beans.Hospedagem;
 import br.com.fiap.am.ltp.bo.ConsumoBO;
 import br.com.fiap.am.ltp.bo.HospedagemBO;
+import br.com.fiap.am.ltp.conexao.ConexaoFactory;
 
 /**
  * Servlet implementation class CheckoutServletHBV
@@ -32,19 +34,31 @@ public class CheckoutServletHBV extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
     
-    public void checkOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void checkOut(HttpServletRequest request, HttpServletResponse response) throws Exception {
     	
-//    	Hospedagem hospedagem = new Hospedagem();
-//		hospedagem = HospedagemBO.buscarPorCodigo(, conexao);
-//		List<Consumo> lstConsumo = new ArrayList<Consumo>();
-//		lstConsumo = ConsumoBO.buscarPorHospedagem(, conexao);
+    	conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74803", "071195");
+    	
+    	int codigoHosp = Integer.parseInt(request.getParameter("codigoHospedagem"));
+    	
+    	Hospedagem hospedagem = new Hospedagem();
+		hospedagem = HospedagemBO.buscarPorCodigo(codigoHosp, conexao);
+		List<Consumo> lstConsumo = new ArrayList<Consumo>();
+		lstConsumo = ConsumoBO.buscarPorHospedagem(codigoHosp, conexao);
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("checkOut.jsp");
+		dispatcher.forward(request, response); 	
+		
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		try{
+			checkOut(request,response);
+			}catch(Exception e){
+				e.printStackTrace();			
+			}
 	}
 
 	/**

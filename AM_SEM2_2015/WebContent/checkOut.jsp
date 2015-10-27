@@ -26,16 +26,17 @@
 				<input type="submit" value="BUSCAR">
 			</form>
 			
+		<c:if test=""></c:if>
 			<form action="CheckoutServletHBV" method="get">
 			<div class="list-group list-estrutura">
 				<a href="#" class="list-group-item">
-					<h4 class="list-group-item-text">Código Hospedagem: ${requestScope.reserva.dtEntrada.getTime()}</h4>
+					<h4 class="list-group-item-text">Código Hospedagem: ${requestScope.hospedagem.reserva.getCodigo()}</h4>
 				</a>
 				<a href="#" class="list-group-item">
-					<h4 class="list-group-item-text">Cliente: ${requestScope.reserva.dtEntrada.getTime()}</h4>
+					<h4 class="list-group-item-text">Cliente: ${requestScope.hospedagem.reserva.cliente.getNome()}</h4>
 				</a>
 				<a href="#" class="list-group-item">
-					<h4 class="list-group-item-text">Data de Entrada: ${requestScope.reserva.dtEntrada.getTime()}</h4>
+					<h4 class="list-group-item-text">Data de Entrada: ${requestScope.hospedagem.getDtEntradaFormatted()}</h4>
 				</a>
 				<a href="#" class="list-group-item">
 					<h4 class="list-group-item-text">Data de Saida: <input type="text" name="dtSaida"> </h4>
@@ -46,10 +47,9 @@
   					</button>
   					<ul class="dropdown-menu">
     					<li><a href="#">Action</a></li>
-    					<c:forEach items="${requestScope.reserva.quarto}" var="Quarto">
+    					<c:forEach items="${lstConsumo}" var="Consumo">
 							<a href="#" class="list-group-item">
-								<h4 class="list-group-item-text">${Quarto.tipo.nomeTipo}</h4>
-								<p class="list-group-item-text"><small>${Quarto.qtAdulto} Adultos e ${Quarto.qtCrianca} crianças</small></p>
+								<h4 class="list-group-item-text">${Consumo.codigo}</h4>
 							</a>		
 						</c:forEach>
   					</ul>
