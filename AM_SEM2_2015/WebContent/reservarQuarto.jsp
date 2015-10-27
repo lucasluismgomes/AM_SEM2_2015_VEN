@@ -68,7 +68,7 @@
 						<div class="col-sm-6 col-md-4 col-md-offset-4">
 							<div class="thumbnail">
 								<img
-									src="http://waldorfastoria3.hilton.com/resources/media/wa/BERWAWA/en_US/img/hotel/roomtypeimages/large/WA_presidentialsuite04_2.jpg"
+									src="./Style/img/quartos/FuradouroBoutiqueHotel_quarto.jpg"
 									alt="">
 								<input type="hidden" name="numeroQuarto" class="numeroQuarto" value="1"/>
 								<input type="hidden" name="tipoQuarto1" class="tipoQuarto" value="1"/>
@@ -94,7 +94,7 @@
 											<span class="input-group-addon" id="basic-addon1"><i
 												class='fa fa-user'></i></span> <select
 												name="qtdAdultosQuarto1" class="form-control qtdPessoas" required>
-												<option value="0">Quantidade de adultos</option>
+												<option value="">Quantidade de adultos</option>
 												<option value="1">1</option>
 												<option value="2">2</option>
 												<option value="3">3</option>
@@ -115,9 +115,10 @@
 				</div>
 
 				<!-- Button -->
+				<div id="mydiv"></div>
 				<div class="form-group row">
-					<input id="btnCalcularValor" name="btnReservarQuarto"
-						class="btn btn-info col-md-4 col-md-offset-2 " type="submit" value="Calcular reserva"/>
+					<input id="btnCalcularValor" name=""
+						class="btn btn-info col-md-4 col-md-offset-2 " type="button" value="Calcular reserva"/>
 					<button id="btnReservarQuarto" name="btnReservarQuarto"
 						class="btn btn-success col-md-4 col-md-offset-right-2 ">Reservar
 						Quarto</button>

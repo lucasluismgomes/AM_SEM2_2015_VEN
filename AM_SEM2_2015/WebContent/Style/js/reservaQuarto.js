@@ -26,7 +26,7 @@ function tagQuarto(qtdQuartos, numeroQuarto){
 	return "<div class='col-sm-6 col-md-4 col-md-offset-"+arrumarCol(qtdQuartos)+"'>\
 			<div class='thumbnail'>\
 			<img\
-				src='http://waldorfastoria3.hilton.com/resources/media/wa/BERWAWA/en_US/img/hotel/roomtypeimages/large/WA_presidentialsuite04_2.jpg'\
+				src='./Style/img/quartos/FuradouroBoutiqueHotel_quarto.jpg'\
 				alt=''>\
 				<input type='hidden' name='numeroQuarto' class='numeroQuarto' value='"+numeroQuarto+"'/>\
 				<input type='hidden' name='tipoQuarto"+numeroQuarto+"' class='tipoQuarto' value='1' />\
@@ -107,7 +107,7 @@ function tagSelectCriancas(qtdPessoas,numeroQuarto){
 	<span class='input-group-addon' id='basic-addon1'><i\
 	class='fa fa-users'></i> </i></span> <select\
 	id='qtdCriancas"+numeroQuarto+"' name='qtdCriancasQuarto"+numeroQuarto+"' class='form-control qtdCriancas' required>\
-	<option value=''>Quantidade de crianças</option>";
+	<option value='0'>Quantidade de crianças</option>";
 	
 	var qtdCriancas = 4 - qtdPessoas;
 	if(qtdCriancas == 0){
@@ -151,7 +151,17 @@ function tagIdadeCriancas(qtdCriancas,numeroQuarto){
 	}
 }
 $(document).ready(function(){
-
+	$("#dtEntrada").attr("min", function() {
+		var d = new Date();
+	    return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
+	  });
+	
+	$("#dtEntrada").change(function(a) {
+		$("#dtSaida").attr("min", function() {
+		    return $("#dtEntrada").val();
+		  });
+	  });
+	  
 	$("#qtdQuartos").change(function(){
 		$("#secaoQuartos").html('');
 		var qtdQuartos = $("#qtdQuartos option:selected").val();
@@ -170,6 +180,21 @@ $(document).ready(function(){
 			$(this).parent().siblings(".criancas-section").html(tagSelectCriancas($(this).val(),numeroQuarto));
 			carregaChangeSelects(numeroQuarto);
 			});
+		});
+	$("#btnCalcularValor").click(function(){
+		$('#mydiv').load(document.URL +  ' #mydiv');		
+	});
+	
+	$(".caption .btn").click(function(){
+		atualizaQuartos($(this));			
+	});
+	
+	$(".qtdPessoas").change(function() {
+		console.log('add click event');
+		var numeroQuarto  = $(this).parent().parent().parent().parent().find("input:hidden.numeroQuarto").val();
+		
+		$(this).parent().siblings(".criancas-section").html(tagSelectCriancas($(this).val(),numeroQuarto));
+		carregaChangeSelects(numeroQuarto);
 		});
 	});
 	
