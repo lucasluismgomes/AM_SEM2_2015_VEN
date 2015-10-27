@@ -2,6 +2,7 @@ package br.com.fiap.am.ltp.controller;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -125,6 +126,18 @@ public class ServletHBV extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		final long diaEmMilisegundos = 1000 * 60 * 60 * 24;
+		
+		int dias = (int) ((new Date(reserva.getDtSaida().getTimeInMillis()).getTime()
+				- new Date(reserva.getDtEntrada().getTimeInMillis()).getTime())
+				/ diaEmMilisegundos);
+		
+		if(dias < 1) {
+			dias = 1;
+		}
+		
+		reserva.setQtDias(dias);
 		
 		request.setAttribute("reserva", reserva);
 		

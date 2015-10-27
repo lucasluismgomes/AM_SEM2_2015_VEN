@@ -203,6 +203,8 @@ public class ReservaDAO {
 				if(dias < 1) {
 					dias = 1;
 				}
+				
+				reserva.setQtDias(dias);
 
 				sql = "SELECT SUM(TQ.VL_QUARTO * ? * ?) \"VL_QUARTO\"" + "FROM T_AM_HBV_TIPO_QUARTO TQ "
 						+ "WHERE TQ.CD_TIPO_QUARTO = ? ";

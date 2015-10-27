@@ -23,6 +23,7 @@ public class Reserva {
 	private List<Quarto> quarto;
 	private String observacao;
 	private double vlReserva;
+	private int qtDias;
 
 	public Reserva() {
 		super();
@@ -30,7 +31,7 @@ public class Reserva {
 
 	public Reserva(int codigo, Cliente cliente, Funcionario funcionario, Status status, Calendar dtEntrada,
 			Calendar dtSaida, Calendar dtSolicitacao, short qtAdulto, short qtCrianca, List<Quarto> quarto,
-			String observacao, double vlReserva) {
+			String observacao, double vlReserva, int qtDias) {
 		super();
 		this.codigo = codigo;
 		this.cliente = cliente;
@@ -44,6 +45,7 @@ public class Reserva {
 		this.quarto = quarto;
 		this.observacao = observacao;
 		this.vlReserva = vlReserva;
+		this.qtDias = qtDias;
 	}
 
 	public int getCodigo() {
@@ -140,6 +142,14 @@ public class Reserva {
 
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
+	}
+
+	public int getQtDias() {
+		return qtDias;
+	}
+
+	public void setQtDias(int qtDias) {
+		this.qtDias = qtDias;
 	}
 
 }

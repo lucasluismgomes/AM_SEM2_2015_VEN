@@ -25,20 +25,20 @@
 		<c:set var="totalQuarto" value="0" scope="page"></c:set>
 			<a href="#" class="list-group-item">
 				<h4 class="list-group-item-text">${Quarto.tipo.nomeTipo}</h4>
-				<p class="list-group-item-text"><small>Valor da diária do quarto: R$ ${Quarto.tipo.valor}</small></p>
+				<p class="list-group-item-text"><small>Valor da diária do quarto: R$ ${Quarto.tipo.valor} por dia e por pessoa</small></p>
 				<p class="list-group-item-text">
 					<small>
-						Somatória do valor da hospedagem neste quarto: R$ ${Quarto.tipo.valor * (Quarto.qtAdulto + Quarto.qtCrianca)}
-						<c:set var="totalQuarto" value="${totalQuarto + (Quarto.tipo.valor * (Quarto.qtAdulto + Quarto.qtCrianca))}" scope="page"></c:set>
+						Somatória do valor da hospedagem neste quarto: R$ ${Quarto.tipo.valor * (Quarto.qtAdulto + Quarto.qtCrianca) * reserva.qtDias}
+						<c:set var="totalQuarto" value="${totalQuarto + (Quarto.tipo.valor * (Quarto.qtAdulto + Quarto.qtCrianca) * reserva.qtDias)}" scope="page"></c:set>
 						<c:forEach items="${Quarto.idadeCriancas}" var="Integer">
-							<c:if test="${Integer >= 0 && Integer <= 5 && qtCriancasCortesia > 0}">
-								- <span style="color: red;">${Quarto.tipo.valor - (Quarto.tipo.valor * 0.25)}**</span>
-								<c:set var="totalQuarto" value="${totalQuarto - (Quarto.tipo.valor - (Quarto.tipo.valor * 0.25))}" scope="page"></c:set>
+							<c:if test="${(Integer >= 3 && Integer <= 5) || (qtCriancasCortesia > 0 && Integer >= 0 && Integer <= 2)}">
+								- <span style="color: red;">${(Quarto.tipo.valor - (Quarto.tipo.valor * 0.25)) * reserva.qtDias}**</span>
+								<c:set var="totalQuarto" value="${totalQuarto - (Quarto.tipo.valor - (Quarto.tipo.valor * 0.25)) * reserva.qtDias}" scope="page"></c:set>
 							</c:if>
 							<c:if test="${Integer >= 0  && Integer <= 2 && qtCriancasCortesia == 0}">
-								- <span style="color: red;">${Quarto.tipo.valor}*</span>
+								- <span style="color: red;">${Quarto.tipo.valor * reserva.qtDias}*</span>
 								<c:set var="qtCriancasCortesia" value="${qtCriancasCortesia + 1}" scope="page"></c:set>
-								<c:set var="totalQuarto" value="${totalQuarto - Quarto.tipo.valor}" scope="page"></c:set>
+								<c:set var="totalQuarto" value="${totalQuarto - Quarto.tipo.valor * reserva.qtDias}" scope="page"></c:set>
 							</c:if>
 						</c:forEach>
 					</small>
