@@ -109,7 +109,7 @@ public class HospedagemDAO {
 				cliente = ClienteBO.buscarPorCodigo(rs.getInt("CD_CLIENTE"), conexao);
 				reserva.setCliente(cliente);
 				funcionario = FuncionarioBO.buscarPorCodigo(rs.getInt("CD_FUNCIONARIO"), conexao);
-				reserva.setFuncionario(funcionario);
+				hospedagem.setFuncionario(funcionario);
 
 				lstHospedagem.add(hospedagem);
 			}
@@ -149,26 +149,24 @@ public class HospedagemDAO {
 			
 
 			if (rs.next()) {
-				hospedagem = new Hospedagem();
 				Reserva reserva = new Reserva();
 				Cliente cliente = new Cliente();
 				Funcionario funcionario = new Funcionario();
-				Calendar c = Calendar.getInstance();
-				c.setTime(rs.getDate("DT_SAIDA"));
+
 				Calendar checkIn = Calendar.getInstance();
 				checkIn.setTime(rs.getDate("DT_ENTRADA"));
+				hospedagem.setDtCheckIn(checkIn);
+
+				Calendar checkOut = Calendar.getInstance();
+				checkOut.setTime(rs.getDate("DT_SAIDA"));
+				hospedagem.setDtCheckOut(checkOut);
 
 				reserva = ReservaBO.buscarPorCodigo(rs.getInt("CD_HOSPEDAGEM"), conexao);
 				hospedagem.setReserva(reserva);
 				cliente = ClienteBO.buscarPorCodigo(rs.getInt("CD_CLIENTE"), conexao);
 				reserva.setCliente(cliente);
 				funcionario = FuncionarioBO.buscarPorCodigo(rs.getInt("CD_FUNCIONARIO"), conexao);
-				reserva.setFuncionario(funcionario);
-				reserva.setDtSaida(c);
-				hospedagem.setDtCheckIn(checkIn);
-				hospedagem.setReserva(reserva);
-
-				hospedagem.setReserva(reserva);
+				hospedagem.setFuncionario(funcionario);
 			}
 			rs.close();
 			estrutura.close();

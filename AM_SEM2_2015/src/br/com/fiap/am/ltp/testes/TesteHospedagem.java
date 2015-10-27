@@ -76,7 +76,7 @@ public class TesteHospedagem {
 									
 					System.out.println("\n" + "Código: " + hospedagem.getReserva().getCodigo() 
 							+ "\nCliente: " + hospedagem.getReserva().getCliente().getNome()
-							+ "\nFuncionário: " + hospedagem.getReserva().getFuncionario().getNome()
+							+ "\nFuncionário: " + hospedagem.getFuncionario().getNome()
 							+ "\nData Check In: " + dataFormatada(hospedagem.getDtCheckIn())
 							+ "\nData Saída: " + dataFormatada(hospedagem.getDtCheckOut()));
 				}
@@ -108,7 +108,7 @@ public class TesteHospedagem {
 				
 				System.out.println("\n" + "Código: " + hospedagem.getReserva().getCodigo() 
 						+ "\nCliente: " + hospedagem.getReserva().getCliente().getNome()
-						+ "\nFuncionário: " + hospedagem.getReserva().getFuncionario().getNome()
+						+ "\nFuncionário: " + hospedagem.getFuncionario().getNome()
 						+ "\nData Check In: " + dataFormatada(hospedagem.getDtCheckIn())
 						+ "\nData Saída: " + dataFormatada(hospedagem.getDtCheckOut()));
 				

@@ -1,5 +1,6 @@
 package br.com.fiap.am.ltp.beans;
 
+import java.text.DateFormat;
 import java.util.Calendar;
 
 /**
@@ -59,4 +60,14 @@ public class Hospedagem {
 	public void setDtCheckOut(Calendar dtCheckOut) {
 		this.dtCheckOut = dtCheckOut;
 	}
+	
+	public String getDtEntradaFormatted(){
+		DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
+		return df.format(this.dtCheckIn.getTime());
+	}
+	public String getDtSaidaFormatted(){
+		DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
+		return df.format(this.dtCheckOut.getTime());
+	}
+	
 }
