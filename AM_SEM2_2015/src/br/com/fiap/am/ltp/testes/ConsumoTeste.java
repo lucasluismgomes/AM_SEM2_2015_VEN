@@ -22,7 +22,12 @@ public class ConsumoTeste {
 		Connection conexao = null;
 		try {
 			int funcionalidade = Integer.parseInt(JOptionPane.showInputDialog("Qual funcionalidade deseja testar?\n\n"
-					+ "1 - Gravar\n" + "2 - Editar\n" + "3 - Buscar Todos\n" + "4 - Apagar\n" + "5 - Buscar por ID\n"));
+					+ "1 - Gravar\n" 
+					+ "2 - Editar\n" 
+					+ "3 - Buscar Todos\n" 
+					+ "4 - Apagar\n" 
+					+ "5 - Buscar por ID\n"
+					+ "6 - Valor Total\n"));
 
 			if (funcionalidade == 1) {
 				conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74803", "071195");

@@ -65,3 +65,14 @@ html,body {
 	float: left;	
 	margin : 5% 1%;
 }
+
+/*------ CHECKOUT ------ */
+#container-checkout {
+	text-align: center;	
+}
+
+.list-estrutura{
+	width: 50%;
+	margin-left: 25%;
+	margin-top: 10%
+}
