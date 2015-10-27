@@ -99,11 +99,14 @@ public class HospedagemDAO {
 				Reserva reserva = new Reserva();
 				Cliente cliente = new Cliente();
 				Funcionario funcionario = new Funcionario();
+				
 				Calendar checkIn = Calendar.getInstance();
 				checkIn.setTime(rs.getDate("DT_ENTRADA"));
+				hospedagem.setDtCheckIn(checkIn);
+				
 				Calendar checkOut = Calendar.getInstance();
 				checkOut.setTime(rs.getDate("DT_SAIDA"));
-				
+				hospedagem.setDtCheckOut(checkOut);
 				
 				reserva = ReservaBO.buscarPorCodigo(rs.getInt("CD_HOSPEDAGEM"), conexao);
 				hospedagem.setReserva(reserva);
@@ -111,8 +114,7 @@ public class HospedagemDAO {
 				reserva.setCliente(cliente);
 				funcionario = FuncionarioBO.buscarPorCodigo(rs.getInt("CD_FUNCIONARIO"), conexao);
 				reserva.setFuncionario(funcionario);
-				hospedagem.setDtCheckIn(checkIn);
-				hospedagem.setDtCheckOut(checkOut);
+				
 				
 				lstHospedagem.add(hospedagem);
 			}

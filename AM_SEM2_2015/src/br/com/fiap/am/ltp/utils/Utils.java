@@ -1,5 +1,6 @@
 package br.com.fiap.am.ltp.utils;
 
+import java.text.DateFormat;
 import java.util.Date;
 import java.util.Calendar;
 
@@ -15,5 +16,11 @@ public class Utils {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
 		return cal;
+	}
+	
+	public static String formatarCalendar(Calendar c)
+	{
+		DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
+		return df.format(c.getTime());
 	}
 }
