@@ -58,24 +58,45 @@
  								<th>Tipo de Consumo</th>
  								<th>Quantidade</th>
  								<th>Valor Total</th>
- 								<th>Editar</th>
  							</tr>
    								<c:forEach items="${lstConsumo}" var="Consumo">
 									<tr>
 										<td><h5 class="list-group-item-text">${Consumo.tipoConsumo.nome}</h5></td>
-										<td><h5 class="list-group-item-text">${Consumo.quantidade}</h5></td>
+										<td><input class="list-group-item-text" type="text" size="3" maxlength="3" name="quantidade" value=${Consumo.quantidade}></td>
 										<td><h5 class="list-group-item-text">R$${Consumo.valorTotal}</h5></td>
-										<td><input type="submit" class="btn btn-default" name="editar" value="Editar"></td>
 									</tr>
 								</c:forEach>
 								<tr>
 									<td>VALOR TOTAL DOS CONSUMOS: R$${valorTotalConsumo}</td>
+									<td><td><input type="submit" class="btn btn-default" name="salvar" value="Salvar"></td></td>
 								</tr>
 						</table>
 					</div>
 				</div>
 			</div>
 			</form>
+			
+			<form action="CheckoutServletHBV" method="post">
+				<div class="list-group" id="list-estrutura">
+					<a href="#" class="list-group-item">
+						<table>
+							<tr><th><h4 class="list-group-item-text">Forma de Pagamento</h4></th></tr>
+							<tr>
+								<td><h6 class="list-group-item-text">Cartão de Crédito <input type="radio" value="credito" name="pagamento"></h6></td>
+								<td><h6 class="list-group-item-text">Cartão de Débito <input type="radio" value="deito" name="pagamento"></h6></td>
+							</tr>
+							<tr>
+								<td><h6 class="list-group-item-text">Cheque a vista <input type="radio" value="cqVista" name="pagamento"></h6></td>
+								<td><h6 class="list-group-item-text">Cheque Parcelado <input type="radio" value="cqParcelado" name="pagamento"></h6></td>
+							</tr>
+							<tr>
+								<td><h6 class="list-group-item-text">Dinheiro <input type="radio" value="dinheiro" name="pagamento"></h6></td>							
+							</tr>
+						</table>					
+					</a>
+				</div>
+			</form>
+			
 		</section>	
 		<div id="push"></div>
 	</div>

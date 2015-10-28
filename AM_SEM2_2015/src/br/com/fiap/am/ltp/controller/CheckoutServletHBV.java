@@ -2,6 +2,8 @@ package br.com.fiap.am.ltp.controller;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +47,7 @@ public class CheckoutServletHBV extends HttpServlet {
 		List<Consumo> lstConsumo = new ArrayList<Consumo>();
 		lstConsumo = ConsumoBO.buscarPorHospedagem(codigoHosp, conexao);
 		double valorTotalConsumo = 0;
+		NumberFormat nf = new DecimalFormat("#0.00"); 
 		
 		for (Consumo consumo : lstConsumo) {
 			valorTotalConsumo += consumo.getValorTotal();
@@ -52,7 +55,7 @@ public class CheckoutServletHBV extends HttpServlet {
 		
 		request.setAttribute("hospedagem", hospedagem);
 		request.setAttribute("lstConsumo", lstConsumo);
-		request.setAttribute("valorTotalConsumo", valorTotalConsumo);
+		request.setAttribute("valorTotalConsumo", nf.format(valorTotalConsumo));
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("checkOut.jsp");
 		dispatcher.forward(request, response); 	

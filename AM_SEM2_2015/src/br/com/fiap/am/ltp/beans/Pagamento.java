@@ -14,18 +14,27 @@ public class Pagamento {
 	private FormaPagamento formaPagamento;
 	private Calendar dtPagamento;
 	private double vlPagamento;
+	private int nrBanco;
+	private int qtParcelas;
+	private double vlParcelas;
+	private int nrCheque;
 	
 	public Pagamento() {
 		super();
 	}
 
 	public Pagamento(Hospedagem hospedagem, FormaPagamento formaPagamento,
-			Calendar dtPagamento, double vlPagamento) {
+			Calendar dtPagamento, double vlPagamento, int nrBanco,
+			int qtParcelas, double vlParcelas, int nrCheque) {
 		super();
 		this.hospedagem = hospedagem;
 		this.formaPagamento = formaPagamento;
 		this.dtPagamento = dtPagamento;
 		this.vlPagamento = vlPagamento;
+		this.nrBanco = nrBanco;
+		this.qtParcelas = qtParcelas;
+		this.vlParcelas = vlParcelas;
+		this.nrCheque = nrCheque;
 	}
 
 	public Hospedagem getHospedagem() {
@@ -58,5 +67,37 @@ public class Pagamento {
 
 	public void setVlPagamento(double vlPagamento) {
 		this.vlPagamento = vlPagamento;
+	}
+
+	public int getNrBanco() {
+		return nrBanco;
+	}
+
+	public void setNrBanco(int nrBanco) {
+		this.nrBanco = nrBanco;
+	}
+
+	public int getQtParcelas() {
+		return qtParcelas;
+	}
+
+	public void setQtParcelas(int qtParcelas) {
+		this.qtParcelas = qtParcelas;
+	}
+
+	public double getVlParcelas() {
+		return vlParcelas;
+	}
+
+	public void setVlParcelas(double vlParcelas) {
+		this.vlParcelas = vlParcelas;
+	}
+
+	public int getNrCheque() {
+		return nrCheque;
+	}
+
+	public void setNrCheque(int nrCheque) {
+		this.nrCheque = nrCheque;
 	}
 }
