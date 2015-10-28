@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -83,14 +84,19 @@ public class ServletHBV extends HttpServlet {
 			}
 		}
 		
-		
+		String isChrome = (String)request.getParameter("navegador");
 		Reserva reserva = new Reserva();
 		
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT,new Locale("pt", "BR"));
+		if(isChrome == "TRUE"){
+			df = new SimpleDateFormat("yyyy-MM-dd");
+		}
 		
+		
+
 		Calendar dtEntrada = Calendar.getInstance();
 		Calendar dtSaida = Calendar.getInstance();
-
+		
 		try {
 		
 		dtEntrada.setTime(df.parse(request.getParameter("dtEntrada")));

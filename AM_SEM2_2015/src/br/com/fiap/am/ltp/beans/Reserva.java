@@ -3,6 +3,7 @@ package br.com.fiap.am.ltp.beans;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Descrição da classe/método
@@ -154,11 +155,11 @@ public class Reserva {
 	}	
 	
 	public String getDtEntradaFormatted(){
-		DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
+		DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT,new Locale("pt", "BR"));
 		return df.format(this.dtEntrada.getTime());
 	}
 	public String getDtSaidaFormatted(){
-		DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
+		DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT,new Locale("pt", "BR"));
 		return df.format(this.dtSaida.getTime());
 	}
 

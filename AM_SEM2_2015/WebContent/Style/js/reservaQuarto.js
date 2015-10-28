@@ -159,10 +159,30 @@ $(document).ready(function(){
 	var isChrome = !!window.chrome && !isOpera; 
 	
 	if(!isChrome){
+		$("#navegador").val(false);
 		$("#dtEntrada").mask('00/00/0000');
 		$("#dtSaida").mask('00/00/0000');
 	}
 
+	$("#dtEntrada").focusout(function() {
+		var today = new Date();
+		alert(new Date($(this).val()));
+		alert(new Date($(this).val()) <= today);
+		
+		
+			if(new Date($(this).val()) <= today){
+				$(this).css('border','1px solid red');
+			}else{
+				$(this).css('border','1px solid blue');
+			}
+	});		
+	
+	function formatDate(){
+	    return  this.getDate() + 
+	    "/" +  (this.getMonth() + 1) +
+	    "/" +  this.getFullYear();
+	}
+	
 	$("#dtEntrada").attr("min", function() {
 		var d = new Date();
 	    return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
@@ -193,9 +213,7 @@ $(document).ready(function(){
 			carregaChangeSelects(numeroQuarto);
 			});
 		});
-	$("#btnCalcularValor").click(function(){
-		$('#mydiv').load(document.URL +  ' #mydiv');		
-	});
+
 	
 	$(".caption .btn").click(function(){
 		atualizaQuartos($(this));			
@@ -248,3 +266,10 @@ function carregaChangeSelects(){
 	});*/
 	
 	
+function isFutureDate(idate){
+    var today = new Date().getTime(),
+        idate = idate.split("/");
+
+    idate = new Date(idate[2], idate[1] - 1, idate[0]).getTime();
+    return (today - idate) < 0 ? true : false;
+}
