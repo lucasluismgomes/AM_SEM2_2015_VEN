@@ -151,6 +151,18 @@ function tagIdadeCriancas(qtdCriancas,numeroQuarto){
 	}
 }
 $(document).ready(function(){
+	var isOpera = !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
+	    // Opera 8.0+ (UA detection to detect Blink/v8-powered Opera)
+	var isFirefox = typeof InstallTrigger !== 'undefined';   // Firefox 1.0+
+	var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
+	    // At least Safari 3+: "[object HTMLElementConstructor]"
+	var isChrome = !!window.chrome && !isOpera; 
+	
+	if(!isChrome){
+		$("#dtEntrada").mask('00/00/0000');
+		$("#dtSaida").mask('00/00/0000');
+	}
+
 	$("#dtEntrada").attr("min", function() {
 		var d = new Date();
 	    return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
