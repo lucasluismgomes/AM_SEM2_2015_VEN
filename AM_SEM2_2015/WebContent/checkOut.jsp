@@ -75,6 +75,28 @@
 				</div>
 			</div>
 			</form>
+			
+			<form action="CheckoutServletHBV" method="post">
+				<div class="list-group" id="list-estrutura">
+					<a href="#" class="list-group-item">
+						<table>
+							<tr><th><h4 class="list-group-item-text">Forma de Pagamento</h4></th></tr>
+							<tr>
+								<td><h6 class="list-group-item-text">Cartão de Crédito <input type="radio" value="credito" name="pagamento"></h6></td>
+								<td><h6 class="list-group-item-text">Cartão de Débito <input type="radio" value="deito" name="pagamento"></h6></td>
+							</tr>
+							<tr>
+								<td><h6 class="list-group-item-text">Cheque a vista <input type="radio" value="cqVista" name="pagamento"></h6></td>
+								<td><h6 class="list-group-item-text">Cheque Parcelado <input type="radio" value="cqParcelado" name="pagamento"></h6></td>
+							</tr>
+							<tr>
+								<td><h6 class="list-group-item-text">Dinheiro <input type="radio" value="dinheiro" name="pagamento"></h6></td>							
+							</tr>
+						</table>					
+					</a>
+				</div>
+			</form>
+			
 		</section>	
 		<div id="push"></div>
 	</div>
