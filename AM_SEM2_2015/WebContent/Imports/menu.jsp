@@ -16,7 +16,10 @@
 				<li><a href="index.jsp">Home</a></li>
 				<li><a href="sobre.jsp">Sobre</a></li>
 				<li><a href="contato.jsp">Contato</a></li>
-				<li><a href="reservarQuarto.jsp">Reserva</a></li>
+				<c:if test="${sessionScope.usuarioAtual.getClass().getName().toString() == 'br.com.fiap.am.ltp.beans.Cliente'}">
+					<li><a href="reservarQuarto.jsp">Reserva</a></li>
+				</c:if>
+				
 				<%--<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hospedagem<span class="caret"></span></a>
 				<ul class="dropdown-menu">
@@ -56,7 +59,7 @@
 											<div class="form-group">
 												<label class="sr-only" for="exampleInputPassword2">Senha</label>
 												<input type="password" class="form-control" id="senha" name="senha" placeholder="Senha" required="required">
-												<div class="help-block text-right"><a href="">Esqueci minha senha</a></div>
+												<div class="help-block text-right" style="display:none;"><a href="">Esqueci minha senha</a></div>
 											</div>
 											<div class="form-group">
 												<button type="submit" class="btn btn-primary btn-block">Entrar</button>
@@ -75,7 +78,11 @@
 				<c:if test="${sessionScope.usuarioAtual != null}">
 					<li><a href="#">Olá, ${sessionScope.usuarioAtual.nome}</a></li>
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle"><b>Sair</b></span></a>
+						<a href="#" class="dropdown-toggle"><b>
+							<form action="LoginServletHBV" method="get" >
+								<input type="submit" value="Sair" style="border: none;background-color: transparent;">
+							</form>
+						</b></span></a>
 					</li>
 				</c:if>
 			</ul>

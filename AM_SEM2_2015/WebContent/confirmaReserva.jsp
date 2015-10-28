@@ -17,9 +17,10 @@
 		<h2>Confirmar reserva</h2>
 		<div class="list-group confirmaReserva">
 			<a href="#" class="list-group-item">
-				<h4 class="list-group-item-text">Data de Entrada: ${requestScope.reserva.cliente.nome}</h4>
+				<h4 class="list-group-item-text">Cliente: ${requestScope.reserva.cliente.nome}</h4>
 				<h4 class="list-group-item-text">Data de Entrada: ${requestScope.reserva.getDtEntradaFormatted()}</h4>
 				<h4 class="list-group-item-text">Data de Saida:  ${requestScope.reserva.getDtSaidaFormatted()}</h4>
+				<h4 class="list-group-item-text">Dias de hospedagem:  ${requestScope.reserva.qtDias}</h4>
 			</a>
 		<c:forEach items="${requestScope.reserva.quarto}" var="Quarto">
 		<c:set var="qtCriancasCortesia" value="0" scope="page"></c:set>

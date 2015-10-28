@@ -55,7 +55,8 @@ public class LoginServletHBV extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		request.getSession().invalidate();
+		response.sendRedirect("/AM_SEM2_2015/index.jsp");
 	}
 
 	/**
@@ -90,10 +91,13 @@ public class LoginServletHBV extends HttpServlet {
 	        	HttpSession session = request.getSession();
 	        	session.setAttribute("usuarioAtual", cliente);
 	            response.sendRedirect("/AM_SEM2_2015/index.jsp");
-	        } else if(funcionario.getCodigo() > -1) {
+	            System.out.println("Cliente");
+	        } else if(funcionario.getCodigo() > 0) {
 	        	HttpSession session = request.getSession();
 	        	session.setAttribute("usuarioAtual", funcionario);
 	            response.sendRedirect("/AM_SEM2_2015/index.jsp");
+	            System.out.println("Funcionario");
+	            System.out.println(funcionario.getCodigo());
 	        } else {
 	            RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
 	            PrintWriter out= response.getWriter();
