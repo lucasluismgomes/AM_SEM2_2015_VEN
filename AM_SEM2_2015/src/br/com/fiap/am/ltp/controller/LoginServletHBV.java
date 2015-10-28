@@ -91,13 +91,10 @@ public class LoginServletHBV extends HttpServlet {
 	        	HttpSession session = request.getSession();
 	        	session.setAttribute("usuarioAtual", cliente);
 	            response.sendRedirect("/AM_SEM2_2015/index.jsp");
-	            System.out.println("Cliente");
 	        } else if(funcionario.getCodigo() > 0) {
 	        	HttpSession session = request.getSession();
 	        	session.setAttribute("usuarioAtual", funcionario);
 	            response.sendRedirect("/AM_SEM2_2015/index.jsp");
-	            System.out.println("Funcionario");
-	            System.out.println(funcionario.getCodigo());
 	        } else {
 	            RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
 	            PrintWriter out= response.getWriter();

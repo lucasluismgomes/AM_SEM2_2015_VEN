@@ -83,9 +83,6 @@ public class CadastrarServletHBV extends HttpServlet {
 	    	HttpSession session = request.getSession();
         	session.setAttribute("usuarioAtual", cliente);
             response.sendRedirect("/AM_SEM2_2015/index.jsp");
-	    	
-	    	RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-			dispatcher.forward(request, response); 
     	} catch (Exception e) {
     		e.printStackTrace();
     	}
