@@ -20,7 +20,7 @@
 		    <p>Mais de 50 anos oferecendo serviços de hospedagem da mais alta qualidade. Torne-se um afiliado e tenha vantagens incríveis!</p>
 		    <p>Em apenas 1 minuto você cria uma conta para desfrutar de todos os nossos serviços, além de possuir a melhor e mais bem avaliada newsletter de hoteís!</p>
 		    <br/>
-		    <p><a class="btn btn-lg btn-primary" href="#" role="button">Seja nosso cliente »</a></p>
+		    <p><a class="btn btn-lg btn-primary" href="CadastroCliente.jsp" role="button">Seja nosso cliente »</a></p>
 	    </div>
     </div>
     

@@ -27,8 +27,8 @@ import br.com.fiap.am.ltp.excecoes.Excecao;
         description = "Login Servlet", 
         urlPatterns = { "/LoginServletHBV" }, 
         initParams = { 
-                @WebInitParam(name = "usuario", value = "lucas@email.com"), 
-                @WebInitParam(name = "senha", value = "senha")
+                @WebInitParam(name = "usuario", value = "lucas@email.com"), // teste de login
+                @WebInitParam(name = "senha", value = "senha") // teste de login
         })
 public class LoginServletHBV extends HttpServlet {
 	Connection conexao = null;

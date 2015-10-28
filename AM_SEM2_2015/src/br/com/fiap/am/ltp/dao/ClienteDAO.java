@@ -40,21 +40,21 @@ public class ClienteDAO {
 	 */
 	public void gravar(Cliente cliente, Connection conexao) throws Exception {
 		try {
-			sql = "INSERT INTO T_AM_HBV_PESSOA (NM_PESSOA) VALUES(?)";
+			sql = "INSERT INTO T_AM_HBV_PESSOA (NM_PESSOA,DS_SENHA) VALUES(?,?)";
 			estrutura = conexao.prepareStatement(sql);
 			estrutura.setString(1, cliente.getNome());
+			estrutura.setString(2, cliente.getSenha());
 
 			estrutura.executeQuery();
 			estrutura.close();
 
-			sql = "INSERT INTO T_AM_HBV_CLIENTE VALUES(SQ_AM_PESSOA.CURRVAL,?,?,?,?,?,?)";
+			sql = "INSERT INTO T_AM_HBV_CLIENTE VALUES(SQ_AM_PESSOA.CURRVAL,?,?,?,?,?)";
 			estrutura = conexao.prepareStatement(sql);
 			estrutura.setLong(1, cliente.getCpf());
 			estrutura.setLong(2, cliente.getRg());
 			estrutura.setDate(3, new Date(cliente.getDtNascimento().getTimeInMillis()));
 			estrutura.setInt(4, cliente.getQuartoFavorito());
 			estrutura.setString(5, cliente.getEmail());
-			estrutura.setString(6, cliente.getSenha());
 
 			estrutura.executeQuery();
 			estrutura.close();

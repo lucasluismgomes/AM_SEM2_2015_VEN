@@ -25,6 +25,4 @@
     <param-name>senhaUsuarioBD</param-name>
     <param-value>251295</param-value>
   </context-param>
-  
-  
 </web-app>
