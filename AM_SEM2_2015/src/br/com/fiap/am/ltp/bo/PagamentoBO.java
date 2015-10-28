@@ -27,7 +27,17 @@ public class PagamentoBO {
 	 * @see Pagamento, PagamentoDAO
 	 */
 	public static void gravar(Pagamento pagamento, Connection conexao) throws Exception {
-		new PagamentoDAO().gravar(pagamento, conexao);
+		int formaPag = pagamento.getFormaPagamento().getCodigo();
+		
+		if(formaPag == 1){
+			new PagamentoDAO().gravarDinheiro(pagamento, conexao);
+		}else if(formaPag == 2){
+			new PagamentoDAO().gravarChequeAVista(pagamento, conexao);
+		}else if(formaPag == 3){
+			new PagamentoDAO().gravarChequeParcelado(pagamento, conexao);
+		}else if(formaPag == 4 || formaPag == 5){
+			new PagamentoDAO().gravarCartao(pagamento, conexao);
+		}
 	}
 	
 	/**
@@ -45,5 +55,6 @@ public class PagamentoBO {
 	public static double calcularTotal (Pagamento pagamento, Connection conexao) throws Exception {
 		return new PagamentoDAO().calcularTotal(pagamento, conexao);
 	}
+	
 	
 }
