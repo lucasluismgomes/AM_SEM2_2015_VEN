@@ -162,26 +162,102 @@ $(document).ready(function(){
 		$("#navegador").val(false);
 		$("#dtEntrada").mask('00/00/0000');
 		$("#dtSaida").mask('00/00/0000');
+		
+		$("#dtEntrada").focusout(function() {
+			var today = new Date();
+			
+			var alerta = "<div class='alert alert-danger' role='alert'>\
+				  <span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>\
+				  <span class='sr-only'>Error:</span>\
+				  Data invalida!\
+				</div>";
+			
+			var dataSplit = $(this).val().split("/");
+			var data = new Date(dataSplit[2],dataSplit[1] - 1, dataSplit[0],23, 59, 59, 59);
+			if(data >= today){
+				$(this).removeClass("inputAlert");
+				$("#avisos").html('');
+			}else{
+				$(this).addClass("inputAlert");
+				$("#avisos").html('');
+				$("#avisos").append(alerta);
+			}		
+
+		});	
+		
+		$("#dtSaida").focusout(function() {
+			
+			var dataEntradaSplit = $("#dtEntrada").val().split("/");
+			var dataEntrada = new Date(dataEntradaSplit[2],dataEntradaSplit[1] - 1, dataEntradaSplit[0],23, 59, 59, 59);
+			
+			var alerta = "<div class='alert alert-danger' role='alert'>\
+				  <span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>\
+				  <span class='sr-only'>Error:</span>\
+				  Data invalida!\
+				</div>";
+			
+			var dataSplit = $(this).val().split("/");
+			var data = new Date(dataSplit[2],dataSplit[1] - 1, dataSplit[0],23, 59, 59, 59);
+			
+			if(data >= dataEntrada && dataEntrada >= new Date()){
+				$(this).removeClass("inputAlert");
+				$("#avisos").html('');
+			}else{
+				$(this).addClass("inputAlert");
+				$("#avisos").html('');
+				$("#avisos").append(alerta);
+			}
+			
+			if(data >= today){
+				$(this).removeClass("inputAlert");
+				$("#avisos").html('');
+			}else{
+				$(this).addClass("inputAlert");
+				$("#avisos").html('');
+				$("#avisos").append(alerta);
+			}	
+
+		});	
+		
+		
+		$("#btnCalcularValor").click(function(){
+			var today = new Date();
+
+			var dataEntradaSplit = $("#dtEntrada").val().split("/");
+			var dataEntrada = new Date(dataEntradaSplit[2],dataEntradaSplit[1] - 1, dataEntradaSplit[0],23, 59, 59, 59);
+			
+			var alerta = "<div class='alert alert-danger' role='alert'>\
+				  <span class='glyphicon glyphicon-exclamation-sign' aria-hidden='true'></span>\
+				  <span class='sr-only'>Error:</span>\
+				  Data invalida!\
+				</div>";
+			
+			var dataSplit = $("#dtSaida").val().split("/");
+			var dataSaida = new Date(dataSplit[2],dataSplit[1] - 1, dataSplit[0],23, 59, 59, 59);
+			
+			if(dataSaida >= dataEntrada){
+				$("#dtSaida").removeClass("inputAlert");
+				$("#avisos").html('');
+			}else{
+				$("#dtSaida").addClass("inputAlert");
+				$("#avisos").html('');
+				$("#avisos").append(alerta);
+			}
+			
+			if(dataEntrada >= today){
+				$("#dtEntrada").removeClass("inputAlert");
+				$("#avisos").html('');
+			}else{
+				$("#dtEntrada").addClass("inputAlert");
+				$("#avisos").html('');
+				$("#avisos").append(alerta);
+			}	
+				
+		});
 	}
 
-	$("#dtEntrada").focusout(function() {
-		var today = new Date();
-		alert(new Date($(this).val()));
-		alert(new Date($(this).val()) <= today);
-		
-		
-			if(new Date($(this).val()) <= today){
-				$(this).css('border','1px solid red');
-			}else{
-				$(this).css('border','1px solid blue');
-			}
-	});		
 	
-	function formatDate(){
-	    return  this.getDate() + 
-	    "/" +  (this.getMonth() + 1) +
-	    "/" +  this.getFullYear();
-	}
+	
 	
 	$("#dtEntrada").attr("min", function() {
 		var d = new Date();
@@ -192,8 +268,10 @@ $(document).ready(function(){
 		$("#dtSaida").attr("min", function() {
 		    return $("#dtEntrada").val();
 		  });
-	  });
-	  
+	});	
+	
+
+	
 	$("#qtdQuartos").change(function(){
 		$("#secaoQuartos").html('');
 		var qtdQuartos = $("#qtdQuartos option:selected").val();
@@ -226,7 +304,7 @@ $(document).ready(function(){
 		$(this).parent().siblings(".criancas-section").html(tagSelectCriancas($(this).val(),numeroQuarto));
 		carregaChangeSelects(numeroQuarto);
 		});
-	});
+});
 	
 function carregaChangeSelects(){
 	$(".qtdCriancas").unbind().change(function() {
@@ -236,40 +314,29 @@ function carregaChangeSelects(){
 	});
 }
 
-
-/*
-	$("#qtdCriancas2").unbind().change( function() {
-		var numeroQuarto  = $(this).parent().parent().parent().parent().parent().find("input:hidden.numeroQuarto").val();
-		console.log('disparou! Quantidade Crianças:' + $(this).val() + " Quarto: " + numeroQuarto);
-		$(this).parent().siblings(".idadeCriancas").html(tagIdadeCriancas($(this).val(),numeroQuarto));
-	});
-	$("#qtdCriancas3").unbind().change( function() {
-		var numeroQuarto  = $(this).parent().parent().parent().parent().parent().find("input:hidden.numeroQuarto").val();
-		console.log('disparou! Quantidade Crianças:' + $(this).val() + " Quarto: " + numeroQuarto);
-		$(this).parent().siblings(".idadeCriancas").html(tagIdadeCriancas($(this).val(),numeroQuarto));
-	});
-	$("#qtdCriancas4").unbind().change(function() {
-		var numeroQuarto  = $(this).parent().parent().parent().parent().parent().find("input:hidden.numeroQuarto").val();
-		console.log('disparou! Quantidade Crianças:' + $(this).val() + " Quarto: " + numeroQuarto);
-		$(this).parent().siblings(".idadeCriancas").html(tagIdadeCriancas($(this).val(),numeroQuarto));});
-}	
-	/*$(".qtdPessoas").change(function(){
-		var numeroQuarto  = $(this).parent().parent().parent().parent().find(".numeroQuarto").val();
-		$(this).parent().siblings(".criancas-section").html(tagSelectCriancas($(this).val(),numeroQuarto));
-		$(".qtdCriancas").change(function(){
-			if($(this).val() != 0){
-			$(this).parent().siblings(".idadeCriancas").html(tagIdadeCriancas($(this).val(),numeroQuarto));}
-		});
-	});
-	$(".caption .btn").click(function(){
-		atualizaQuartos($(this));			
-	});*/
 	
+function validarDataEntrada(){
+	var today = new Date();
 	
-function isFutureDate(idate){
-    var today = new Date().getTime(),
-        idate = idate.split("/");
-
-    idate = new Date(idate[2], idate[1] - 1, idate[0]).getTime();
-    return (today - idate) < 0 ? true : false;
+	var dataSplit = $("#dtEntrada").val().split("/");
+	var dataEntrada = new Date(dataSplit[2],dataSplit[1] - 1, dataSplit[0],23, 59, 59, 59);
+	if(dataEntrada >= today){
+		return true;
+	}else{
+	return false;
+	}
 }
+
+function validarDataSaida(){
+	var dataEntradaSplit = $("#dtEntrada").val().split("/");
+	var dataEntrada = new Date(dataEntradaSplit[2],dataEntradaSplit[1] - 1, dataEntradaSplit[0],23, 59, 59, 59);
+	var dataSaidaSplit = $("#dtSaida").val().split("/");
+	var dataSaida = new Date(dataSaidaSplit[2],dataSaidaSplit[1] - 1, dataSaidaSplit[0],23, 59, 59, 59);
+	
+	if(dataSaida >= dataEntrada){
+		return true;
+	}else{
+	return false;
+	}
+}
+

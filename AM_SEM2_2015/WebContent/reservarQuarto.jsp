@@ -20,9 +20,10 @@
 		<c:import url="Imports/menu.jsp"></c:import>
 		<section id="container-reservar-quarto">
 			<h2>RESERVAR QUARTO</h2> 
-			<form class="form-horizontal" action="ServletHBV" method="post">
+			<form class="form-horizontal" action="ServletHBV" method="post" onsubmit="return (validarDataEntrada() & validarDataSaida())">
 			<input type="hidden" id="navegador" name="navegador" value="TRUE"/>
 				<!-- Prepended text-->
+				<div id="avisos"></div>
 				<div class="form-group">
 					<label class="col-md-4 control-label" for="dtEntrada"></label>
 					<div class="col-md-4">
@@ -68,7 +69,7 @@
 				<div id="mydiv"></div>
 				<div class="form-group row">
 					<input id="btnCalcularValor" name=""
-						class="btn btn-info col-md-4 col-md-offset-3 " type="submit" value="Calcular reserva"/>
+						class="btn btn-info col-md-4 col-md-offset-4 " type="submit" value="Calcular reserva"/>
 				</div>
 
 			</form>
