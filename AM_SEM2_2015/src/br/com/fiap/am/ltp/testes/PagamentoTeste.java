@@ -10,7 +10,6 @@ import br.com.fiap.am.ltp.beans.Hospedagem;
 import br.com.fiap.am.ltp.beans.Pagamento;
 import br.com.fiap.am.ltp.beans.Reserva;
 import br.com.fiap.am.ltp.bo.PagamentoBO;
-import br.com.fiap.am.ltp.bo.ReservaBO;
 import br.com.fiap.am.ltp.conexao.ConexaoFactory;
 import br.com.fiap.am.ltp.excecoes.Excecao;
 
@@ -41,7 +40,21 @@ public class PagamentoTeste {
 				do{
 				
 				reserva.setCodigo(Integer.parseInt(JOptionPane.showInputDialog("Informe o Código da Reserva:")));
-				formaPag.setCodigo(Integer.parseInt(JOptionPane.showInputDialog("Informe o Código da Forma de Pagamento:")));
+				formaPag.setCodigo(Integer.parseInt(JOptionPane.showInputDialog("Informe o Código da Forma de Pagamento:"
+						+ "\n1 - DINHEIRO" + "\n2 - CHEQUE A VISTA" + "\n3 - CHEQUE PARCELADO" + "\n4 - CARTAO DÉBITO" 
+						+ "\n5 - CRÉDITO PARCELADO")));
+						if (formaPag.getCodigo() == 2){
+							pagamento.setNrBanco(Integer.parseInt(JOptionPane.showInputDialog("Informe o Número do banco")));
+						} else if(formaPag.getCodigo() == 3){
+							pagamento.setNrBanco(Integer.parseInt(JOptionPane.showInputDialog("Informe o Número do Banco")));
+							pagamento.setNrCheque(Integer.parseInt(JOptionPane.showInputDialog("Informe o Número do Cheque")));
+							pagamento.setVlParcelas(Double.parseDouble(JOptionPane.showInputDialog("Informe o Valor das Parcelas")));
+						} else if(formaPag.getCodigo() == 4){
+							pagamento.setQtParcelas(1);
+						} else if(formaPag.getCodigo() == 5){
+							pagamento.setQtParcelas(Integer.parseInt(JOptionPane.showInputDialog("Informe o Número de Parcelas")));
+						}
+				
 								
 				Calendar dtPagamento = Calendar.getInstance();
 

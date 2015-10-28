@@ -82,7 +82,7 @@ public class PagamentoDAO {
 			estrutura.executeQuery();
 			estrutura.close();
 			
-			sql = "INSERT INTO T_AM_HBV_PAG_CARTAO (CD_HOSPEDAGEM, QT_PARCELAS)"
+			sql = "INSERT INTO T_AM_HBV_PAG_CARTAO (CD_HOSPEDAGEM, QT_PARCELA)"
 					+ "VALUES (?,?)";
 			
 			estrutura = conexao.prepareStatement(sql);
@@ -171,8 +171,19 @@ public class PagamentoDAO {
 			estrutura.executeQuery();
 			estrutura.close();
 			
-			sql = "INSERT INTO T_AM_HBV_REL_CHEQUE (CD_HOSPEDAGEM, NR_CHEQUE, VL_PARCELA)"
-					+ "VALUES (?,?,?)";
+			sql = "INSERT INTO T_AM_HBV_PAG_CHEQUE (CD_HOSPEDAGEM, NR_BANCO)"
+					+ "VALUES (?,?)";
+			
+			estrutura = conexao.prepareStatement(sql);
+
+			estrutura.setInt(1, pagamento.getHospedagem().getReserva().getCodigo());
+			estrutura.setInt(2, pagamento.getNrBanco());
+
+			estrutura.executeQuery();
+			estrutura.close();
+			
+			sql = "INSERT INTO T_AM_HBV_REL_CHEQUE (CD_PAGTO_CHEQUE, CD_HOSPEDAGEM, NR_CHEQUE, VL_PARCELA)"
+					+ "VALUES (SQ_AM_PAGTO_CHEQUE.CURRVAL,?,?,?)";
 			
 			estrutura = conexao.prepareStatement(sql);
 
