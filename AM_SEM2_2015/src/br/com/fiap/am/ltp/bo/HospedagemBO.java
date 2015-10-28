@@ -20,7 +20,7 @@ public class HospedagemBO {
 	 * 
 	 * @author Victor 74820
 	 * @since 1.0
-	 * @param FormaPagamento
+	 * @param Hospedagem
 	 *            A Hospedagem que está sendo gravada no banco de dados.
 	 * @param conexao
 	 *            As credenciais da conexão.

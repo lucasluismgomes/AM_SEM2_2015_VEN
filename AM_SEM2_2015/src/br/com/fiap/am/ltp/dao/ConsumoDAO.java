@@ -303,9 +303,9 @@ public class ConsumoDAO {
 		double valorTotal = 0;
 		
 		try {
-			sql = "SELECT  SUM(C.QT_CONSUMO * TC.VL_UNIT) \"VL_TOTAL\" "
-				+ "FROM T_AM_HBV_CONSUMO C NATURAL JOIN T_AM_HBV_TIPO_CONSUMO TC "
-				+ "WHERE C.CD_HOSPEDAGEM = ?";
+				sql = "SELECT  SUM(C.QT_CONSUMO * TC.VL_UNIT) \"VL_TOTAL\" "
+					+ "FROM T_AM_HBV_CONSUMO C NATURAL JOIN T_AM_HBV_TIPO_CONSUMO TC "
+					+ "WHERE C.CD_HOSPEDAGEM = ?";
 			estrutura = conexao.prepareStatement(sql);
 			estrutura.setInt(1, codigo);
 			

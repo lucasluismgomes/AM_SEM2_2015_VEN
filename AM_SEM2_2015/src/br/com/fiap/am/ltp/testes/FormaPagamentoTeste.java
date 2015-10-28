@@ -12,6 +12,14 @@ import br.com.fiap.am.ltp.excecoes.Excecao;
 
 public class FormaPagamentoTeste {
 
+	
+	/**
+	 * Classe para teste dos metodos criados na classes FormaPagamentoDAO e FormaPagamentoBO.
+	 * @author Victor RM74820
+	 * @throws Excecao
+	 * @since 1.0
+	 * @see FormaPagamento,FormaPagamentoBO
+	 */
 	public static void main(String[] args) throws Excecao {
 		Connection conexao = null;
 		try {
