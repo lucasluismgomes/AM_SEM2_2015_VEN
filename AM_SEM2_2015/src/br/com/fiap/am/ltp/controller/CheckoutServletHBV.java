@@ -2,6 +2,7 @@ package br.com.fiap.am.ltp.controller;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +38,8 @@ public class CheckoutServletHBV extends HttpServlet {
     public void checkOut(HttpServletRequest request, HttpServletResponse response) throws Exception {
     	
     	conexao = ConexaoFactory.controlarInstancia().getConnection("OPS$RM74803", "071195");
+    	
+    	
     	
     	int codigoHosp = Integer.parseInt(request.getParameter("codigoHospedagem"));
     	

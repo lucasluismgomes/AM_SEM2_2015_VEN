@@ -58,18 +58,17 @@
  								<th>Tipo de Consumo</th>
  								<th>Quantidade</th>
  								<th>Valor Total</th>
- 								<th>Editar</th>
  							</tr>
    								<c:forEach items="${lstConsumo}" var="Consumo">
 									<tr>
 										<td><h5 class="list-group-item-text">${Consumo.tipoConsumo.nome}</h5></td>
-										<td><h5 class="list-group-item-text">${Consumo.quantidade}</h5></td>
+										<td><input class="list-group-item-text" type="text" size="3" maxlength="3" name="quantidade" value=${Consumo.quantidade}></td>
 										<td><h5 class="list-group-item-text">R$${Consumo.valorTotal}</h5></td>
-										<td><input type="submit" class="btn btn-default" name="editar" value="Editar"></td>
 									</tr>
 								</c:forEach>
 								<tr>
 									<td>VALOR TOTAL DOS CONSUMOS: R$${valorTotalConsumo}</td>
+									<td><td><input type="submit" class="btn btn-default" name="salvar" value="Salvar"></td></td>
 								</tr>
 						</table>
 					</div>
