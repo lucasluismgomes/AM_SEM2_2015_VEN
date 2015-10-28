@@ -71,15 +71,19 @@ html,body {
 	text-align: center;	
 }
 
-.list-estrutura{
+#list-estrutura{
 	width: 50%;
 	margin-left: 25%;
 	margin-top: 10%;
-	display: block;
 }
 
 .confirmaReserva {
 	margin : 0 20%;
 }
+
+.well{
+	padding: 0;
+}
+
 
 

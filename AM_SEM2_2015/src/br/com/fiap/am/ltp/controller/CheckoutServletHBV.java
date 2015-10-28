@@ -45,6 +45,9 @@ public class CheckoutServletHBV extends HttpServlet {
 		List<Consumo> lstConsumo = new ArrayList<Consumo>();
 		lstConsumo = ConsumoBO.buscarPorHospedagem(codigoHosp, conexao);
 		
+		request.setAttribute("hospedagem", hospedagem);
+		request.setAttribute("lstConsumo", lstConsumo);
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("checkOut.jsp");
 		dispatcher.forward(request, response); 	
 		

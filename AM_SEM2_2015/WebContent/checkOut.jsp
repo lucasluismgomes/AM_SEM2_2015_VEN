@@ -26,11 +26,17 @@
 				<input type="submit" value="BUSCAR">
 			</form>
 			
-		<c:if test=""></c:if>
+		<c:if test="${param.codigoHospedagem > 0}">
+			<script>
+				$("#buscaCodigoForm").css("display", "none");
+			</script>
+			<input type="button" value="NOVA BUSCA">
+		</c:if>
+		
 			<form action="CheckoutServletHBV" method="get">
-			<div class="list-group list-estrutura">
+			<div class="list-group" id="list-estrutura">
 				<a href="#" class="list-group-item">
-					<h4 class="list-group-item-text">Código Hospedagem: ${requestScope.hospedagem.reserva.getCodigo()}</h4>
+					<h4 class="list-group-item-text">Código Hospedagem: ${requestScope.hospedagem.reserva.codigo}</h4>
 				</a>
 				<a href="#" class="list-group-item">
 					<h4 class="list-group-item-text">Cliente: ${requestScope.hospedagem.reserva.cliente.getNome()}</h4>
@@ -41,20 +47,29 @@
 				<a href="#" class="list-group-item">
 					<h4 class="list-group-item-text">Data de Saida: <input type="text" name="dtSaida"> </h4>
 				</a>
-				<div class="dropdown">
-  					<button class="list-group-item dropdown-toggle" id="" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
-    					<h4>Consumo:</h4>
-  					</button>
-  					<ul class="dropdown-menu">
-    					<li><a href="#">Action</a></li>
-    					<c:forEach items="${lstConsumo}" var="Consumo">
-							<a href="#" class="list-group-item">
-								<h4 class="list-group-item-text">${Consumo.codigo}</h4>
-							</a>		
-						</c:forEach>
-  					</ul>
+  				<a class="list-group-item" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+  					Consumo
+				</a>
+				<div class="collapse" id="collapseExample">
+  					<div class="well">
+						<table class="table table-hover">
+ 							<tr>
+ 								<th>Tipo de Consumo</th>
+ 								<th>Quantidade</th>
+ 								<th>Valor Total</th>
+ 								<th>Editar</th>
+ 							</tr>
+   								<c:forEach items="${lstConsumo}" var="Consumo">
+									<tr>
+										<td><h5 class="list-group-item-text">${Consumo.tipoConsumo.nome}</h5></td>
+										<td><h5 class="list-group-item-text">${Consumo.quantidade}</h5></td>
+										<td><h5 class="list-group-item-text">R$${Consumo.valorTotal}</h5></td>
+										<td>...</td>
+									</tr>
+								</c:forEach>
+						</table>
+					</div>
 				</div>
-				
 			</div>
 			</form>
 		</section>	
