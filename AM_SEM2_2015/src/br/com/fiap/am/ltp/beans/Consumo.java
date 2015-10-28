@@ -1,6 +1,8 @@
 package br.com.fiap.am.ltp.beans;
 
+import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 /**
  * Descrição da classe/método
@@ -91,5 +93,10 @@ public class Consumo {
 
 	public void setValorTotal(double valorTotal) {
 		this.valorTotal = valorTotal;
+	}
+	
+	public String getDtConsumoFormated(){
+		DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT,new Locale("pt", "BR"));
+		return df.format(this.getDtSolicitacao().getTime());
 	}
 }
