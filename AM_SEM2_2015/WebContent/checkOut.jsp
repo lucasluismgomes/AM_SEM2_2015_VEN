@@ -20,7 +20,7 @@
 		<c:import url="Imports/menu.jsp"></c:import>
 		<section id="container-checkout">
 			<h2>CHECKOUT - HOSPEDAGEM</h2>
-			<br/><br/><br/>
+			<br/><br/>
 			<form action="CheckoutServletHBV" method="get" id="buscaCodigoForm">
 				<h4>Insira o Código da Hospedagem</h4><input type="text" name="codigoHospedagem">
 				<input type="submit" value="BUSCAR">
@@ -29,11 +29,12 @@
 		<c:if test="${param.codigoHospedagem > 0}">
 			<script>
 				$("#buscaCodigoForm").css("display", "none");
+				$("#checkList").css("display", "block");
 			</script>
-			<input type="button" value="NOVA BUSCA">
+			<a href="checkOut.jsp" class="btn btn-default">NOVA BUSCA</a>
 		</c:if>
 		
-			<form action="CheckoutServletHBV" method="get">
+			<form id="checkList" action="CheckoutServletHBV" method="get">
 			<div class="list-group" id="list-estrutura">
 				<a href="#" class="list-group-item">
 					<h4 class="list-group-item-text">Código Hospedagem: ${requestScope.hospedagem.reserva.codigo}</h4>
@@ -48,7 +49,7 @@
 					<h4 class="list-group-item-text">Data de Saida: <input type="text" name="dtSaida"> </h4>
 				</a>
   				<a class="list-group-item" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-  					Consumo
+  					Consumo | R$${valorTotalConsumo}
 				</a>
 				<div class="collapse" id="collapseExample">
   					<div class="well">
@@ -64,9 +65,12 @@
 										<td><h5 class="list-group-item-text">${Consumo.tipoConsumo.nome}</h5></td>
 										<td><h5 class="list-group-item-text">${Consumo.quantidade}</h5></td>
 										<td><h5 class="list-group-item-text">R$${Consumo.valorTotal}</h5></td>
-										<td>...</td>
+										<td><input type="submit" class="btn btn-default" name="editar" value="Editar"></td>
 									</tr>
 								</c:forEach>
+								<tr>
+									<td>VALOR TOTAL DOS CONSUMOS: R$${valorTotalConsumo}</td>
+								</tr>
 						</table>
 					</div>
 				</div>

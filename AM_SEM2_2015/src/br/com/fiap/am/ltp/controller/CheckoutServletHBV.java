@@ -44,9 +44,15 @@ public class CheckoutServletHBV extends HttpServlet {
 		hospedagem = HospedagemBO.buscarPorCodigo(codigoHosp, conexao);
 		List<Consumo> lstConsumo = new ArrayList<Consumo>();
 		lstConsumo = ConsumoBO.buscarPorHospedagem(codigoHosp, conexao);
+		double valorTotalConsumo = 0;
+		
+		for (Consumo consumo : lstConsumo) {
+			valorTotalConsumo += consumo.getValorTotal();
+		}
 		
 		request.setAttribute("hospedagem", hospedagem);
 		request.setAttribute("lstConsumo", lstConsumo);
+		request.setAttribute("valorTotalConsumo", valorTotalConsumo);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("checkOut.jsp");
 		dispatcher.forward(request, response); 	
