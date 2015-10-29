@@ -18,6 +18,22 @@ import br.com.fiap.am.ltp.excecoes.Excecao;
 public class ConsumoBO {
 
 	/**
+	 * Faz a edição em massa de consumos no banco de dads referente a uma hospedagem.
+	 * 
+	 * @author Lucas 74795
+	 * @since 1.0
+	 * @param lstConsumo
+	 * 			A lista com os consumos que serão editados.
+	 * @param conexao
+	 * 			As creenciais da conexão.
+	 * @throws Exception
+	 * @see Consumo, ConsumoDAO
+	 */
+	public void editarEmMassa(List<Consumo> lstConsumo, Connection conexao) throws Exception {
+		new ConsumoDAO().editarEmMassa(lstConsumo, conexao);
+	}
+	
+	/**
 	 * Faz a gravação de um Consumo no banco de dados. A quantidade deve ser
 	 * maior que zero.
 	 * 

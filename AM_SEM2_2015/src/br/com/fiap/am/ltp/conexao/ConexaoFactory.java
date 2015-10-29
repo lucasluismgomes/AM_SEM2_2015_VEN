@@ -41,9 +41,8 @@ public class ConexaoFactory {
 	 */
 	public Connection getConnection(String usuario, String senha)
 			throws Exception {
-		/*FileReader file = new FileReader(System.getProperty("user.dir")
-				+ "/conexao/banco.txt");*/
-		FileReader file = new FileReader("C:\\temp\\banco.txt");
+		//FileReader file = new FileReader(System.getProperty("user.dir") + "/conexao/banco.txt");
+		FileReader file = new FileReader("c://temp//banco.txt");
 		BufferedReader dados = new BufferedReader(file);
 
 		String url = dados.readLine();
