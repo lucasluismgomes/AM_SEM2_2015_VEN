@@ -46,12 +46,13 @@ public class ConsumoDAO {
 		try {
 			sql = "INSERT INTO T_AM_HBV_CONSUMO (CD_HOSPEDAGEM, CD_TIPO_CONSUMO, CD_FUNCIONARIO, DT_CONSUMO, QT_CONSUMO) VALUES(?,?,?,?,?)";
 			estrutura = conexao.prepareStatement(sql);
-			estrutura.setInt(1, consumo.getHospedagem().getReserva().getCodigo());
+			estrutura.setInt(1, consumo.getHospedagem().getReserva()
+					.getCodigo());
 			estrutura.setInt(2, consumo.getTipoConsumo().getCodigo());
 			estrutura.setInt(3, consumo.getFuncionario().getCodigo());
-			estrutura.setDate(4, new Date(consumo.getDtSolicitacao().getTimeInMillis()));
+			estrutura.setDate(4, new Date(consumo.getDtSolicitacao()
+					.getTimeInMillis()));
 			estrutura.setInt(5, consumo.getQuantidade());
-			
 
 			estrutura.executeQuery();
 			estrutura.close();
@@ -60,7 +61,7 @@ public class ConsumoDAO {
 			throw new Excecao(e);
 		}
 	}
-	
+
 	/**
 	 * Edita as informações de um Consumo no banco de dados.
 	 * 
@@ -77,12 +78,14 @@ public class ConsumoDAO {
 		try {
 
 			sql = "UPDATE T_AM_HBV_CONSUMO SET CD_HOSPEDAGEM = ?, CD_TIPO_CONSUMO = ?, "
-			+ "CD_FUNCIONARIO = ?, DT_CONSUMO = ?, QT_CONSUMO = ? WHERE CD_CONSUMO = ?";
+					+ "CD_FUNCIONARIO = ?, DT_CONSUMO = ?, QT_CONSUMO = ? WHERE CD_CONSUMO = ?";
 			estrutura = conexao.prepareStatement(sql);
-			estrutura.setInt(1, consumo.getHospedagem().getReserva().getCodigo());
+			estrutura.setInt(1, consumo.getHospedagem().getReserva()
+					.getCodigo());
 			estrutura.setInt(2, consumo.getTipoConsumo().getCodigo());
 			estrutura.setInt(3, consumo.getFuncionario().getCodigo());
-			estrutura.setDate(4, new Date(consumo.getDtSolicitacao().getTimeInMillis()));
+			estrutura.setDate(4, new Date(consumo.getDtSolicitacao()
+					.getTimeInMillis()));
 			estrutura.setInt(5, consumo.getQuantidade());
 			estrutura.setInt(6, consumo.getCodigo());
 
@@ -93,7 +96,45 @@ public class ConsumoDAO {
 			throw new Excecao(e);
 		}
 	}
-	
+
+	/**
+	 * Faz a edição em massa de consumos no banco de dads referente a uma hospedagem.
+	 * 
+	 * @author Lucas 74795
+	 * @since 3.0
+	 * @param lstConsumo
+	 * 			A lista com os consumos que serão editados.
+	 * @param conexao
+	 * 			As creenciais da conexão.
+	 * @throws Exception
+	 * @see Consumo, ConsumoBO
+	 */
+	public void editarEmMassa(List<Consumo> lstConsumo, Connection conexao)
+			throws Exception {
+		try {
+			for (Consumo consumo : lstConsumo) {
+				if (consumo.getQuantidade() > 0) {
+					sql = "UPDATE T_AM_HBV_CONSUMO SET QT_CONSUMO = ? WHERE CD_CONSUMO = ?";
+					estrutura = conexao.prepareStatement(sql);
+					estrutura.setInt(1, consumo.getQuantidade());
+					estrutura.setInt(2, consumo.getCodigo());
+					
+				} else {
+					sql = "DELETE FROM T_AM_HBV_CONSUMO WHERE CD_CONSUMO = ?";
+					estrutura = conexao.prepareStatement(sql);
+					estrutura.setInt(1, consumo.getCodigo());
+				}
+
+				estrutura.executeQuery();
+				estrutura.close();
+
+			}
+
+		} catch (Exception e) {
+			throw new Excecao(e);
+		}
+	}
+
 	/**
 	 * Excluí um consumo do banco de dados. Isso irá apagar todos os seus dados.
 	 * 
@@ -119,7 +160,7 @@ public class ConsumoDAO {
 			throw new Excecao(e);
 		}
 	}
-	
+
 	/**
 	 * Busca todos os Consumos que estão no banco de dados.
 	 * 
@@ -146,13 +187,16 @@ public class ConsumoDAO {
 
 				consumo.setCodigo(Integer.parseInt(rs.getString("CD_CONSUMO")));
 				Hospedagem hpd = new Hospedagem();
-				hpd = HospedagemBO.buscarPorCodigo(rs.getInt("CD_HOSPEDAGEM"), conexao);
+				hpd = HospedagemBO.buscarPorCodigo(rs.getInt("CD_HOSPEDAGEM"),
+						conexao);
 				consumo.setHospedagem(hpd);
 				TipoConsumo tc = new TipoConsumo();
-				tc = TipoConsumoBO.buscarPorCodigo(rs.getInt("CD_TIPO_CONSUMO"), conexao);
+				tc = TipoConsumoBO.buscarPorCodigo(
+						rs.getInt("CD_TIPO_CONSUMO"), conexao);
 				consumo.setTipoConsumo(tc);
 				Funcionario f = new Funcionario();
-				f = FuncionarioBO.buscarPorCodigo(rs.getInt("CD_FUNCIONARIO"), conexao);
+				f = FuncionarioBO.buscarPorCodigo(rs.getInt("CD_FUNCIONARIO"),
+						conexao);
 				consumo.setFuncionario(f);
 				Calendar c = Calendar.getInstance();
 				c.setTime(rs.getDate("DT_CONSUMO"));
@@ -166,32 +210,33 @@ public class ConsumoDAO {
 			estrutura.close();
 
 			return lstConsumo;
-			
+
 		} catch (Exception e) {
 			throw new Excecao(e);
 		}
 	}
-	
+
 	/**
 	 * Faz a busca de um consumo no banco de dados pelo número do consumo.
 	 * 
 	 * @author Estevão 74803
 	 * @since 1.0
 	 * @param codigo
-	 *            O código do tipo de consumo que está sendo buscado no banco de dados.
+	 *            O código do tipo de consumo que está sendo buscado no banco de
+	 *            dados.
 	 * @param conexao
 	 *            As credenciais da conexão.
 	 * @return <code>consumo</code> Dados do consumo com o número especificado.
 	 * @throws Exception
 	 * @see Consumo, ConsumoBO
 	 */
-	public Consumo buscarPorCodigo(int codigo, Connection conexao) throws Exception {
+	public Consumo buscarPorCodigo(int codigo, Connection conexao)
+			throws Exception {
 		Consumo consumo = new Consumo();
 
 		try {
 			sql = "SELECT CD_CONSUMO, CD_HOSPEDAGEM, CD_TIPO_CONSUMO, CD_FUNCIONARIO, DT_CONSUMO, QT_CONSUMO "
-					+ "FROM T_AM_HBV_CONSUMO"
-					+ " WHERE CD_CONSUMO = ?";
+					+ "FROM T_AM_HBV_CONSUMO" + " WHERE CD_CONSUMO = ?";
 			estrutura = conexao.prepareStatement(sql);
 			estrutura.setInt(1, codigo);
 
@@ -201,19 +246,21 @@ public class ConsumoDAO {
 
 				consumo.setCodigo(Integer.parseInt(rs.getString("CD_CONSUMO")));
 				Hospedagem hpd = new Hospedagem();
-				hpd = HospedagemBO.buscarPorCodigo(rs.getInt("CD_HOSPEDAGEM"), conexao);
+				hpd = HospedagemBO.buscarPorCodigo(rs.getInt("CD_HOSPEDAGEM"),
+						conexao);
 				consumo.setHospedagem(hpd);
 				TipoConsumo tc = new TipoConsumo();
-				tc = TipoConsumoBO.buscarPorCodigo(rs.getInt("CD_TIPO_CONSUMO"), conexao);
+				tc = TipoConsumoBO.buscarPorCodigo(
+						rs.getInt("CD_TIPO_CONSUMO"), conexao);
 				consumo.setTipoConsumo(tc);
 				Funcionario f = new Funcionario();
-				f = FuncionarioBO.buscarPorCodigo(rs.getInt("CD_FUNCIONARIO"), conexao);
+				f = FuncionarioBO.buscarPorCodigo(rs.getInt("CD_FUNCIONARIO"),
+						conexao);
 				consumo.setFuncionario(f);
 				Calendar c = Calendar.getInstance();
 				c.setTime(rs.getDate("DT_CONSUMO"));
 				consumo.setDtSolicitacao(c);
 				consumo.setQuantidade(rs.getInt("QT_CONSUMO"));
-
 
 			}
 
@@ -226,9 +273,10 @@ public class ConsumoDAO {
 			throw new Excecao(e);
 		}
 	}
-	
+
 	/**
-	 * Busca todos os consumos cadastrados no banco de dados para uma Hospedagem específica.
+	 * Busca todos os consumos cadastrados no banco de dados para uma Hospedagem
+	 * específica.
 	 * 
 	 * @author Estevão 74803
 	 * @since 1.0
@@ -238,13 +286,13 @@ public class ConsumoDAO {
 	 * @throws Exception
 	 * @see Consumo, ConsumoBO
 	 */
-	public List<Consumo> buscarPorHospedagem(int codigo, Connection conexao) throws Exception {
+	public List<Consumo> buscarPorHospedagem(int codigo, Connection conexao)
+			throws Exception {
 		List<Consumo> lstConsumo = new ArrayList<Consumo>();
 
 		try {
 			sql = "SELECT CD_CONSUMO, CD_HOSPEDAGEM, CD_TIPO_CONSUMO, CD_FUNCIONARIO, DT_CONSUMO, QT_CONSUMO "
-					+ "FROM T_AM_HBV_CONSUMO"
-					+ " WHERE CD_HOSPEDAGEM = ?";
+					+ "FROM T_AM_HBV_CONSUMO" + " WHERE CD_HOSPEDAGEM = ?";
 			estrutura = conexao.prepareStatement(sql);
 			estrutura.setInt(1, codigo);
 
@@ -255,23 +303,26 @@ public class ConsumoDAO {
 
 				consumo.setCodigo(Integer.parseInt(rs.getString("CD_CONSUMO")));
 				Hospedagem hpd = new Hospedagem();
-				hpd = HospedagemBO.buscarPorCodigo(rs.getInt("CD_HOSPEDAGEM"), conexao);
+				hpd = HospedagemBO.buscarPorCodigo(rs.getInt("CD_HOSPEDAGEM"),
+						conexao);
 				consumo.setHospedagem(hpd);
-				
+
 				TipoConsumo tc = new TipoConsumo();
-				tc = TipoConsumoBO.buscarPorCodigo(rs.getInt("CD_TIPO_CONSUMO"), conexao);
+				tc = TipoConsumoBO.buscarPorCodigo(
+						rs.getInt("CD_TIPO_CONSUMO"), conexao);
 				consumo.setTipoConsumo(tc);
-				
+
 				Funcionario f = new Funcionario();
-				f = FuncionarioBO.buscarPorCodigo(rs.getInt("CD_FUNCIONARIO"), conexao);
-				
+				f = FuncionarioBO.buscarPorCodigo(rs.getInt("CD_FUNCIONARIO"),
+						conexao);
+
 				consumo.setFuncionario(f);
-				
+
 				Calendar c = Calendar.getInstance();
 				c.setTime(rs.getDate("DT_CONSUMO"));
-				
+
 				consumo.setDtSolicitacao(c);
-				
+
 				consumo.setQuantidade(rs.getInt("QT_CONSUMO"));
 
 				lstConsumo.add(consumo);
@@ -281,43 +332,45 @@ public class ConsumoDAO {
 			estrutura.close();
 
 			return lstConsumo;
-			
+
 		} catch (Exception e) {
 			throw new Excecao(e);
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @author Lucas 74795
 	 * @since 1.0
 	 * @param codigo
-	 * 			O código da hospedagem que será cálculado o valor.
+	 *            O código da hospedagem que será cálculado o valor.
 	 * @param conexao
-	 * 			As credenciais da conexão.
-	 * @return <code>valorTotal</code> O valor total dos consumos de uma hospedagem.
+	 *            As credenciais da conexão.
+	 * @return <code>valorTotal</code> O valor total dos consumos de uma
+	 *         hospedagem.
 	 * @throws Exception
 	 * @see Consumo, ConsumoBO
 	 */
-	public double valorTotalConsumo(int codigo, Connection conexao) throws Exception {
+	public double valorTotalConsumo(int codigo, Connection conexao)
+			throws Exception {
 		double valorTotal = 0;
-		
+
 		try {
-				sql = "SELECT  SUM(C.QT_CONSUMO * TC.VL_UNIT) \"VL_TOTAL\" "
+			sql = "SELECT  SUM(C.QT_CONSUMO * TC.VL_UNIT) \"VL_TOTAL\" "
 					+ "FROM T_AM_HBV_CONSUMO C NATURAL JOIN T_AM_HBV_TIPO_CONSUMO TC "
 					+ "WHERE C.CD_HOSPEDAGEM = ?";
 			estrutura = conexao.prepareStatement(sql);
 			estrutura.setInt(1, codigo);
-			
+
 			rs = estrutura.executeQuery();
-			
-			if(rs.next()) {
+
+			if (rs.next()) {
 				valorTotal = rs.getDouble("VL_TOTAL");
 			}
-			
+
 			rs.close();
 			estrutura.close();
-			
+
 			return valorTotal;
 		} catch (Exception e) {
 			throw new Excecao(e);
